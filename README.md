@@ -6,6 +6,6 @@ AI is transforming the practice of medicine. It’s helping doctors diagnose pat
 
 
 # AI for Medical Diagnosis
-## Disease detection with computer vision
-## Evaluating models
-## Image segmentation on MRI images
+1.  Disease detection with computer vision
+2.  Evaluating models
+3 . Image segmentation on MRI images
