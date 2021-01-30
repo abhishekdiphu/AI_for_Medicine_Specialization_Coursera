@@ -15,6 +15,8 @@
 ### loss function
 - weighted binary cross entropy.
 
+$$\mathcal{L}_{cross-entropy}(x_i) = -(y_i \log(f(x_i)) + (1-y_i) \log(1-f(x_i))),$$
+
 
 ## 3.Evaluation tools :
 
