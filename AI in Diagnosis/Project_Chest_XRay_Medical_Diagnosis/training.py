@@ -16,7 +16,7 @@ from keras import backend as K
 from keras.models import load_model
 
 import util
-import helper
+from  helper import *
 
 import scikitplot
 import sklearn
@@ -141,6 +141,25 @@ def get_test_and_valid_generator(valid_df, test_df, train_df, image_dir, x_col, 
 
 
 
+train_df = pd.read_csv("nih/train-small.csv")
+valid_df = pd.read_csv("nih/valid-small.csv")
+test_df = pd.read_csv("nih/test.csv")
+train_df.head(5)
+labels = ['Cardiomegaly', 
+          'Emphysema', 
+          'Effusion', 
+          'Hernia', 
+          'Infiltration', 
+          'Mass', 
+          'Nodule', 
+          'Atelectasis',
+          'Pneumothorax',
+          'Pleural_Thickening', 
+          'Pneumonia', 
+          'Fibrosis', 
+          'Edema', 
+          'Consolidation']
+
 
 
 
@@ -152,7 +171,6 @@ valid_generator, test_generator= get_test_and_valid_generator(valid_df, test_df,
 
 
 freq_pos, freq_neg = compute_class_freqs(train_generator.labels)
-
 pos_weights = freq_neg
 neg_weights = freq_pos
 pos_contribution = freq_pos * pos_weights 
@@ -181,24 +199,30 @@ model.compile(optimizer='adam', loss=get_weighted_loss(pos_weights, neg_weights)
 
 
 
-history = model.fit_generator(train_generator, 
-                              validation_data=valid_generator,
-                              steps_per_epoch=100, 
-                              validation_steps=25, 
-                              epochs = 3)
+#history = model.fit_generator(train_generator, 
+#                              validation_data=valid_generator,
+#                              steps_per_epoch=100, 
+#                              validation_steps=25, 
+#                              epochs = 3)
 
 
 
 
-plt.plot(history.history['loss'])
-plt.ylabel("loss")
-plt.xlabel("epoch")
-plt.title("Training Loss Curve")
-plt.savefig("training_loss", dpi =100)
+#plt.plot(history.history['loss'])
+#plt.ylabel("loss")
+#plt.xlabel("epoch")
+#plt.title("Training Loss Curve")
+#plt.savefig("training_loss", dpi =100)
+
+model.load_weights("./nih/pretrained_model.h5")
+predicted_vals = model.predict_generator(test_generator, steps = len(test_generator))
 
 print(test_generator.labels.shape)
+
 true =  np.argmax(test_generator.labels,axis=1) 
+
 preds = np.argmax(predicted_vals, axis =1)
+
 scikitplot.metrics.plot_confusion_matrix(true, preds , normalize= True, figsize=(8,8), cmap='inferno_r')
 plt.savefig("confusion_matrix")
 
@@ -213,11 +237,13 @@ df = pd.read_csv("nih/train-small.csv")
 IMAGE_DIR = "nih/images-small/"
 
 # only show the lables with top 4 AUC
+auc_rocs = util.get_roc_curve(labels, predicted_vals, test_generator)
+plt.savefig("auc.png")
 labels_to_show = np.take(labels, np.argsort(auc_rocs)[::-1])[:4]
 
 
 
 util.compute_gradcam(model, '00008270_015.png', IMAGE_DIR, df, labels, labels_to_show)
-plt.savefig("gradcam_analysis")
+plt.savefig("gradcam_analysis.png")
 
 
