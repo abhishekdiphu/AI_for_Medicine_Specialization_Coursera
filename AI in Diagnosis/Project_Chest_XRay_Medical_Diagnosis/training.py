@@ -1,5 +1,6 @@
 
-
+import argparse
+import importlib
 ## importing all the packages
 
 import numpy as np
@@ -21,6 +22,33 @@ from  helper import *
 import scikitplot
 import sklearn
 
+
+parser = argparse.ArgumentParser()
+parser.add_argument('--modelName', required=False, help='name of model; name used to create folder to save model')
+parser.add_argument('--config', help='path to file containing config dictionary; path in python module format')
+parser.add_argument('--lr', type=float, default=0.01, help='learning rate')
+parser.add_argument('--epochs', type=int, default=50, help='number of epochs')
+parser.add_argument('--momentum', type=float, default=0.9, help='momentum in momentum optimizer')
+parser.add_argument('--batch_size', type=int, default=32, help='batch size for training, testing')
+parser.add_argument('--val_batch_size', type=int, default=1, help='batch size for validation')
+parser.add_argument('--print_every', type=int, default=1000, help='frequency to print train loss, accuracy to terminal')
+parser.add_argument('--save_every', type=int, default=350, help='frequency of saving the model')
+parser.add_argument('--optimizer_type', default='SGD', help='type of optimizer to use (SGD or Adam or RMS-Prop)')
+parser.add_argument('--use_gpu', action='store_true', help='whether to use gpu for training/testing')
+parser.add_argument('--gpu_device', type=int, default=0, help='GPU device which needs to be used for computation')
+parser.add_argument('--validation_sample_size', type=int, default=1, help='size of validation sample')
+parser.add_argument('--validate_every', type=int, default=5, help='frequency of evaluating on validation set')
+
+parser.add_argument('--path', default='/datasets/lspet_dataset')
+parser.add_argument('--mode', default='train')
+parser.add_argument('--crop_size', default=256)
+parser.add_argument('--train_split', type=float, default=0.804)
+parser.add_argument('--heatmap_sigma', type=float, default=2)
+parser.add_argument('--occlusion_sigma', type=float, default=2)
+parser.add_argument('--loss', type=str, default='mse')
+parser.add_argument('--dataset', type=str, required=False, choices=['mpii', 'lsp', 'medical'])
+
+args = parser.parse_args()
 
 
 
