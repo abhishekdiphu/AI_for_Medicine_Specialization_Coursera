@@ -95,4 +95,16 @@ prevalence=1N∑iyi
 
 
 ## 4.Explainable-AI (model explanation)
-#### Gradcam
+
+#### Gradcam:
+
+- they belong to the class of class-activation maps. they are called , gradient-class-activation map.
+- usually used for interpreting which part of the features in an image does it contributes to the predicted class of the image.
+- Since early layers deals with low level features , and last layers deals with high level features , so the last convolutional layer is being taken for this purpose.(knwn as spatial maps).
+- these maps are usually smaller than the input images , between 7x7xk to 14x14xk , depending on the architectures of CNN.
+- now , if there are k activation maps A1 TO Ak , then , first calulate average weight for all the activation maps , by taking partitial derivates , of output score 'y' for a particular class with respect to each feature Aij of the activation map A.
+- with the help of these , activation map weights ,  we calculate the localization map from these activation maps (A1, A2.....AK).
+- We apply the relu(0,max) on the weighted sum of the all k activation maps(A) to get only the postive influence and discard the negative incluence to obtain the the localization maps.
+- trasnlate the localization map to heatmap  by a colormap . it is the same shap as the activation map.
+- then resize  the heatmap to the size  of  the input image though interpolation technique.
+- overlay the heatmap onto  the  input image with some transparency.
