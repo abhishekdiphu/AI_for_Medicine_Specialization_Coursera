@@ -7,6 +7,9 @@ from keras import backend as K
 from keras.preprocessing import image
 from sklearn.metrics import roc_auc_score, roc_curve
 from tensorflow.compat.v1.logging import INFO, set_verbosity
+import tensorflow as tf
+tf.compat.v1.disable_eager_execution()
+
 
 random.seed(a=None, version=2)
 

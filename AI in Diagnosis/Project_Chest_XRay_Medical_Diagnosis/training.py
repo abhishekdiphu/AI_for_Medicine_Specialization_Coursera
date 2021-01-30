@@ -253,7 +253,7 @@ preds = np.argmax(predicted_vals, axis =1)
 
 scikitplot.metrics.plot_confusion_matrix(true, preds , normalize= True, figsize=(8,8), cmap='inferno_r')
 plt.savefig("confusion_matrix")
-
+plt.close()
 
 
 cl_report = sklearn.metrics.classification_report(true, preds, target_names = labels)
@@ -267,11 +267,17 @@ IMAGE_DIR = "nih/images-small/"
 # only show the lables with top 4 AUC
 auc_rocs = util.get_roc_curve(labels, predicted_vals, test_generator)
 plt.savefig("auc.png")
+plt.close()
+
 labels_to_show = np.take(labels, np.argsort(auc_rocs)[::-1])[:4]
 
 
+image_name_1 = '00008270_015.png'
+image_name_2 = '00011355_002.png'
 
-util.compute_gradcam(model, '00008270_015.png', IMAGE_DIR, df, labels, labels_to_show)
-plt.savefig("gradcam_analysis.png")
-
-
+util.compute_gradcam(model, image_name_1, IMAGE_DIR, df, labels, labels_to_show)
+plt.savefig(image_name_1)
+plt.close()
+util.compute_gradcam(model,image_name_2 , IMAGE_DIR, df, labels, labels_to_show)
+plt.savefig(image_name_2)
+plt.close()
