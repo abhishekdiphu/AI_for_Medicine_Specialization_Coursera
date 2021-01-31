@@ -11,6 +11,8 @@
 
 - resized to (320, 320)
 - noramlized with mean of 0 and varience of 1.
+<img src="images/pixel_distribution.png" width="600px"/><img src="images/normalize.png" width="600px"/>
+
 
 ## 2.Model training :
 
