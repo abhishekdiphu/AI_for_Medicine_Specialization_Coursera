@@ -97,7 +97,7 @@ In machine learning terms, this is the proportion of positive examples. The expr
 prevalence=1N∑iyi
 
 #### Classification Report:
-<img src="images/CLASSIFICATION_REPORT.png" width="400px"/>
+<img src="images/CLASSIFICATION_REPORT.png" width="800px"/>
 
 
 
@@ -107,7 +107,7 @@ prevalence=1N∑iyi
 ## 4.Explainable-AI (model explanation)
 
 #### Gradcam:
-<img src="images/gradcam.png" width="400px"/>
+<img src="images/gradcam.png" width="800px"/>
 
 - they belong to the class of class-activation maps. they are called , gradient-class-activation map.
 - usually used for interpreting which part of the features in an image does it contributes to the predicted class of the image.
