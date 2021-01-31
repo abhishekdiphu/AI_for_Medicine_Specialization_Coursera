@@ -25,7 +25,7 @@ binary cross entropy.
 (true positives+true negatives)/(true positives+true negatives+false positives+false negatives) 
 
 #### ROC :
-<img src="readmeimages/inputs01.png" width="200px"/><img src="images/ROC.png" width="200px"/>
+<img src="images/ROC.png" width="400px"/>
 
 
 
@@ -72,7 +72,7 @@ by bayes rule ,
 - TN/(TN + FN)
 
 #### Confusion matrix:
-<img src="readmeimages/inputs01.png" width="200px"/><img src="images/CONFUSION_MATRIX.png" width="200px"/>
+<img src="images/CONFUSION_MATRIX.png" width="400px"/>
 
 TP FN
 FP TN
@@ -97,7 +97,7 @@ In machine learning terms, this is the proportion of positive examples. The expr
 prevalence=1N∑iyi
 
 #### Classification Report:
-<img src="readmeimages/inputs01.png" width="200px"/><img src="images/CLASSIFICATION_REPORT.png" width="200px"/>
+<img src="images/CLASSIFICATION_REPORT.png" width="400px"/>
 
 
 
@@ -107,7 +107,7 @@ prevalence=1N∑iyi
 ## 4.Explainable-AI (model explanation)
 
 #### Gradcam:
-<img src="readmeimages/inputs01.png" width="200px"/><img src="images/gradcam.png" width="200px"/>
+<img src="images/gradcam.png" width="400px"/>
 
 - they belong to the class of class-activation maps. they are called , gradient-class-activation map.
 - usually used for interpreting which part of the features in an image does it contributes to the predicted class of the image.
@@ -122,7 +122,7 @@ prevalence=1N∑iyi
 
 
 #### Integrated Gradients:
-<img src="readmeimages/inputs01.png" width="200px"/><img src="images/integrated_grad.png" width="200px"/>
+<img src="images/integrated_grad.png" width="400px"/>
 
 [Integrated Gradients](https://arxiv.org/abs/1703.01365) is a technique for
 attributing a classification model's prediction to its input features. It is
