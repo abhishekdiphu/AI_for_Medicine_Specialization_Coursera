@@ -18,6 +18,10 @@
 
 binary cross entropy.
 
+#### training loss :
+<img src="images/training_loss.png" width="400px"/>
+
+
 
 
 ## 3.Evaluation tools :
