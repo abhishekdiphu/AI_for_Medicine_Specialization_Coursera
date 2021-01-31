@@ -108,3 +108,42 @@ prevalence=1N∑iyi
 - trasnlate the localization map to heatmap  by a colormap . it is the same shap as the activation map.
 - then resize  the heatmap to the size  of  the input image though interpolation technique.
 - overlay the heatmap onto  the  input image with some transparency.
+
+
+#### Integrated Gradients:
+
+[Integrated Gradients](https://arxiv.org/abs/1703.01365) is a technique for
+attributing a classification model's prediction to its input features. It is
+a model interpretability technique: you can use it to visualize the relationship
+between input features and model predictions.
+
+Integrated Gradients is a variation on computing
+the gradient of the prediction output with regard to features of the input.
+To compute integrated gradients, we need to perform the following steps:
+
+1. Identify the input and the output. In our case, the input is an image and the
+output is the last layer of our model (dense layer with softmax activation).
+
+2. Compute which features are important to a neural network
+when making a prediction on a particular data point. To identify these features, we
+need to choose a baseline input. A baseline input can be a black image (all pixel
+values set to zero) or random noise. The shape of the baseline input needs to be
+the same as our input image, e.g. (299, 299, 3).
+
+3. Interpolate the baseline for a given number of steps. The number of steps represents
+the steps we need in the gradient approximation for a given input image. The number of
+steps is a hyperparameter. The authors recommend using anywhere between
+20 and 1000 steps.
+
+4. Preprocess these interpolated images and do a forward pass.
+5. Get the gradients for these interpolated images.
+6. Approximate the gradients integral using the trapezoidal rule.
+
+To read in-depth about integrated gradients and why this method works,
+consider reading this excellent
+[article](https://distill.pub/2020/attribution-baselines/).
+
+**References:**
+
+- Integrated Gradients original [paper](https://arxiv.org/abs/1703.01365)
+- [Original implementation](https://github.com/ankurtaly/Integrated-Gradients)
