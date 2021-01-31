@@ -9,14 +9,16 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 
 from keras.preprocessing.image import ImageDataGenerator
-from keras.applications.densenet import DenseNet121
+from keras.applications.densenet import DenseNet121, preprocess_input, decode_predictions
 from keras.layers import Dense, GlobalAveragePooling2D
 from keras.models import Model
 from keras import backend as K
 
 from keras.models import load_model
 
+from integrated_grad import *
 import util
+from util import *
 from  helper import *
 
 import scikitplot
@@ -281,3 +283,51 @@ plt.close()
 util.compute_gradcam(model,image_name_2 , IMAGE_DIR, df, labels, labels_to_show)
 plt.savefig(image_name_2)
 plt.close()
+
+
+
+
+
+
+# 1. Convert the image to numpy array
+img = get_img_array('nih/images-small/00008270_015.png')
+
+# 2. Keep a copy of the original image
+orig_img = np.copy(img[0]).astype(np.uint8)
+
+# 3. Preprocess the image
+img_processed = tf.cast(preprocess_input(img), dtype=tf.float32)
+
+print(img_processed.shape)
+# 4. Get model predictions
+preds = model.predict(img_processed, steps =1)
+top_pred_idx = tf.argmax(preds[0])
+#print("Predicted:", top_pred_idx, decode_predictions(preds, top=1)[0])
+
+# 5. Get the gradients of the last layer for the predicted label
+grads = get_gradients(img_processed, top_pred_idx=top_pred_idx, model = model)
+
+# 6. Get the integrated gradients
+igrads = random_baseline_integrated_gradients(
+    np.copy(orig_img), top_pred_idx=top_pred_idx, num_steps=2, num_runs=2, model =model
+)
+
+# 7. Process the gradients and plot
+vis = GradVisualizer()
+vis.visualize(
+    image=orig_img,
+    gradients=grads[0].numpy(),
+    integrated_gradients=igrads.numpy(),
+    clip_above_percentile=99,
+    clip_below_percentile=0,
+)
+
+vis.visualize(
+    image=orig_img,
+    gradients=grads[0].numpy(),
+    integrated_gradients=igrads.numpy(),
+    clip_above_percentile=95,
+    clip_below_percentile=28,
+    morphological_cleanup=True,
+    outlines=True,
+)
