@@ -13,9 +13,9 @@
 ## 2.Model training :
 
 #### loss function
-- weighted binary cross entropy.
 
-$$\mathcal{L}_{cross-entropy}(x_i) = -(y_i \log(f(x_i)) + (1-y_i) \log(1-f(x_i))),$$
+binary cross entropy.
+
 
 
 ## 3.Evaluation tools :
@@ -25,6 +25,9 @@ $$\mathcal{L}_{cross-entropy}(x_i) = -(y_i \log(f(x_i)) + (1-y_i) \log(1-f(x_i))
 (true positives+true negatives)/(true positives+true negatives+false positives+false negatives) 
 
 #### ROC :
+<img src="readmeimages/inputs01.png" width="200px"/><img src="images/ROC.png" width="200px"/>
+
+
 
 Prediction of 0.5 and above should be treated as positive and otherwise it should be treated as negative. This however was a rather arbitrary choice. One way to see this, is to look at a very informative visualization called the receiver operating characteristic (ROC) curve.
 
@@ -69,6 +72,8 @@ by bayes rule ,
 - TN/(TN + FN)
 
 #### Confusion matrix:
+<img src="readmeimages/inputs01.png" width="200px"/><img src="images/CONFUSION_MATRIX.png" width="200px"/>
+
 TP FN
 FP TN
 
@@ -91,12 +96,18 @@ In machine learning terms, this is the proportion of positive examples. The expr
 
 prevalence=1N∑iyi
 
+#### Classification Report:
+<img src="readmeimages/inputs01.png" width="200px"/><img src="images/CLASSIFICATION_REPORT.png" width="200px"/>
+
+
+
 
 
 
 ## 4.Explainable-AI (model explanation)
 
 #### Gradcam:
+<img src="readmeimages/inputs01.png" width="200px"/><img src="images/gradcam.png" width="200px"/>
 
 - they belong to the class of class-activation maps. they are called , gradient-class-activation map.
 - usually used for interpreting which part of the features in an image does it contributes to the predicted class of the image.
@@ -111,6 +122,7 @@ prevalence=1N∑iyi
 
 
 #### Integrated Gradients:
+<img src="readmeimages/inputs01.png" width="200px"/><img src="images/integrated_grad.png" width="200px"/>
 
 [Integrated Gradients](https://arxiv.org/abs/1703.01365) is a technique for
 attributing a classification model's prediction to its input features. It is
@@ -147,3 +159,8 @@ consider reading this excellent
 
 - Integrated Gradients original [paper](https://arxiv.org/abs/1703.01365)
 - [Original implementation](https://github.com/ankurtaly/Integrated-Gradients)
+
+
+
+
+
