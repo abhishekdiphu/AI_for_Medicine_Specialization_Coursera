@@ -97,7 +97,7 @@ In machine learning terms, this is the proportion of positive examples. The expr
 prevalence=1N∑iyi
 
 #### Classification Report:
-<img src="images/CLASSIFICATION_REPORT.png" width="800px"/>
+<img src="images/CLASSIFICATION_REPORT.png" width="400px"/>
 
 
 
@@ -122,7 +122,7 @@ prevalence=1N∑iyi
 
 
 #### Integrated Gradients:
-<img src="images/integrated_grad.png" width="400px"/>
+<img src="images/integrated_grad.png" width="800px"/>
 
 [Integrated Gradients](https://arxiv.org/abs/1703.01365) is a technique for
 attributing a classification model's prediction to its input features. It is
