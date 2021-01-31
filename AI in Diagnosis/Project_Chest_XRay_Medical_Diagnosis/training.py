@@ -13,6 +13,7 @@ from keras.applications.densenet import DenseNet121, preprocess_input, decode_pr
 from keras.layers import Dense, GlobalAveragePooling2D
 from keras.models import Model
 from keras import backend as K
+from tensorflow.keras.Optimizers import Adam
 
 from keras.models import load_model
 
@@ -225,24 +226,25 @@ x = GlobalAveragePooling2D()(x)
 predictions = Dense(len(labels), activation="sigmoid")(x)
 
 model = Model(inputs=base_model.input, outputs=predictions)
-model.compile(optimizer='adam', loss=get_weighted_loss(pos_weights, neg_weights))
+model.compile(optimizer=Adam(lr =0.001), loss=get_weighted_loss(pos_weights, neg_weights))
 
 
 
-#history = model.fit_generator(train_generator, 
-#                              validation_data=valid_generator,
-#                              steps_per_epoch=100, 
-#                              validation_steps=25, 
-#                              epochs = 3)
+history = model.fit_generator(train_generator, 
+                              validation_data=valid_generator,
+                              steps_per_epoch=100, 
+                              validation_steps=25, 
+                              epochs = 3)
 
 
 
 
-#plt.plot(history.history['loss'])
-#plt.ylabel("loss")
-#plt.xlabel("epoch")
-#plt.title("Training Loss Curve")
-#plt.savefig("training_loss", dpi =100)
+plt.plot(history.history['loss'])
+plt.plot(history.history['val_loss'])
+plt.ylabel("loss")
+plt.xlabel("epoch")
+plt.title("Training Loss Curve")
+plt.savefig("training_loss", dpi =100)
 
 model.load_weights("./nih/pretrained_model.h5")
 predicted_vals = model.predict_generator(test_generator, steps = len(test_generator))
@@ -312,22 +314,26 @@ igrads = random_baseline_integrated_gradients(
     np.copy(orig_img), top_pred_idx=top_pred_idx, num_steps=2, num_runs=2, model =model
 )
 
-# 7. Process the gradients and plot
-vis = GradVisualizer()
-vis.visualize(
-    image=orig_img,
-    gradients=grads[0].numpy(),
-    integrated_gradients=igrads.numpy(),
-    clip_above_percentile=99,
-    clip_below_percentile=0,
-)
 
-vis.visualize(
-    image=orig_img,
-    gradients=grads[0].numpy(),
-    integrated_gradients=igrads.numpy(),
-    clip_above_percentile=95,
-    clip_below_percentile=28,
-    morphological_cleanup=True,
-    outlines=True,
-)
+integrated_g = False
+
+if integrated_g :
+        # 7. Process the gradients and plot
+        vis = GradVisualizer()
+        vis.visualize(
+            image=orig_img,
+            gradients=grads[0].numpy(),
+            integrated_gradients=igrads.numpy(),
+            clip_above_percentile=99,
+            clip_below_percentile=0,
+        )
+
+        vis.visualize(
+            image=orig_img,
+            gradients=grads[0].numpy(),
+            integrated_gradients=igrads.numpy(),
+            clip_above_percentile=95,
+            clip_below_percentile=28,
+            morphological_cleanup=True,
+            outlines=True,
+        )

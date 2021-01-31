@@ -11,7 +11,7 @@ import tensorflow as tf
 
 # appying integrated grad make sure it is commented .While training and cal gradcam use , disable_eger
 
-def switch(training = True)
+def switch(training = True):
     if training :
         tf.compat.v1.disable_eager_execution()
     else:
