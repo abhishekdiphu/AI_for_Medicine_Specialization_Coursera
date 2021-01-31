@@ -12,7 +12,7 @@
 
 ## 2.Model training :
 
-### loss function
+#### loss function
 - weighted binary cross entropy.
 
 $$\mathcal{L}_{cross-entropy}(x_i) = -(y_i \log(f(x_i)) + (1-y_i) \log(1-f(x_i))),$$
@@ -21,10 +21,10 @@ $$\mathcal{L}_{cross-entropy}(x_i) = -(y_i \log(f(x_i)) + (1-y_i) \log(1-f(x_i))
 ## 3.Evaluation tools :
 
 
-### Accuacy
+#### Accuacy
 (true positives+true negatives)/(true positives+true negatives+false positives+false negatives) 
 
-### ROC :
+#### ROC :
 
 Prediction of 0.5 and above should be treated as positive and otherwise it should be treated as negative. This however was a rather arbitrary choice. One way to see this, is to look at a very informative visualization called the receiver operating characteristic (ROC) curve.
 
@@ -33,23 +33,23 @@ The ROC curve is created by plotting the true positive rate (TPR) against the fa
 The area under the ROC curve is also called AUCROC or C-statistic and is a measure of goodness of fit. In medical literature this number also gives the probability that a randomly selected patient who experienced a condition had a higher risk score than a patient who had not experienced the event. This summarizes the model output across all thresholds, and provides a good sense of the discriminative power of a given model.
 
 
-### Sensitivity:
+#### Sensitivity:
 - P(predicted_positive | actual_positive)
 - TP/(TP + FN)
 - Sensitivity only considers output on people in the positive class
 
-### Specificity (recall):
+#### Specificity (recall):
 
 - P(predicted_negative | actual_negative)
 - TN/(TN + FP)
 -  specificity only considers output on people in the negative class.
 
-### conditional probability:
+#### conditional probability:
 
 bayes rule:
 P(A|B) = [P(B|A)* P(A)] / [P(B)]
 
-### PPV (Precision):
+#### PPV (Precision):
 - P(actual_postive | predicted_postive) 
 or 
 by bayes rules ,
@@ -58,7 +58,7 @@ by bayes rules ,
 - Positive predictive value (PPV) is the probability that subjects with a positive screening test truly have the disease.
 - TP/ TP + FP
 
-### NPV:
+#### NPV:
 
 - Negative predictive value (NPV) is the probability that subjects with a negative screening test truly don't have the disease.
 - P(actual_neg | predicted_neg)
@@ -68,7 +68,7 @@ by bayes rule ,
 = P(predicted_neg | actual_neg) *P(actual_neg)/P(predicted_neg)
 - TN/(TN + FN)
 
-### Confusion matrix:
+#### Confusion matrix:
 TP FN
 FP TN
 
@@ -81,10 +81,10 @@ false negative (FN): The model classifies the example as negative, but the label
 We'll do this using a threshold value  th .
 - Any model outputs above  th  are set to 1, and below  th  are set to 0.
 
-### Calculating PPV in terms of sensitivity, specificity:
+#### Calculating PPV in terms of sensitivity, specificity:
 - sensitivity * prevalence /(sensitivity*prevelence + (1- sensitivity)*(1- prevelence))) 
 
-### Prevalence
+#### Prevalence
 
 In a medical context, prevalence is the proportion of people in the population who have the disease (or condition, etc).
 In machine learning terms, this is the proportion of positive examples. The expression for prevalence is:
