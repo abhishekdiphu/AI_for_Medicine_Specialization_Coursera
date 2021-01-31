@@ -8,8 +8,17 @@ from keras.preprocessing import image
 from sklearn.metrics import roc_auc_score, roc_curve
 from tensorflow.compat.v1.logging import INFO, set_verbosity
 import tensorflow as tf
-tf.compat.v1.disable_eager_execution()
 
+# appying integrated grad make sure it is commented .While training and cal gradcam use , disable_eger
+
+def switch(training = True)
+    if training :
+        tf.compat.v1.disable_eager_execution()
+    else:
+        tf.compat.v1.enable_eager_execution()
+
+switch(training = True)        
+        
 
 random.seed(a=None, version=2)
 
