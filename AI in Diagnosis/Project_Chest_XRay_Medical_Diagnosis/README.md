@@ -9,6 +9,8 @@
 
 ## 1.Pre-Processing : 
 
+- resized to (320, 320)
+- noramlized with mean of 0 and varience of 1.
 
 ## 2.Model training :
 
