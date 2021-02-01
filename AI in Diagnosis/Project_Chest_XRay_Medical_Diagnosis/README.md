@@ -110,7 +110,9 @@ prevalence=1N∑iyi
 <img src="images/CLASSIFICATION_REPORT.png" width="400px"/>
 
 
+#### Evaluation report :
 
+<img src="images/report.png" width="400px"/>
 
 
 

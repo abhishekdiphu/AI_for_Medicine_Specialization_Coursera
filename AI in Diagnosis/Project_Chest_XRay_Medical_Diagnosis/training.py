@@ -13,7 +13,7 @@ from keras.applications.densenet import DenseNet121, preprocess_input, decode_pr
 from keras.layers import Dense, GlobalAveragePooling2D
 from keras.models import Model
 from keras import backend as K
-from tensorflow.keras.Optimizers import Adam
+from tensorflow.keras.optimizers import Adam
 
 from keras.models import load_model
 
@@ -245,6 +245,7 @@ plt.ylabel("loss")
 plt.xlabel("epoch")
 plt.title("Training Loss Curve")
 plt.savefig("training_loss", dpi =100)
+
 
 model.load_weights("./nih/pretrained_model.h5")
 predicted_vals = model.predict_generator(test_generator, steps = len(test_generator))
