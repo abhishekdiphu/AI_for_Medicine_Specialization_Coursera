@@ -15,13 +15,20 @@ dimensions: height: 240, width:240, depth:155, channels:4
 
 ###### Visualize the data
 
-The "depth" listed above indicates that there are 155 layers (slices through the brain) in every image object.below is a random slice within 1 to 155. 
+The "depth" listed above indicates that there are 155 layers (slices through the brain) in every image object.below is a random slice within 1 to 155.
+ 
 <img src="results/MRI.png" width="300px"/>
+
+1. create sub-volums of the 3d mri volume
+2. makes it computationally effficient.
+3. disadv is losses the contextual knowledge.
 
 
 
 
 ## 2.Model training :
+
+<img src="results/model.png" width="300px"/>
 
 #### loss function
 
