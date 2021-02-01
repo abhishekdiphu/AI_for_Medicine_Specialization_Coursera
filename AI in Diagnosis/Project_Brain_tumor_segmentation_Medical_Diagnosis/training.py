@@ -7,9 +7,9 @@ import matplotlib.pyplot as plt
 
 from tensorflow.keras import backend as K 
 
-import util
-from helper_functions import *
-
+import utils.util as util
+from utils.helper_functions import *
+import  models.model  as model
 
 import argparse
 import importlib
@@ -45,7 +45,7 @@ args = parser.parse_args()
 
 
 # set home directory and data directory
-HOME_DIR = "./BraTS-Data/"
+HOME_DIR = "/content/BraTs-Data/BraTs-Data/"
 DATA_DIR = HOME_DIR
 
 def load_case(image_nifty_file, label_nifty_file):
@@ -79,7 +79,7 @@ util.visualize_patch(X_norm[0, :, :, :], y[0])
 
 
 
-model = util.unet_model_3d(loss_function=soft_dice_loss, metrics=[dice_coefficient])
+model = model.unet_model_3d(loss_function=soft_dice_loss, metrics=[dice_coefficient])
 
 
 base_dir = HOME_DIR + "processed/"
@@ -91,30 +91,28 @@ with open(base_dir + "config.json") as json_file:
 train_generator = util.VolumeDataGenerator(config["train"], base_dir + "train/", batch_size=3, dim=(160, 160, 16), verbose=0)
 valid_generator = util.VolumeDataGenerator(config["valid"], base_dir + "valid/", batch_size=3, dim=(160, 160, 16), verbose=0)
 
-steps_per_epoch = 20
-n_epochs=10
-validation_steps = 20
+
+
+
+training = True
+if training = True:
+        steps_per_epoch = 20
+        n_epochs=50
+        validation_steps = 20
+        history = model.fit_generator(generator=train_generator,
+                                        steps_per_epoch=steps_per_epoch,
+                                        epochs=n_epochs,
+                                        use_multiprocessing=True,
+                                        validation_data=valid_generator,
+                                        validation_steps=validation_steps)
 
 
 
 
-history = model.fit_generator(generator=train_generator,
-                                steps_per_epoch=steps_per_epoch,
-                                epochs=n_epochs,
-                                use_multiprocessing=True,
-                                validation_data=valid_generator,
-                                validation_steps=validation_steps)
-
-
-
-
-plt.plot(history.history['loss'])
-plt.plot(history.history['val_loss'])
-plt.ylabel("loss")
-plt.xlabel("epoch")
-plt.title("Training Loss Curve")
-plt.savefig("training_loss", dpi =100)
-
-
-
-model.save_weights(base_dir + 'my_model_pretrained.hdf5')
+        plt.plot(history.history['loss'])
+        plt.plot(history.history['val_loss'])
+        plt.ylabel("loss")
+        plt.xlabel("epoch")
+        plt.title("Training Loss Curve")
+        plt.savefig("training_dice_loss", dpi =100)
+        model.save_weights(base_dir + 'my_model_pretrained.hdf5')

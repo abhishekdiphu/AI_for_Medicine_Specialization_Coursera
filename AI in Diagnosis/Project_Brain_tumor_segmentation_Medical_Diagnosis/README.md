@@ -30,9 +30,21 @@ The "depth" listed above indicates that there are 155 layers (slices through the
 
 <img src="results/model.png" width="300px"/>
 
-#### loss function
+Total params: 833,507
+Trainable params: 833,507
+Non-trainable params: 0
 
-binary cross entropy.
+For a brief video introduction to U-Net by the original creators, Olaf Ronneberger, Philipp Fischer, Thomas Brox, please visit their site U-Net: Convolutional Networks for Biomedical Image Segmentation.  
+
+If you would like more detail, start with this blog post by Heet Sankesara “UNet”.  
+
+To go deeper, you can read the original research paper U-Net: Convolutional Networks for Biomedical Image Segmentation by Olaf Ronneberger, Philipp Fischer, Thomas Brox
+
+As a reminder, you will be using a pre-trained U-Net model, and so you can still complete this course without knowing the specific details of implementing the U-Net from scratch.
+
+#### Loss function
+
+- Soft Dice Loss
 
 #### training loss :
 <img src="images/training_loss.png" width="400px"/>

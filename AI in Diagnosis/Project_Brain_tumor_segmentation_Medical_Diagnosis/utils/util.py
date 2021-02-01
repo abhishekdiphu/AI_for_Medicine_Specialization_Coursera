@@ -11,7 +11,7 @@ from keras.engine import Input, Model
 from keras.layers import (
     Activation,
     Conv3D,
-    Deconvolution3D,
+    Conv3DTranspose as Deconvolution3D,
     MaxPooling3D,
     UpSampling3D,
 )
