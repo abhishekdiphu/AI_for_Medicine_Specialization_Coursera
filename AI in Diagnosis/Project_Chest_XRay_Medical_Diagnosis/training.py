@@ -56,7 +56,7 @@ args = parser.parse_args()
 
 
 
-def get_train_generator(df, image_dir, x_col, y_cols, shuffle=True, batch_size=8, seed=1, target_w = 320, target_h = 320):
+def get_train_generator(df, image_dir, x_col, y_cols, shuffle=True, batch_size=16, seed=1, target_w = 320, target_h = 320):
     """
     Return generator for training set, normalizing using batch
     statistics.
@@ -100,7 +100,7 @@ def get_train_generator(df, image_dir, x_col, y_cols, shuffle=True, batch_size=8
 
 
 
-def get_test_and_valid_generator(valid_df, test_df, train_df, image_dir, x_col, y_cols, sample_size=100, batch_size=8, seed=1, target_w = 320, target_h = 320):
+def get_test_and_valid_generator(valid_df, test_df, train_df, image_dir, x_col, y_cols, sample_size=100, batch_size=16, seed=1, target_w = 320, target_h = 320):
     """
     Return generator for validation set and test test set using 
     normalization statistics from training set.
@@ -226,7 +226,7 @@ x = GlobalAveragePooling2D()(x)
 predictions = Dense(len(labels), activation="sigmoid")(x)
 
 model = Model(inputs=base_model.input, outputs=predictions)
-model.compile(optimizer=Adam(lr =0.001), loss=get_weighted_loss(pos_weights, neg_weights))
+model.compile(optimizer=Adam(lr =0.002), loss=get_weighted_loss(pos_weights, neg_weights))
 
 
 
@@ -234,7 +234,7 @@ history = model.fit_generator(train_generator,
                               validation_data=valid_generator,
                               steps_per_epoch=100, 
                               validation_steps=25, 
-                              epochs = 3)
+                              epochs = 80)
 
 
 
@@ -246,6 +246,7 @@ plt.xlabel("epoch")
 plt.title("Training Loss Curve")
 plt.savefig("training_loss", dpi =100)
 
+model.save_weights("./nih/den_model.h5")
 
 model.load_weights("./nih/pretrained_model.h5")
 predicted_vals = model.predict_generator(test_generator, steps = len(test_generator))
