@@ -7,9 +7,9 @@ import matplotlib.pyplot as plt
 
 from tensorflow.keras import backend as K 
 
-import util
-from helper_functions import *
-
+import utils.util as util
+from utils.helper_functions import *
+import models.model as model 
 
 import argparse
 import importlib
@@ -45,7 +45,7 @@ args = parser.parse_args()
 
 
 # set home directory and data directory
-HOME_DIR = "./BraTS-Data/"
+HOME_DIR = "/content/BraTs-Data/BraTs-Data/"
 DATA_DIR = HOME_DIR
 
 def load_case(image_nifty_file, label_nifty_file):
@@ -79,7 +79,7 @@ util.visualize_patch(X_norm[0, :, :, :], y[0])
 
 
 
-model = util.unet_model_3d(loss_function=soft_dice_loss, metrics=[dice_coefficient])
+model = model.unet_model_3d(loss_function=soft_dice_loss, metrics=[dice_coefficient])
 
 
 # run this cell if you didn't run the training cell in section 4.1
@@ -93,7 +93,7 @@ train_generator = util.VolumeDataGenerator(config["train"], base_dir + "train/",
 valid_generator = util.VolumeDataGenerator(config["valid"], base_dir + "valid/", batch_size=3, dim=(160, 160, 16), verbose=0)
 
 
-model.load_weights(HOME_DIR + "model_pretrained.hdf5")
+model.load_weights(HOME_DIR + "processed/my_model_pretrained.hdf5")
 
 
 model_summary = True
@@ -125,9 +125,14 @@ patch_pred[patch_pred <= threshold] = 0.0
 print("Patch and ground truth")
 util.visualize_patch(X_norm[0, :, :, :], y[2])
 plt.show()
+plt.savefig("ground-truth")
+plt.close()
 print("Patch and prediction")
 util.visualize_patch(X_norm[0, :, :, :], patch_pred[0, 2, :, :, :])
+
 plt.show()
+plt.savefig("ground-truth")
+plt.close()
 
 
 
@@ -146,6 +151,7 @@ print(df)
 # uncomment this code to run it
 image, label = load_case(DATA_DIR + "imagesTr/BRATS_003.nii.gz", DATA_DIR + "labelsTr/BRATS_003.nii.gz")
 pred = util.predict_and_viz(image, label, model, .5, loc=(130, 130, 77))
+plt.savefig("predicted")
 
 
 
