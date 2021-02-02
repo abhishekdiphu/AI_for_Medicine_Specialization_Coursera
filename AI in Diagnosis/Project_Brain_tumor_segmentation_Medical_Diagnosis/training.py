@@ -95,7 +95,7 @@ valid_generator = util.VolumeDataGenerator(config["valid"], base_dir + "valid/",
 
 
 training = True
-if training = True:
+if training:
         steps_per_epoch = 20
         n_epochs=50
         validation_steps = 20
