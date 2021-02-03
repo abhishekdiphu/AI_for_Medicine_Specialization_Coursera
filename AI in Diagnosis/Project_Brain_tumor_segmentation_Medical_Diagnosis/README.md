@@ -18,6 +18,9 @@ The "depth" listed above indicates that there are 155 layers (slices through the
  
 <img src="results/MRI.png" width="300px"/>
 
+<img src="results/gif.png" width="300px"/>
+
+
 1. create sub-volums of the 3d mri volume
 2. makes it computationally effficient.
 3. disadv is losses the contextual knowledge.
@@ -71,8 +74,12 @@ As a reminder, you will be using a pre-trained U-Net model, and so you can still
 -  specificity only considers output on people in the negative class.
 
 
+Predictions :
+1.
+<img src="results/pred.png" width="500px"/>
 
-
+2. 
+<img src="results/pred2.png" width="500px"/>
 
 
 
