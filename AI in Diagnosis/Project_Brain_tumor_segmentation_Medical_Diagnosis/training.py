@@ -10,6 +10,7 @@ from tensorflow.keras import backend as K
 import utils.util as util
 from utils.helper_functions import *
 import  models.model  as model
+import tensorflow as tf
 
 import argparse
 import importlib
@@ -88,23 +89,33 @@ with open(base_dir + "config.json") as json_file:
     config = json.load(json_file)
 
 # Get generators for training and validation sets
-train_generator = util.VolumeDataGenerator(config["train"], base_dir + "train/", batch_size=3, dim=(160, 160, 16), verbose=0)
-valid_generator = util.VolumeDataGenerator(config["valid"], base_dir + "valid/", batch_size=3, dim=(160, 160, 16), verbose=0)
+train_generator = util.VolumeDataGenerator(config["train"], base_dir + "train/", batch_size=4, dim=(160, 160, 16), verbose=0)
+valid_generator = util.VolumeDataGenerator(config["valid"], base_dir + "valid/", batch_size=4, dim=(160, 160, 16), verbose=0)
+def scheduler(epoch, lr):
+    if epoch < 5:
+      lr = 0.005
+      return lr
+    elif epoch >= 5 and epoch <=10:
+      lr = 0.0005
+      return lr
+    else:
+      lr = 0.00005
+      return lr
 
-
-
+LR = tf.keras.callbacks.LearningRateScheduler(scheduler, verbose=1)
 
 training = True
 if training:
         steps_per_epoch = 20
-        n_epochs=50
+        n_epochs=20
         validation_steps = 20
         history = model.fit_generator(generator=train_generator,
                                         steps_per_epoch=steps_per_epoch,
                                         epochs=n_epochs,
                                         use_multiprocessing=True,
                                         validation_data=valid_generator,
-                                        validation_steps=validation_steps)
+                                        validation_steps=validation_steps,
+                                        callbacks =[LR])
 
 
 
