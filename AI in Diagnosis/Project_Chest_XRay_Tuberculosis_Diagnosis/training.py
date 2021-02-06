@@ -172,9 +172,9 @@ def get_test_and_valid_generator(valid_df, test_df, train_df, image_dir, x_col, 
 
 
 
-train_df = pd.read_csv("nih/train.csv")
-valid_df = pd.read_csv("nih/test.csv")
-test_df = pd.read_csv("nih/test.csv")
+train_df = pd.read_csv("nih/test.csv")
+valid_df = pd.read_csv("nih/train.csv")
+test_df = pd.read_csv("nih/train.csv")
 train_df.head(5)
 labels = ['tuberculosis']
 
@@ -220,13 +220,15 @@ predictions = Dense(1, activation="sigmoid")(x)
 model = Model(inputs=base_model.input, outputs=predictions)
 model.compile(optimizer=Adam(lr =0.002), loss=BinaryCrossentropy(label_smoothing=0.9,name='bce'))
 
+model.summary()
+
 
 
 history = model.fit_generator(train_generator, 
                               validation_data=valid_generator,
-                              steps_per_epoch=100, 
-                              validation_steps=25, 
-                              epochs = 80)
+                              steps_per_epoch=None, 
+                              validation_steps=6, 
+                              epochs = 40)
 
 
 
