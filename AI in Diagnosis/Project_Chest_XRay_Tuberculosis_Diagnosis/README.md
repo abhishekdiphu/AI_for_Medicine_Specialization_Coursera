@@ -20,13 +20,20 @@
 
 
 ### Datasets
+Shenzhen Hospital X-ray Set:X-ray images in this data set have been collected by Shenzhen No.3 Hospital in Shenzhen, Guangdong providence,China. The x-rays were acquired as part of the routine care at Shenzhen Hospital. The set contains images in JPEG format. There are 326 normal x-raysand 336 abnormal x-rays showing various manifestations of tuberculosis.
+
+
+##### training set:
 - The class normal has 249 samples
 - The class tuberculosis has 281 samples
+##### Notes :
 - Total 662  2D x-ray images .
 - The dimensions of the image are 2939 pixels width and 2985 pixels height, one single color channel
 - The maximum pixel value is 1.0000 and the minimum is 0.0000
 - The mean value of the pixels is 0.6082 and the standard deviation is 0.2588
-
+- Link to the dataset :
+https://lhncbc.nlm.nih.gov/LHC-publications/pubs/TuberculosisChestXrayImageDataSets.html
+For additional information about these datasets, please refer to the paper : https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4256233/
 
 <img src="extra/XRAY.png" width="300px"/>     <img src="extra/PIXEL_INTENSITY.png" width="300px"/>
 
