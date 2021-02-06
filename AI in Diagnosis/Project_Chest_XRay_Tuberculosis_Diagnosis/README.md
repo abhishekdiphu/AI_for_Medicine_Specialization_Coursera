@@ -11,6 +11,8 @@
 
 - resized to (320, 320)
 - noramlized with mean of 0 and varience of 1.
+- The maximum pixel value is 1.5113 and the minimum is -2.3374
+- The mean value of the pixels is -0.0000 and the standard deviation is 1.0000
 ### Datasets
 - The class normal has 249 samples
 - The class tuberculosis has 281 samples
