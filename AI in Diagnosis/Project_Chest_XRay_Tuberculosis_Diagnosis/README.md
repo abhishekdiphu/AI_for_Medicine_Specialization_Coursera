@@ -15,7 +15,9 @@
 - The class normal has 249 samples
 - The class tuberculosis has 281 samples
 - Total 662  2D x-ray images .
-- 
+- The dimensions of the image are 2939 pixels width and 2985 pixels height, one single color channel
+- The maximum pixel value is 1.0000 and the minimum is 0.0000
+- The mean value of the pixels is 0.6082 and the standard deviation is 0.2588
 
 
 <img src="images/pixel_distribution.png" width="300px"/><img src="images/normalize.png" width="300px"/>
