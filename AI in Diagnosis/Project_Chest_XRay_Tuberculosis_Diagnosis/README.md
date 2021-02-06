@@ -11,6 +11,11 @@
 
 - resized to (320, 320)
 - noramlized with mean of 0 and varience of 1.
+### Datasets
+- The class normal has 249 samples
+- The class tuberculosis has 281 samples
+- Total 662  2D x-ray images .
+- 
 
 
 <img src="images/pixel_distribution.png" width="300px"/><img src="images/normalize.png" width="300px"/>
