@@ -197,6 +197,8 @@ consider reading this excellent
 - pip install -r requirement.txt
 - download the dataset and unzip and put it in nih/ folder.
 - **python training.py** in your conda or virtualenv environment.
+- training labels are nih/train.csv and test label are nih/test.csv ,
+- One can also perform cross validation with the datasets label file , nih/dataset_03.csv file.
 
 **References:**
 
