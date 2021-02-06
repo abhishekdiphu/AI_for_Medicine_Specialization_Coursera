@@ -91,8 +91,8 @@ def get_weighted_loss(pos_weights, neg_weights, epsilon=1e-7):
 
         for i in range(len(pos_weights)):
             # for each class, add average weighted loss for that class 
-            loss += K.mean(-1*pos_weights[i]*(y_true[: , i])*K.log(y_pred[: , i] + epsilon)  + \
-                     (-1)*neg_weights[i]*(1 - y_true[: , i])*K.log(1 - y_pred[: , i] + epsilon)) #complete this line
+            loss += K.mean(-1*(y_true[: , i])*K.log(y_pred[: , i] + epsilon)  + \
+                     (-1)*(1 - y_true[: , i])*K.log(1 - y_pred[: , i] + epsilon)) #complete this line
         return loss
     
         ### END CODE HERE ###

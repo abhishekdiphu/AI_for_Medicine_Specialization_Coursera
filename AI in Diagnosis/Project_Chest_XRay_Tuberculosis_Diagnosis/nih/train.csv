@@ -1,133 +1,133 @@
-images	labels	normal	tuberculosis
-/content/ChinaSet_AllFiles/CXR_png/CHNCXR_0652_1.png	tuberculosis	0	1
-/content/ChinaSet_AllFiles/CXR_png/CHNCXR_0612_1.png	tuberculosis	0	1
-/content/ChinaSet_AllFiles/CXR_png/CHNCXR_0603_1.png	tuberculosis	0	1
-/content/ChinaSet_AllFiles/CXR_png/CHNCXR_0086_0.png	normal	1	0
-/content/ChinaSet_AllFiles/CXR_png/CHNCXR_0243_0.png	tuberculosis	0	1
-/content/ChinaSet_AllFiles/CXR_png/CHNCXR_0160_0.png	normal	1	0
-/content/ChinaSet_AllFiles/CXR_png/CHNCXR_0525_1.png	tuberculosis	0	1
-/content/ChinaSet_AllFiles/CXR_png/CHNCXR_0036_0.png	normal	1	0
-/content/ChinaSet_AllFiles/CXR_png/CHNCXR_0171_0.png	normal	1	0
-/content/ChinaSet_AllFiles/CXR_png/CHNCXR_0564_1.png	tuberculosis	0	1
-/content/ChinaSet_AllFiles/CXR_png/CHNCXR_0595_1.png	tuberculosis	0	1
-/content/ChinaSet_AllFiles/CXR_png/CHNCXR_0623_1.png	tuberculosis	0	1
-/content/ChinaSet_AllFiles/CXR_png/CHNCXR_0096_0.png	normal	1	0
-/content/ChinaSet_AllFiles/CXR_png/CHNCXR_0241_0.png	normal	1	0
-/content/ChinaSet_AllFiles/CXR_png/CHNCXR_0461_1.png	tuberculosis	0	1
-/content/ChinaSet_AllFiles/CXR_png/CHNCXR_0578_1.png	tuberculosis	0	1
-/content/ChinaSet_AllFiles/CXR_png/CHNCXR_0207_0.png	normal	1	0
-/content/ChinaSet_AllFiles/CXR_png/CHNCXR_0393_1.png	tuberculosis	0	1
-/content/ChinaSet_AllFiles/CXR_png/CHNCXR_0398_1.png	tuberculosis	0	1
-/content/ChinaSet_AllFiles/CXR_png/CHNCXR_0557_1.png	tuberculosis	0	1
-/content/ChinaSet_AllFiles/CXR_png/CHNCXR_0218_0.png	normal	1	0
-/content/ChinaSet_AllFiles/CXR_png/CHNCXR_0005_0.png	normal	1	0
-/content/ChinaSet_AllFiles/CXR_png/CHNCXR_0589_1.png	tuberculosis	0	1
-/content/ChinaSet_AllFiles/CXR_png/CHNCXR_0547_1.png	tuberculosis	0	1
-/content/ChinaSet_AllFiles/CXR_png/CHNCXR_0099_0.png	normal	1	0
-/content/ChinaSet_AllFiles/CXR_png/CHNCXR_0407_1.png	tuberculosis	0	1
-/content/ChinaSet_AllFiles/CXR_png/CHNCXR_0503_1.png	tuberculosis	0	1
-/content/ChinaSet_AllFiles/CXR_png/CHNCXR_0048_0.png	normal	1	0
-/content/ChinaSet_AllFiles/CXR_png/CHNCXR_0033_0.png	normal	1	0
-/content/ChinaSet_AllFiles/CXR_png/CHNCXR_0201_0.png	normal	1	0
-/content/ChinaSet_AllFiles/CXR_png/CHNCXR_0135_0.png	normal	1	0
-/content/ChinaSet_AllFiles/CXR_png/CHNCXR_0028_0.png	normal	1	0
-/content/ChinaSet_AllFiles/CXR_png/CHNCXR_0580_1.png	tuberculosis	0	1
-/content/ChinaSet_AllFiles/CXR_png/CHNCXR_0231_0.png	normal	1	0
-/content/ChinaSet_AllFiles/CXR_png/CHNCXR_0490_1.png	tuberculosis	0	1
-/content/ChinaSet_AllFiles/CXR_png/CHNCXR_0379_1.png	tuberculosis	0	1
-/content/ChinaSet_AllFiles/CXR_png/CHNCXR_0289_0.png	normal	1	0
-/content/ChinaSet_AllFiles/CXR_png/CHNCXR_0419_1.png	tuberculosis	0	1
-/content/ChinaSet_AllFiles/CXR_png/CHNCXR_0392_1.png	tuberculosis	0	1
-/content/ChinaSet_AllFiles/CXR_png/CHNCXR_0499_1.png	tuberculosis	0	1
-/content/ChinaSet_AllFiles/CXR_png/CHNCXR_0139_0.png	normal	1	0
-/content/ChinaSet_AllFiles/CXR_png/CHNCXR_0063_0.png	normal	1	0
-/content/ChinaSet_AllFiles/CXR_png/CHNCXR_0472_1.png	tuberculosis	0	1
-/content/ChinaSet_AllFiles/CXR_png/CHNCXR_0129_0.png	normal	1	0
-/content/ChinaSet_AllFiles/CXR_png/CHNCXR_0645_1.png	tuberculosis	0	1
-/content/ChinaSet_AllFiles/CXR_png/CHNCXR_0521_1.png	tuberculosis	0	1
-/content/ChinaSet_AllFiles/CXR_png/CHNCXR_0065_0.png	normal	1	0
-/content/ChinaSet_AllFiles/CXR_png/CHNCXR_0015_0.png	normal	1	0
-/content/ChinaSet_AllFiles/CXR_png/CHNCXR_0157_0.png	tuberculosis	0	1
-/content/ChinaSet_AllFiles/CXR_png/CHNCXR_0041_0.png	normal	1	0
-/content/ChinaSet_AllFiles/CXR_png/CHNCXR_0493_1.png	tuberculosis	0	1
-/content/ChinaSet_AllFiles/CXR_png/CHNCXR_0380_1.png	tuberculosis	0	1
-/content/ChinaSet_AllFiles/CXR_png/CHNCXR_0188_0.png	normal	1	0
-/content/ChinaSet_AllFiles/CXR_png/CHNCXR_0217_0.png	normal	1	0
-/content/ChinaSet_AllFiles/CXR_png/CHNCXR_0053_0.png	normal	1	0
-/content/ChinaSet_AllFiles/CXR_png/CHNCXR_0338_1.png	tuberculosis	0	1
-/content/ChinaSet_AllFiles/CXR_png/CHNCXR_0296_0.png	normal	1	0
-/content/ChinaSet_AllFiles/CXR_png/CHNCXR_0252_0.png	normal	1	0
-/content/ChinaSet_AllFiles/CXR_png/CHNCXR_0462_1.png	tuberculosis	0	1
-/content/ChinaSet_AllFiles/CXR_png/CHNCXR_0456_1.png	tuberculosis	0	1
-/content/ChinaSet_AllFiles/CXR_png/CHNCXR_0660_1.png	tuberculosis	0	1
-/content/ChinaSet_AllFiles/CXR_png/CHNCXR_0270_0.png	normal	1	0
-/content/ChinaSet_AllFiles/CXR_png/CHNCXR_0202_0.png	normal	1	0
-/content/ChinaSet_AllFiles/CXR_png/CHNCXR_0162_0.png	normal	1	0
-/content/ChinaSet_AllFiles/CXR_png/CHNCXR_0556_1.png	tuberculosis	0	1
-/content/ChinaSet_AllFiles/CXR_png/CHNCXR_0402_1.png	tuberculosis	0	1
-/content/ChinaSet_AllFiles/CXR_png/CHNCXR_0477_1.png	tuberculosis	0	1
-/content/ChinaSet_AllFiles/CXR_png/CHNCXR_0106_0.png	normal	1	0
-/content/ChinaSet_AllFiles/CXR_png/CHNCXR_0566_1.png	tuberculosis	0	1
-/content/ChinaSet_AllFiles/CXR_png/CHNCXR_0390_1.png	tuberculosis	0	1
-/content/ChinaSet_AllFiles/CXR_png/CHNCXR_0002_0.png	normal	1	0
-/content/ChinaSet_AllFiles/CXR_png/CHNCXR_0619_1.png	tuberculosis	0	1
-/content/ChinaSet_AllFiles/CXR_png/CHNCXR_0562_1.png	tuberculosis	0	1
-/content/ChinaSet_AllFiles/CXR_png/CHNCXR_0081_0.png	normal	1	0
-/content/ChinaSet_AllFiles/CXR_png/CHNCXR_0206_0.png	normal	1	0
-/content/ChinaSet_AllFiles/CXR_png/CHNCXR_0035_0.png	normal	1	0
-/content/ChinaSet_AllFiles/CXR_png/CHNCXR_0509_1.png	tuberculosis	0	1
-/content/ChinaSet_AllFiles/CXR_png/CHNCXR_0428_1.png	tuberculosis	0	1
-/content/ChinaSet_AllFiles/CXR_png/CHNCXR_0455_1.png	tuberculosis	0	1
-/content/ChinaSet_AllFiles/CXR_png/CHNCXR_0367_1.png	tuberculosis	0	1
-/content/ChinaSet_AllFiles/CXR_png/CHNCXR_0092_0.png	normal	1	0
-/content/ChinaSet_AllFiles/CXR_png/CHNCXR_0340_1.png	tuberculosis	0	1
-/content/ChinaSet_AllFiles/CXR_png/CHNCXR_0565_1.png	tuberculosis	0	1
-/content/ChinaSet_AllFiles/CXR_png/CHNCXR_0346_1.png	tuberculosis	0	1
-/content/ChinaSet_AllFiles/CXR_png/CHNCXR_0242_0.png	normal	1	0
-/content/ChinaSet_AllFiles/CXR_png/CHNCXR_0014_0.png	normal	1	0
-/content/ChinaSet_AllFiles/CXR_png/CHNCXR_0316_0.png	normal	1	0
-/content/ChinaSet_AllFiles/CXR_png/CHNCXR_0601_1.png	tuberculosis	0	1
-/content/ChinaSet_AllFiles/CXR_png/CHNCXR_0388_1.png	tuberculosis	0	1
-/content/ChinaSet_AllFiles/CXR_png/CHNCXR_0274_0.png	normal	1	0
-/content/ChinaSet_AllFiles/CXR_png/CHNCXR_0167_0.png	normal	1	0
-/content/ChinaSet_AllFiles/CXR_png/CHNCXR_0657_1.png	tuberculosis	0	1
-/content/ChinaSet_AllFiles/CXR_png/CHNCXR_0485_1.png	tuberculosis	0	1
-/content/ChinaSet_AllFiles/CXR_png/CHNCXR_0647_1.png	tuberculosis	0	1
-/content/ChinaSet_AllFiles/CXR_png/CHNCXR_0505_1.png	tuberculosis	0	1
-/content/ChinaSet_AllFiles/CXR_png/CHNCXR_0244_0.png	normal	1	0
-/content/ChinaSet_AllFiles/CXR_png/CHNCXR_0567_1.png	tuberculosis	0	1
-/content/ChinaSet_AllFiles/CXR_png/CHNCXR_0563_1.png	tuberculosis	0	1
-/content/ChinaSet_AllFiles/CXR_png/CHNCXR_0190_0.png	normal	1	0
-/content/ChinaSet_AllFiles/CXR_png/CHNCXR_0476_1.png	tuberculosis	0	1
-/content/ChinaSet_AllFiles/CXR_png/CHNCXR_0511_1.png	tuberculosis	0	1
-/content/ChinaSet_AllFiles/CXR_png/CHNCXR_0059_0.png	tuberculosis	0	1
-/content/ChinaSet_AllFiles/CXR_png/CHNCXR_0475_1.png	tuberculosis	0	1
-/content/ChinaSet_AllFiles/CXR_png/CHNCXR_0561_1.png	tuberculosis	0	1
-/content/ChinaSet_AllFiles/CXR_png/CHNCXR_0253_0.png	normal	1	0
-/content/ChinaSet_AllFiles/CXR_png/CHNCXR_0022_0.png	normal	1	0
-/content/ChinaSet_AllFiles/CXR_png/CHNCXR_0314_0.png	normal	1	0
-/content/ChinaSet_AllFiles/CXR_png/CHNCXR_0460_1.png	tuberculosis	0	1
-/content/ChinaSet_AllFiles/CXR_png/CHNCXR_0161_0.png	normal	1	0
-/content/ChinaSet_AllFiles/CXR_png/CHNCXR_0277_0.png	normal	1	0
-/content/ChinaSet_AllFiles/CXR_png/CHNCXR_0192_0.png	normal	1	0
-/content/ChinaSet_AllFiles/CXR_png/CHNCXR_0386_1.png	tuberculosis	0	1
-/content/ChinaSet_AllFiles/CXR_png/CHNCXR_0414_1.png	tuberculosis	0	1
-/content/ChinaSet_AllFiles/CXR_png/CHNCXR_0492_1.png	tuberculosis	0	1
-/content/ChinaSet_AllFiles/CXR_png/CHNCXR_0344_1.png	tuberculosis	0	1
-/content/ChinaSet_AllFiles/CXR_png/CHNCXR_0309_0.png	normal	1	0
-/content/ChinaSet_AllFiles/CXR_png/CHNCXR_0131_0.png	normal	1	0
-/content/ChinaSet_AllFiles/CXR_png/CHNCXR_0100_0.png	normal	1	0
-/content/ChinaSet_AllFiles/CXR_png/CHNCXR_0373_1.png	tuberculosis	0	1
-/content/ChinaSet_AllFiles/CXR_png/CHNCXR_0088_0.png	normal	1	0
-/content/ChinaSet_AllFiles/CXR_png/CHNCXR_0459_1.png	tuberculosis	0	1
-/content/ChinaSet_AllFiles/CXR_png/CHNCXR_0331_1.png	tuberculosis	0	1
-/content/ChinaSet_AllFiles/CXR_png/CHNCXR_0215_0.png	normal	1	0
-/content/ChinaSet_AllFiles/CXR_png/CHNCXR_0467_1.png	tuberculosis	0	1
-/content/ChinaSet_AllFiles/CXR_png/CHNCXR_0122_0.png	normal	1	0
-/content/ChinaSet_AllFiles/CXR_png/CHNCXR_0615_1.png	tuberculosis	0	1
-/content/ChinaSet_AllFiles/CXR_png/CHNCXR_0021_0.png	normal	1	0
-/content/ChinaSet_AllFiles/CXR_png/CHNCXR_0072_0.png	normal	1	0
-/content/ChinaSet_AllFiles/CXR_png/CHNCXR_0107_0.png	normal	1	0
-/content/ChinaSet_AllFiles/CXR_png/CHNCXR_0271_0.png	normal	1	0
-/content/ChinaSet_AllFiles/CXR_png/CHNCXR_0436_1.png	tuberculosis	0	1
-/content/ChinaSet_AllFiles/CXR_png/CHNCXR_0103_0.png	normal	1	0
+images,labels,normal,tuberculosis
+CHNCXR_0652_1.png,tuberculosis,0,1
+CHNCXR_0612_1.png,tuberculosis,0,1
+CHNCXR_0603_1.png,tuberculosis,0,1
+CHNCXR_0086_0.png,normal,1,0
+CHNCXR_0243_0.png,tuberculosis,0,1
+CHNCXR_0160_0.png,normal,1,0
+CHNCXR_0525_1.png,tuberculosis,0,1
+CHNCXR_0036_0.png,normal,1,0
+CHNCXR_0171_0.png,normal,1,0
+CHNCXR_0564_1.png,tuberculosis,0,1
+CHNCXR_0595_1.png,tuberculosis,0,1
+CHNCXR_0623_1.png,tuberculosis,0,1
+CHNCXR_0096_0.png,normal,1,0
+CHNCXR_0241_0.png,normal,1,0
+CHNCXR_0461_1.png,tuberculosis,0,1
+CHNCXR_0578_1.png,tuberculosis,0,1
+CHNCXR_0207_0.png,normal,1,0
+CHNCXR_0393_1.png,tuberculosis,0,1
+CHNCXR_0398_1.png,tuberculosis,0,1
+CHNCXR_0557_1.png,tuberculosis,0,1
+CHNCXR_0218_0.png,normal,1,0
+CHNCXR_0005_0.png,normal,1,0
+CHNCXR_0589_1.png,tuberculosis,0,1
+CHNCXR_0547_1.png,tuberculosis,0,1
+CHNCXR_0099_0.png,normal,1,0
+CHNCXR_0407_1.png,tuberculosis,0,1
+CHNCXR_0503_1.png,tuberculosis,0,1
+CHNCXR_0048_0.png,normal,1,0
+CHNCXR_0033_0.png,normal,1,0
+CHNCXR_0201_0.png,normal,1,0
+CHNCXR_0135_0.png,normal,1,0
+CHNCXR_0028_0.png,normal,1,0
+CHNCXR_0580_1.png,tuberculosis,0,1
+CHNCXR_0231_0.png,normal,1,0
+CHNCXR_0490_1.png,tuberculosis,0,1
+CHNCXR_0379_1.png,tuberculosis,0,1
+CHNCXR_0289_0.png,normal,1,0
+CHNCXR_0419_1.png,tuberculosis,0,1
+CHNCXR_0392_1.png,tuberculosis,0,1
+CHNCXR_0499_1.png,tuberculosis,0,1
+CHNCXR_0139_0.png,normal,1,0
+CHNCXR_0063_0.png,normal,1,0
+CHNCXR_0472_1.png,tuberculosis,0,1
+CHNCXR_0129_0.png,normal,1,0
+CHNCXR_0645_1.png,tuberculosis,0,1
+CHNCXR_0521_1.png,tuberculosis,0,1
+CHNCXR_0065_0.png,normal,1,0
+CHNCXR_0015_0.png,normal,1,0
+CHNCXR_0157_0.png,tuberculosis,0,1
+CHNCXR_0041_0.png,normal,1,0
+CHNCXR_0493_1.png,tuberculosis,0,1
+CHNCXR_0380_1.png,tuberculosis,0,1
+CHNCXR_0188_0.png,normal,1,0
+CHNCXR_0217_0.png,normal,1,0
+CHNCXR_0053_0.png,normal,1,0
+CHNCXR_0338_1.png,tuberculosis,0,1
+CHNCXR_0296_0.png,normal,1,0
+CHNCXR_0252_0.png,normal,1,0
+CHNCXR_0462_1.png,tuberculosis,0,1
+CHNCXR_0456_1.png,tuberculosis,0,1
+CHNCXR_0660_1.png,tuberculosis,0,1
+CHNCXR_0270_0.png,normal,1,0
+CHNCXR_0202_0.png,normal,1,0
+CHNCXR_0162_0.png,normal,1,0
+CHNCXR_0556_1.png,tuberculosis,0,1
+CHNCXR_0402_1.png,tuberculosis,0,1
+CHNCXR_0477_1.png,tuberculosis,0,1
+CHNCXR_0106_0.png,normal,1,0
+CHNCXR_0566_1.png,tuberculosis,0,1
+CHNCXR_0390_1.png,tuberculosis,0,1
+CHNCXR_0002_0.png,normal,1,0
+CHNCXR_0619_1.png,tuberculosis,0,1
+CHNCXR_0562_1.png,tuberculosis,0,1
+CHNCXR_0081_0.png,normal,1,0
+CHNCXR_0206_0.png,normal,1,0
+CHNCXR_0035_0.png,normal,1,0
+CHNCXR_0509_1.png,tuberculosis,0,1
+CHNCXR_0428_1.png,tuberculosis,0,1
+CHNCXR_0455_1.png,tuberculosis,0,1
+CHNCXR_0367_1.png,tuberculosis,0,1
+CHNCXR_0092_0.png,normal,1,0
+CHNCXR_0340_1.png,tuberculosis,0,1
+CHNCXR_0565_1.png,tuberculosis,0,1
+CHNCXR_0346_1.png,tuberculosis,0,1
+CHNCXR_0242_0.png,normal,1,0
+CHNCXR_0014_0.png,normal,1,0
+CHNCXR_0316_0.png,normal,1,0
+CHNCXR_0601_1.png,tuberculosis,0,1
+CHNCXR_0388_1.png,tuberculosis,0,1
+CHNCXR_0274_0.png,normal,1,0
+CHNCXR_0167_0.png,normal,1,0
+CHNCXR_0657_1.png,tuberculosis,0,1
+CHNCXR_0485_1.png,tuberculosis,0,1
+CHNCXR_0647_1.png,tuberculosis,0,1
+CHNCXR_0505_1.png,tuberculosis,0,1
+CHNCXR_0244_0.png,normal,1,0
+CHNCXR_0567_1.png,tuberculosis,0,1
+CHNCXR_0563_1.png,tuberculosis,0,1
+CHNCXR_0190_0.png,normal,1,0
+CHNCXR_0476_1.png,tuberculosis,0,1
+CHNCXR_0511_1.png,tuberculosis,0,1
+CHNCXR_0059_0.png,tuberculosis,0,1
+CHNCXR_0475_1.png,tuberculosis,0,1
+CHNCXR_0561_1.png,tuberculosis,0,1
+CHNCXR_0253_0.png,normal,1,0
+CHNCXR_0022_0.png,normal,1,0
+CHNCXR_0314_0.png,normal,1,0
+CHNCXR_0460_1.png,tuberculosis,0,1
+CHNCXR_0161_0.png,normal,1,0
+CHNCXR_0277_0.png,normal,1,0
+CHNCXR_0192_0.png,normal,1,0
+CHNCXR_0386_1.png,tuberculosis,0,1
+CHNCXR_0414_1.png,tuberculosis,0,1
+CHNCXR_0492_1.png,tuberculosis,0,1
+CHNCXR_0344_1.png,tuberculosis,0,1
+CHNCXR_0309_0.png,normal,1,0
+CHNCXR_0131_0.png,normal,1,0
+CHNCXR_0100_0.png,normal,1,0
+CHNCXR_0373_1.png,tuberculosis,0,1
+CHNCXR_0088_0.png,normal,1,0
+CHNCXR_0459_1.png,tuberculosis,0,1
+CHNCXR_0331_1.png,tuberculosis,0,1
+CHNCXR_0215_0.png,normal,1,0
+CHNCXR_0467_1.png,tuberculosis,0,1
+CHNCXR_0122_0.png,normal,1,0
+CHNCXR_0615_1.png,tuberculosis,0,1
+CHNCXR_0021_0.png,normal,1,0
+CHNCXR_0072_0.png,normal,1,0
+CHNCXR_0107_0.png,normal,1,0
+CHNCXR_0271_0.png,normal,1,0
+CHNCXR_0436_1.png,tuberculosis,0,1
+CHNCXR_0103_0.png,normal,1,0

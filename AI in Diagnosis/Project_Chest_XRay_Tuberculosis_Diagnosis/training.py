@@ -14,8 +14,8 @@ from keras.layers import Dense, GlobalAveragePooling2D
 from keras.models import Model
 from keras import backend as K
 from tensorflow.keras.optimizers import Adam
-
 from keras.models import load_model
+from tensorflow.keras.losses import BinaryCrossentropy
 
 from integrated_grad import *
 import util
@@ -56,7 +56,7 @@ args = parser.parse_args()
 
 
 
-def get_train_generator(df, image_dir, x_col, y_cols, shuffle=True, batch_size=16, seed=1, target_w = 320, target_h = 320):
+def get_train_generator(df, image_dir, x_col, y_cols, shuffle=True, batch_size=32, seed=1, target_w = 320, target_h = 320):
     """
     Return generator for training set, normalizing using batch
     statistics.
@@ -100,7 +100,7 @@ def get_train_generator(df, image_dir, x_col, y_cols, shuffle=True, batch_size=1
 
 
 
-def get_test_and_valid_generator(valid_df, test_df, train_df, image_dir, x_col, y_cols, sample_size=100, batch_size=16, seed=1, target_w = 320, target_h = 320):
+def get_test_and_valid_generator(valid_df, test_df, train_df, image_dir, x_col, y_cols, sample_size=100, batch_size=32, seed=1, target_w = 320, target_h = 320):
     """
     Return generator for validation set and test test set using 
     normalization statistics from training set.
@@ -126,7 +126,7 @@ def get_test_and_valid_generator(valid_df, test_df, train_df, image_dir, x_col, 
     raw_train_generator = ImageDataGenerator().flow_from_dataframe(
         dataframe=train_df, 
         directory=IMAGE_DIR, 
-        x_col="Image", 
+        x_col="images", 
         y_col=labels, 
         class_mode="raw", 
         batch_size=sample_size, 
@@ -176,8 +176,7 @@ train_df = pd.read_csv("nih/train.csv")
 valid_df = pd.read_csv("nih/test.csv")
 test_df = pd.read_csv("nih/test.csv")
 train_df.head(5)
-labels = ['normal',
-          'tuberculosis']
+labels = ['tuberculosis']
 
 
 
@@ -185,17 +184,21 @@ labels = ['normal',
 
 
 
-IMAGE_DIR = "nih/chest_images/"
-train_generator = get_train_generator(train_df, IMAGE_DIR, "Image", labels)
-valid_generator, test_generator= get_test_and_valid_generator(valid_df, test_df, train_df, IMAGE_DIR, "Image", labels)
+IMAGE_DIR = "nih/ChinaSet_AllFiles/CXR_png/"
+train_generator = get_train_generator(train_df, IMAGE_DIR, "images", labels)
+valid_generator, test_generator= get_test_and_valid_generator(valid_df, test_df, train_df, IMAGE_DIR, "images", labels)
 
 
 freq_pos, freq_neg = compute_class_freqs(train_generator.labels)
+print("freq_pos", freq_pos)
+print("freq_pos", freq_neg)
 pos_weights = freq_neg
 neg_weights = freq_pos
+print("length of pos_weights :",len(pos_weights))
 pos_contribution = freq_pos * pos_weights 
 neg_contribution = freq_neg * neg_weights
-
+print("pos_contribution", pos_contribution)
+print("neg_contribution", neg_contribution)
 
 data = pd.DataFrame({"Class": labels, "Label": "Positive", "Value": pos_contribution})
 data = data.append([{"Class": labels[l], "Label": "Negative", "Value": v} 
@@ -215,7 +218,7 @@ x = GlobalAveragePooling2D()(x)
 predictions = Dense(1, activation="sigmoid")(x)
 
 model = Model(inputs=base_model.input, outputs=predictions)
-model.compile(optimizer=Adam(lr =0.002), loss=get_weighted_loss(pos_weights, neg_weights))
+model.compile(optimizer=Adam(lr =0.002), loss=BinaryCrossentropy(label_smoothing=0.9,name='bce'))
 
 
 
@@ -256,8 +259,8 @@ print("the classification report : \n" , cl_report)
 
 
 
-df = pd.read_csv("nih/train-small.csv")
-IMAGE_DIR = "nih/images-small/"
+df = pd.read_csv("nih/train.csv")
+IMAGE_DIR = "nih/ChinaSet_AllFiles/CXR_png/"
 
 # only show the lables with top 4 AUC
 auc_rocs = util.get_roc_curve(labels, predicted_vals, test_generator)
@@ -267,8 +270,8 @@ plt.close()
 labels_to_show = np.take(labels, np.argsort(auc_rocs)[::-1])[:4]
 
 
-image_name_1 = '00008270_015.png'
-image_name_2 = '00011355_002.png'
+image_name_1 = 'CHNCXR_0001_0.png'
+image_name_2 = 'CHNCXR_0003_0.png'
 
 util.compute_gradcam(model, image_name_1, IMAGE_DIR, df, labels, labels_to_show)
 plt.savefig(image_name_1)
@@ -283,7 +286,7 @@ plt.close()
 
 
 # 1. Convert the image to numpy array
-img = get_img_array('nih/images-small/00008270_015.png')
+img = get_img_array('/content/nih/ChinaSet_AllFiles/CXR_png/CHNCXR_0001_0.png')
 
 # 2. Keep a copy of the original image
 orig_img = np.copy(img[0]).astype(np.uint8)
