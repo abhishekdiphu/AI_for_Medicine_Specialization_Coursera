@@ -7,12 +7,18 @@
 - Visualize model activity using GradCAMs
 
 
+
+
 ## 1.Pre-Processing : 
 
 - resized to (320, 320)
 - noramlized with mean of 0 and varience of 1.
 - The maximum pixel value is 1.5113 and the minimum is -2.3374
 - The mean value of the pixels is -0.0000 and the standard deviation is 1.0000
+
+<img src="extra/STANDERDIZE.png" width="300px"/><img src="extra/STANDERDIZE_img.png" width="300px"/>
+
+
 ### Datasets
 - The class normal has 249 samples
 - The class tuberculosis has 281 samples
@@ -22,7 +28,7 @@
 - The mean value of the pixels is 0.6082 and the standard deviation is 0.2588
 
 
-<img src="images/pixel_distribution.png" width="300px"/><img src="images/normalize.png" width="300px"/>
+<img src="extra/XRAY.png" width="300px"/><img src="extra/PIXEL_INTENSITY.png" width="300px"/>
 
 
 ## 2.Model training :
