@@ -20,7 +20,7 @@
 
 #### loss function
 
-binary cross entropy
+Binary cross entropy loss
 
 #### training loss :
 <img src="images/training_loss.png" width="400px"/>
