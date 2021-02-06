@@ -39,6 +39,9 @@ For additional information about these datasets, please refer to the paper : htt
 
 
 ## 2.Model training :
+#### DenseNet architecture :
+
+<img src="images/densenet.png" width="400px"/>
 
 #### loss function
 
