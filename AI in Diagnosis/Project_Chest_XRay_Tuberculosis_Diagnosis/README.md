@@ -1,7 +1,7 @@
-# Chest X-Ray Medical Diagnosis with Deep Learning
+# Chest X-Ray tuberculosis Medical Diagnosis with Deep Learning
 
 - Pre-process and prepare a real-world X-ray dataset
-- Use transfer learning to retrain a DenseNet model for X-ray image classification
+- Use transfer learning to retrain a DenseNet model for X-ray image  binary-classification
 - Learn a technique to handle class imbalance
 - Measure diagnostic performance by computing the AUC (Area Under the Curve) for the ROC - (Receiver Operating Characteristic) curve
 - Visualize model activity using GradCAMs
@@ -20,7 +20,7 @@
 
 #### loss function
 
-binary cross entropy.
+binary cross entropy
 
 #### training loss :
 <img src="images/training_loss.png" width="400px"/>
