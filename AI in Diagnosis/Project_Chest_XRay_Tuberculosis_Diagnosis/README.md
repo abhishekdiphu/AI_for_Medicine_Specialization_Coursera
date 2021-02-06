@@ -192,6 +192,12 @@ To read in-depth about integrated gradients and why this method works,
 consider reading this excellent
 [article](https://distill.pub/2020/attribution-baselines/).
 
+
+## Run 
+- pip install -r requirement.txt
+- download the dataset and unzip and put it in nih/ folder.
+- **python training.py** in your conda or virtualenv environment.
+
 **References:**
 
 - Integrated Gradients original [paper](https://arxiv.org/abs/1703.01365)
