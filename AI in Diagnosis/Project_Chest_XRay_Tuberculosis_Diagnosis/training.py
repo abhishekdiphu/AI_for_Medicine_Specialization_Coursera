@@ -24,6 +24,7 @@ from  helper import *
 
 import scikitplot
 import sklearn
+from sklearn.metrics import confusion_matrix
 
 
 parser = argparse.ArgumentParser()
@@ -218,102 +219,112 @@ x = GlobalAveragePooling2D()(x)
 predictions = Dense(1, activation="sigmoid")(x)
 
 model = Model(inputs=base_model.input, outputs=predictions)
-model.compile(optimizer=Adam(lr =0.002), loss=BinaryCrossentropy(label_smoothing=0.9,name='bce'))
+model.compile(optimizer=Adam(lr =0.0001), loss=BinaryCrossentropy(),metrics =['accuracy'])
 
-model.summary()
+#model.summary()
 
-
-
-history = model.fit_generator(train_generator, 
-                              validation_data=valid_generator,
-                              steps_per_epoch=None, 
-                              validation_steps=6, 
-                              epochs = 40)
-
-
+training = False
+if training :
+        history = model.fit_generator(train_generator, 
+                                      validation_data=valid_generator,
+                                      steps_per_epoch=None, 
+                                      validation_steps=6, 
+                                      epochs = 10)
 
 
-plt.plot(history.history['loss'])
-plt.plot(history.history['val_loss'])
-plt.ylabel("loss")
-plt.xlabel("epoch")
-plt.title("Training Loss Curve")
-plt.savefig("training_loss", dpi =100)
 
-model.save_weights("./nih/den_model.h5")
 
-model.load_weights("./nih/pretrained_model.h5")
-predicted_vals = model.predict_generator(test_generator, steps = len(test_generator))
+        plt.plot(history.history['loss'])
+        plt.plot(history.history['val_loss'])
+        plt.ylabel("loss")
+        plt.xlabel("epoch")
+        plt.title("Training Loss Curve")
+        plt.savefig("training_loss", dpi =100)
+
+        model.save_weights("./nih/den_model.h5")
+
+model.load_weights("./nih/den_model.h5")
+predicted_vals = model.predict(test_generator, steps = len(test_generator))
 
 print(test_generator.labels.shape)
 
-true =  np.argmax(test_generator.labels,axis=1) 
+#true =  np.argmax(test_generator.labels,axis=1)
+true =   test_generator.labels
+print(true)
+#preds = np.argmax(predicted_vals, axis =1)
 
-preds = np.argmax(predicted_vals, axis =1)
+preds = predicted_vals#.reshape(-1)
 
-scikitplot.metrics.plot_confusion_matrix(true, preds , normalize= True, figsize=(8,8), cmap='inferno_r')
+preds[preds <= 0.5] = 0.
+preds[preds > 0.5] = 1.
+
+confusion_matrix(true, preds , normalize= 'all')
+#scikitplot.metrics.plot_confusion_matrix(true, preds , normalize= True, figsize=(8,8), cmap='inferno_r')
 plt.savefig("confusion_matrix")
 plt.close()
 
 
-cl_report = sklearn.metrics.classification_report(true, preds, target_names = labels)
+cl_report = sklearn.metrics.classification_report(true, preds, target_names  =['tuberculosis' , 'normal'])
 print("the classification report : \n" , cl_report)
 
 
 
-df = pd.read_csv("nih/train.csv")
+df = pd.read_csv("nih/dataset_06.csv")
 IMAGE_DIR = "nih/ChinaSet_AllFiles/CXR_png/"
 
 # only show the lables with top 4 AUC
-auc_rocs = util.get_roc_curve(labels, predicted_vals, test_generator)
+auc_rocs = util.get_roc_curve(['tuberculosis'], predicted_vals, test_generator)
 plt.savefig("auc.png")
 plt.close()
 
-labels_to_show = np.take(labels, np.argsort(auc_rocs)[::-1])[:4]
 
 
-image_name_1 = 'CHNCXR_0001_0.png'
+
+image_name_1 = 'CHNCXR_0600_1.png'
 image_name_2 = 'CHNCXR_0003_0.png'
+labeling = ['tuberculosis' ,'normal']
+labels_to_show = np.take(labeling, np.argsort(auc_rocs)[::-1])[:4]
 
 util.compute_gradcam(model, image_name_1, IMAGE_DIR, df, labels, labels_to_show)
 plt.savefig(image_name_1)
 plt.close()
-util.compute_gradcam(model,image_name_2 , IMAGE_DIR, df, labels, labels_to_show)
-plt.savefig(image_name_2)
-plt.close()
+#util.compute_gradcam(model,image_name_2 , IMAGE_DIR, df, labels, labels_to_show)
+#plt.savefig(image_name_2)
+#plt.close()
 
 
 
 
 
-
-# 1. Convert the image to numpy array
-img = get_img_array('/content/nih/ChinaSet_AllFiles/CXR_png/CHNCXR_0001_0.png')
-
-# 2. Keep a copy of the original image
-orig_img = np.copy(img[0]).astype(np.uint8)
-
-# 3. Preprocess the image
-img_processed = tf.cast(preprocess_input(img), dtype=tf.float32)
-
-print(img_processed.shape)
-# 4. Get model predictions
-preds = model.predict(img_processed, steps =1)
-top_pred_idx = tf.argmax(preds[0])
-#print("Predicted:", top_pred_idx, decode_predictions(preds, top=1)[0])
-
-# 5. Get the gradients of the last layer for the predicted label
-grads = get_gradients(img_processed, top_pred_idx=top_pred_idx, model = model)
-
-# 6. Get the integrated gradients
-igrads = random_baseline_integrated_gradients(
-    np.copy(orig_img), top_pred_idx=top_pred_idx, num_steps=2, num_runs=2, model =model
-)
 
 
 integrated_g = False
 
 if integrated_g :
+        # 1. Convert the image to numpy array
+        img = get_img_array('/content/nih/ChinaSet_AllFiles/CXR_png/CHNCXR_0001_0.png')
+
+        # 2. Keep a copy of the original image
+        orig_img = np.copy(img[0]).astype(np.uint8)
+
+        # 3. Preprocess the image
+        img_processed = tf.cast(preprocess_input(img), dtype=tf.float32)
+
+        print(img_processed.shape)
+        # 4. Get model predictions
+        preds = model.predict(img_processed, steps =1)
+        top_pred_idx = tf.argmax(preds[0])
+        #print("Predicted:", top_pred_idx, decode_predictions(preds, top=1)[0])
+
+        # 5. Get the gradients of the last layer for the predicted label
+        grads = get_gradients(img_processed, top_pred_idx=top_pred_idx, model = model)
+
+        # 6. Get the integrated gradients
+        igrads = random_baseline_integrated_gradients(
+            np.copy(orig_img), top_pred_idx=top_pred_idx, num_steps=2, num_runs=2, model =model
+        )
+
+
         # 7. Process the gradients and plot
         vis = GradVisualizer()
         vis.visualize(

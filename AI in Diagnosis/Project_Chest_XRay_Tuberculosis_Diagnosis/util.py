@@ -27,7 +27,7 @@ set_verbosity(INFO)
 
 def get_mean_std_per_batch(image_path, df, H=320, W=320):
     sample_data = []
-    for idx, img in enumerate(df.sample(100)["Image"].values):
+    for idx, img in enumerate(df.sample(100)["images"].values):
         # path = image_dir + img
         sample_data.append(
             np.array(image.load_img(image_path, target_size=(H, W))))
