@@ -219,9 +219,16 @@ x = GlobalAveragePooling2D()(x)
 predictions = Dense(1, activation="sigmoid")(x)
 
 model = Model(inputs=base_model.input, outputs=predictions)
-model.compile(optimizer=Adam(lr =0.0001), loss=BinaryCrossentropy(),metrics =['accuracy'])
+model.compile(optimizer=Adam(lr =0.0002), loss=BinaryCrossentropy(),metrics =['accuracy'])
 
 #model.summary()
+
+early_stopping = tf.keras.callbacks.EarlyStopping(
+    monitor="val_accuracy",
+    min_delta=0,
+    patience=5,
+    mode = max,
+    verbose=1)
 
 training = False
 if training :
@@ -229,7 +236,8 @@ if training :
                                       validation_data=valid_generator,
                                       steps_per_epoch=None, 
                                       validation_steps=6, 
-                                      epochs = 10)
+                                      epochs = 15,
+                                      callbacks = [early_stopping])
 
 
 
@@ -250,7 +258,7 @@ print(test_generator.labels.shape)
 
 #true =  np.argmax(test_generator.labels,axis=1)
 true =   test_generator.labels
-print(true)
+#print(true)
 #preds = np.argmax(predicted_vals, axis =1)
 
 preds = predicted_vals#.reshape(-1)
@@ -258,9 +266,9 @@ preds = predicted_vals#.reshape(-1)
 preds[preds <= 0.5] = 0.
 preds[preds > 0.5] = 1.
 
-confusion_matrix(true, preds , normalize= 'all')
-#scikitplot.metrics.plot_confusion_matrix(true, preds , normalize= True, figsize=(8,8), cmap='inferno_r')
-plt.savefig("confusion_matrix")
+print(confusion_matrix(true, preds , normalize= None))
+scikitplot.metrics.plot_confusion_matrix(true, preds , normalize= True, figsize=(10,10), cmap='inferno_r')
+plt.savefig("confusion_matrix.png")
 plt.close()
 
 
@@ -280,17 +288,17 @@ plt.close()
 
 
 
-image_name_1 = 'CHNCXR_0600_1.png'
-image_name_2 = 'CHNCXR_0003_0.png'
+image_name_1 = 'CHNCXR_0602_1.png'
+image_name_2 = 'CHNCXR_0600_1.png'
 labeling = ['tuberculosis' ,'normal']
 labels_to_show = np.take(labeling, np.argsort(auc_rocs)[::-1])[:4]
 
 util.compute_gradcam(model, image_name_1, IMAGE_DIR, df, labels, labels_to_show)
 plt.savefig(image_name_1)
 plt.close()
-#util.compute_gradcam(model,image_name_2 , IMAGE_DIR, df, labels, labels_to_show)
-#plt.savefig(image_name_2)
-#plt.close()
+util.compute_gradcam(model,image_name_2 , IMAGE_DIR, df, labels, labels_to_show)
+plt.savefig(image_name_2)
+plt.close()
 
 
 
