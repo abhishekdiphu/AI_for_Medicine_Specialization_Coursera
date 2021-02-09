@@ -142,7 +142,12 @@ prevalence=1N∑iyi
 ## 4.Explainable-AI (model explanation)
 
 #### Gradcam:
-<img src="extra/CHNCXR_0600_1.png" width="800px"/> <img src="extra/CHNCXR_0602_1.png" width="800px"/> <img src="extra/CHNCXR_0100_0.png" width="800px"/>
+##### <img src="extra/CHNCXR_0600_1.png" width="800px"/> 
+
+
+
+
+##### <img src="extra/CHNCXR_0100_0.png" width="800px"/>
 
 - they belong to the class of class-activation maps. they are called , gradient-class-activation map.
 - usually used for interpreting which part of the features in an image does it contributes to the predicted class of the image.
