@@ -60,7 +60,7 @@ Binary cross entropy loss
 (true positives+true negatives)/(true positives+true negatives+false positives+false negatives) 
 
 #### ROC :
-<img src="images/ROC.png" width="400px"/>
+<img src="extra/AUC.png" width="400px"/> <img src="extra/PR.png" width="400px"/> <img src="extra/CI.png" width="400px"/> 
 
 
 
@@ -107,7 +107,7 @@ by bayes rule ,
 - TN/(TN + FN)
 
 #### Confusion matrix:
-<img src="images/CONFUSION_MATRIX.png" width="400px"/>
+<img src="extra/CONFUSION_MATRIX.png" width="400px"/>
 
 TP FN
 FP TN
@@ -132,12 +132,12 @@ In machine learning terms, this is the proportion of positive examples. The expr
 prevalence=1N∑iyi
 
 #### Classification Report:
-<img src="images/CLASSIFICATION_REPORT.png" width="400px"/>
+<img src="extra/CLS_RPT.png" width="400px"/>
 
 
 #### Evaluation report :
 
-<img src="images/report.png" width="400px"/>
+<img src="extra/TABLE.png" width="400px"/>
 
 
 
