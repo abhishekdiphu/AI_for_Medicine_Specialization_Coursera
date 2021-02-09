@@ -15,3 +15,68 @@ The most “official” reference of NIFTI data fields could be found in this C 
 A great blog post on NIFTI file format: https://brainder.org/2012/09/23/the-nifti-file-format/
 New Vocabulary
 NIFTI - Neuroimaging Informatics Technology Initiative, is an open standard that is used to store various biomedical data, including 3D images.
+
+## Important Parameters of Medical Images:
+
+##### Orientation parameters
+For DICOM two parameters that define the relative position of a 2D in the 3D space would be:
+
+- (0020,0037) Image Orientation Patient - a parameter that stores two vectors (directional cosines to be precise) that define the orientation of the first row and first column of the image.
+
+- (0020,0032) Image Position Patient - a parameter that stores x, y, and z coordinates of the upper left-hand corner of the image.
+
+Both of these are Type 1 (mandatory) parameters for MR and CT IODs, so it is generally safe to rely on them.
+
+For NIFTI, the same purpose is served by srow_*, qoffset_* vectors.
+
+##### Physical spacing parameters
+(0028,0030) Pixel Spacing - two values that store the physical distance between centers of pixels across x and y axes.
+
+(0018,0050) Slice Thickness - thickness of a single slice. Note that this one is a Type 2 (required, but can be zero) parameter for CT and MR data. If you find those unavailable, you can deduce slice thickness from IPP parameters. This can happen if your volume has non-uniform slice thickness.
+
+##### Photometric parameters
+There are quite a few of those, as DICOM can store both grayscale and color data, so lots of parameters deal with color palettes. CT and MR images usually have monochrome pixel representation (defined by tag (0028,0004) Photometric Interpretation).
+
+##### Most notable ones of this group are:
+
+(0028,0100) Bits Allocated - parameter that defines the number of bits allocated per pixel (since we have CPUs that operate in bytes, this parameter is always a multiple of 8).
+
+(0028,0101) Bits Stored - parameter that defines the number of bits that are actually used - quite often, you could see Bits Allocated set to 16, but Bits Stored set to 12.
+
+##### Image size parameters
+Of worthy mention are parameters that define the size of the 3D volume. There are Type 1 parameters that define the width and height of each 2D slice:
+
+(0020,0010) Rows - this is the height of the slice, in voxels
+
+(0020,0011) Columns - width of the slice, in voxels
+
+##### Both of these need to be consistent across all DICOM files that comprise a series.
+
+Note that there isn’t really anything in DICOM metadata that has to tell you how many slices you have in the series. There are tags that can hint at this (like (0054,0081) Number of Slices, or (0020,0013) Instance Number), but none of them are mandatory, Type 1 tags for CT or MR data. The most reliable way to determine the number of slices in the DICOM series is to look at the number of files that you have, and ideally validate that they make up a correct volume by checking for the consistency of IPP values.
+
+## Basic DICOM Volume EDA:
+
+##### Voxel spacing
+DICOM voxels do not have to be perfect cubes (as they are in many computer vision problems). There are DICOM Data Elements that will tell you what exactly are the dimensions of voxels. The most important ones are Pixel Spacing and Slice Thickness. However, there are others, and if your project involves measuring things, make sure you get the transformation right by closely inspecting the tags in your dataset and comparing them with the list of elements in the IOD table for the respective modality.
+
+##### Data ranges
+We have seen how with CT, you may have data in your dataset that will represent synthetic material or items artificially added by scanners. It is always a good idea to see if there is something outstanding in the image you are dealing with and if it represents something that you need to think about in your downstream processing.
+
+Conversions between DICOM values and screen space are particularly important if you are planning to visualize slices for any kind of diagnostic use or overlay them on top of diagnostic information. We have not really touched the aspects of visualization other than being mindful of bit depth and doing our own windowing, but DICOM images contain quite a lot of information that defines how exactly you are expected to map the data to the screen colorspace. If you are interested in exploring this further or need to accurately represent the data, take a closer look at elements in DICOM’s ImagePixel module. Things like Pixel Representation, Photometric Interpretation, Rescale Slope, Rescale Intercept and many others define how values should be transformed for accurate representation.
+
+
+# 3D imaging EDA summary :
+
+## Vocabulary
+- DICOM - Digital Imaging and Communication in Medicine. The standard defining the storage and communication of medical images.
+- DICOM Information Object - representation of a real-world object (such as an MRI scan) per DICOM standard.
+- IOD - Information Object Definition. Definition of an information object. Information Object Definition specifies what metadata fields have to be in place for a DICOM Information Object to be valid. IODs are published in the DICOM standard.
+- Patient - a subject undergoing the imaging study.
+- Study - a representation of a “medical study” performed on a patient. You can think of a study as a single visit to a hospital for the purpose of taking one or more images, usually within. A - Study contains one or more series.
+- Series - a representation of a single “acquisition sweep”. I.e., a CT scanner took multiple slices to compose a 3D image would be one image series. A set of MRI T1 images at different axial levels would also be called one image series. Series, among other things, consists of one or more instances.
+- Instance - (or Image Information Entity instance) is an entity that represents a single scan, like a 2D image that is a result of filtered backprojection from CT or reconstruction at a given level for MR. Instances contain pixel data and metadata (Data Elements in DICOM lingo).
+- SOP - Service-Object Pair. DICOM standard defines the concept of an Information Object, which is the representation of a real-world persistent object, such as an MRI image (DICOM Information Objects consist of Information Entities).
+- Data Element - a DICOM metadata “field”, which is uniquely identified by a tuple of integer numbers called group id and element id.
+- VR - Value Representation. This is the data type of a DICOM data element.
+- Data Element Type - identifiers that are used by Information Object Definitions to specify if Data Elements are mandatory, conditional or optional.
+- NIFTI - Neuroimaging Informatics Technology Initiative, is an open standard that is used to store various biomedical data, including 3D images.
