@@ -60,7 +60,7 @@ Binary cross entropy loss
 (true positives+true negatives)/(true positives+true negatives+false positives+false negatives) 
 
 #### ROC :
-<img src="extra/AUC.png" width="400px"/> <img src="extra/PR.png" width="400px"/> <img src="extra/CI.png" width="400px"/> 
+<img src="extra/AUC.png" width="400px"/> <img src="extra/PRCURVE.png" width="400px"/> <img src="extra/CI.png" width="600px"/> 
 
 
 
@@ -137,14 +137,16 @@ prevalence=1N∑iyi
 
 #### Evaluation report :
 
-<img src="extra/TABLE.png" width="400px"/>
+<img src="extra/TABLE.png" width="800px"/>
 
 
 
 ## 4.Explainable-AI (model explanation)
 
 #### Gradcam:
-<img src="images/gradcam.png" width="800px"/>
+<img src="extra/CHNCXR_0600_1.png" width="800px"/>
+<img src="extra/CHNCXR_0602_1.png" width="800px"/>
+<img src="extra/CHNCXR_0100_0.png" width="800px"/>
 
 - they belong to the class of class-activation maps. they are called , gradient-class-activation map.
 - usually used for interpreting which part of the features in an image does it contributes to the predicted class of the image.
