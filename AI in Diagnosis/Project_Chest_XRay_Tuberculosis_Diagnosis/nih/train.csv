@@ -24,7 +24,7 @@ CHNCXR_0383_1.png,tuberculosis,0,1
 CHNCXR_0587_1.png,tuberculosis,0,1
 CHNCXR_0608_1.png,tuberculosis,0,1
 CHNCXR_0545_1.png,tuberculosis,0,1
-CHNCXR_0251_0.png,tuberculosis,0,1
+CHNCXR_0251_0.png,normal,1,0
 CHNCXR_0334_1.png,tuberculosis,0,1
 CHNCXR_0219_0.png,normal,1,0
 CHNCXR_0301_0.png,normal,1,0
@@ -137,7 +137,7 @@ CHNCXR_0250_0.png,normal,1,0
 CHNCXR_0396_1.png,tuberculosis,0,1
 CHNCXR_0193_0.png,normal,1,0
 CHNCXR_0062_0.png,normal,1,0
-CHNCXR_0146_0.png,tuberculosis,0,1
+CHNCXR_0146_0.png,normal,1,0
 CHNCXR_0351_1.png,tuberculosis,0,1
 CHNCXR_0030_0.png,normal,1,0
 CHNCXR_0389_1.png,tuberculosis,0,1
@@ -164,7 +164,7 @@ CHNCXR_0166_0.png,normal,1,0
 CHNCXR_0236_0.png,normal,1,0
 CHNCXR_0257_0.png,normal,1,0
 CHNCXR_0008_0.png,normal,1,0
-CHNCXR_0090_0.png,tuberculosis,0,1
+CHNCXR_0090_0.png,normal,1,0
 CHNCXR_0508_1.png,tuberculosis,0,1
 CHNCXR_0354_1.png,tuberculosis,0,1
 CHNCXR_0483_1.png,tuberculosis,0,1
@@ -308,7 +308,7 @@ CHNCXR_0013_0.png,normal,1,0
 CHNCXR_0306_0.png,normal,1,0
 CHNCXR_0026_0.png,normal,1,0
 CHNCXR_0630_1.png,tuberculosis,0,1
-CHNCXR_0170_0.png,tuberculosis,0,1
+CHNCXR_0170_0.png,normal,1,0
 CHNCXR_0438_1.png,tuberculosis,0,1
 CHNCXR_0375_1.png,tuberculosis,0,1
 CHNCXR_0246_0.png,normal,1,0
@@ -365,7 +365,7 @@ CHNCXR_0226_0.png,normal,1,0
 CHNCXR_0027_0.png,normal,1,0
 CHNCXR_0522_1.png,tuberculosis,0,1
 CHNCXR_0264_0.png,normal,1,0
-CHNCXR_0051_0.png,tuberculosis,0,1
+CHNCXR_0051_0.png,normal,1,0
 CHNCXR_0365_1.png,tuberculosis,0,1
 CHNCXR_0230_0.png,normal,1,0
 CHNCXR_0038_0.png,normal,1,0
@@ -423,7 +423,7 @@ CHNCXR_0486_1.png,tuberculosis,0,1
 CHNCXR_0494_1.png,tuberculosis,0,1
 CHNCXR_0369_1.png,tuberculosis,0,1
 CHNCXR_0060_0.png,normal,1,0
-CHNCXR_0112_0.png,tuberculosis,0,1
+CHNCXR_0112_0.png,normal,1,0
 CHNCXR_0447_1.png,tuberculosis,0,1
 CHNCXR_0638_1.png,tuberculosis,0,1
 CHNCXR_0451_1.png,tuberculosis,0,1
@@ -444,7 +444,7 @@ CHNCXR_0308_0.png,normal,1,0
 CHNCXR_0199_0.png,normal,1,0
 CHNCXR_0352_1.png,tuberculosis,0,1
 CHNCXR_0452_1.png,tuberculosis,0,1
-CHNCXR_0147_0.png,tuberculosis,0,1
+CHNCXR_0147_0.png,normal,1,0
 CHNCXR_0614_1.png,tuberculosis,0,1
 CHNCXR_0489_1.png,tuberculosis,0,1
 CHNCXR_0420_1.png,tuberculosis,0,1
@@ -453,7 +453,7 @@ CHNCXR_0588_1.png,tuberculosis,0,1
 CHNCXR_0148_0.png,normal,1,0
 CHNCXR_0576_1.png,tuberculosis,0,1
 CHNCXR_0349_1.png,tuberculosis,0,1
-CHNCXR_0326_0.png,tuberculosis,0,1
+CHNCXR_0326_0.png,normal,1,0
 CHNCXR_0496_1.png,tuberculosis,0,1
 CHNCXR_0124_0.png,normal,1,0
 CHNCXR_0560_1.png,tuberculosis,0,1
@@ -464,7 +464,7 @@ CHNCXR_0395_1.png,tuberculosis,0,1
 CHNCXR_0478_1.png,tuberculosis,0,1
 CHNCXR_0098_0.png,normal,1,0
 CHNCXR_0372_1.png,tuberculosis,0,1
-CHNCXR_0325_0.png,tuberculosis,0,1
+CHNCXR_0325_0.png,normal,1,0
 CHNCXR_0280_0.png,normal,1,0
 CHNCXR_0294_0.png,normal,1,0
 CHNCXR_0255_0.png,normal,1,0

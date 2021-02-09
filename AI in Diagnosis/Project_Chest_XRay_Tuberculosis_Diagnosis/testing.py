@@ -9,18 +9,22 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 
 from keras.preprocessing.image import ImageDataGenerator
-from keras.applications.densenet import DenseNet121
+from keras.applications.densenet import DenseNet121, preprocess_input, decode_predictions
 from keras.layers import Dense, GlobalAveragePooling2D
 from keras.models import Model
 from keras import backend as K
-
+from tensorflow.keras.optimizers import Adam
 from keras.models import load_model
+from tensorflow.keras.losses import BinaryCrossentropy
 
+from integrated_grad import *
 import util
+from util import *
 from  helper import *
 
 import scikitplot
 import sklearn
+from sklearn.metrics import confusion_matrix
 
 
 parser = argparse.ArgumentParser()
@@ -53,7 +57,7 @@ args = parser.parse_args()
 
 
 
-def get_train_generator(df, image_dir, x_col, y_cols, shuffle=True, batch_size=8, seed=1, target_w = 320, target_h = 320):
+def get_train_generator(df, image_dir, x_col, y_cols, shuffle=True, batch_size=32, seed=1, target_w = 320, target_h = 320):
     """
     Return generator for training set, normalizing using batch
     statistics.
@@ -89,6 +93,7 @@ def get_train_generator(df, image_dir, x_col, y_cols, shuffle=True, batch_size=8
             shuffle=shuffle,
             seed=seed,
             target_size=(target_w,target_h))
+    print("done")
     
     return generator
 
@@ -97,7 +102,7 @@ def get_train_generator(df, image_dir, x_col, y_cols, shuffle=True, batch_size=8
 
 
 
-def get_test_and_valid_generator(valid_df, test_df, train_df, image_dir, x_col, y_cols, sample_size=100, batch_size=8, seed=1, target_w = 320, target_h = 320):
+def get_test_and_valid_generator(valid_df, test_df, train_df, image_dir, x_col, y_cols, sample_size=100, batch_size=32, seed=1, target_w = 320, target_h = 320):
     """
     Return generator for validation set and test test set using 
     normalization statistics from training set.
@@ -123,7 +128,7 @@ def get_test_and_valid_generator(valid_df, test_df, train_df, image_dir, x_col, 
     raw_train_generator = ImageDataGenerator().flow_from_dataframe(
         dataframe=train_df, 
         directory=IMAGE_DIR, 
-        x_col="Image", 
+        x_col="images", 
         y_col=labels, 
         class_mode="raw", 
         batch_size=sample_size, 
@@ -169,43 +174,33 @@ def get_test_and_valid_generator(valid_df, test_df, train_df, image_dir, x_col, 
 
 
 
-
-
-train_df = pd.read_csv("nih/train-small.csv")
-valid_df = pd.read_csv("nih/valid-small.csv")
-test_df = pd.read_csv("nih/test.csv")
+train_df = pd.read_csv("nih/train.csv")
+valid_df = pd.read_csv("nih/test.csv")
+test_df = pd.read_csv("nih/train.csv")
 train_df.head(5)
-labels = ['Cardiomegaly', 
-          'Emphysema', 
-          'Effusion', 
-          'Hernia', 
-          'Infiltration', 
-          'Mass', 
-          'Nodule', 
-          'Atelectasis',
-          'Pneumothorax',
-          'Pleural_Thickening', 
-          'Pneumonia', 
-          'Fibrosis', 
-          'Edema', 
-          'Consolidation']
+labels = ['tuberculosis']
 
 
 
 
 
 
-IMAGE_DIR = "nih/images-small/"
-train_generator = get_train_generator(train_df, IMAGE_DIR, "Image", labels)
-valid_generator, test_generator= get_test_and_valid_generator(valid_df, test_df, train_df, IMAGE_DIR, "Image", labels)
+
+IMAGE_DIR = "nih/ChinaSet_AllFiles/CXR_png/"
+train_generator = get_train_generator(train_df, IMAGE_DIR, "images", labels)
+valid_generator, test_generator= get_test_and_valid_generator(valid_df, test_df, train_df, IMAGE_DIR, "images", labels)
 
 
 freq_pos, freq_neg = compute_class_freqs(train_generator.labels)
+print("freq_pos", freq_pos)
+print("freq_pos", freq_neg)
 pos_weights = freq_neg
 neg_weights = freq_pos
+print("length of pos_weights :",len(pos_weights))
 pos_contribution = freq_pos * pos_weights 
 neg_contribution = freq_neg * neg_weights
-
+print("pos_contribution", pos_contribution)
+print("neg_contribution", neg_contribution)
 
 data = pd.DataFrame({"Class": labels, "Label": "Positive", "Value": pos_contribution})
 data = data.append([{"Class": labels[l], "Label": "Negative", "Value": v} 
@@ -222,46 +217,83 @@ x = base_model.output
 x = GlobalAveragePooling2D()(x)
 
 # and a logistic layer
-predictions = Dense(len(labels), activation="sigmoid")(x)
+predictions = Dense(1, activation="sigmoid")(x)
 
 model = Model(inputs=base_model.input, outputs=predictions)
-model.compile(optimizer='adam', loss=get_weighted_loss(pos_weights, neg_weights))
+model.compile(optimizer=Adam(lr =0.0002), loss=BinaryCrossentropy(),metrics =['accuracy'])
+
+#model.summary()
+
+early_stopping = tf.keras.callbacks.EarlyStopping(
+    monitor="val_accuracy",
+    min_delta=0,
+    patience=5,
+    mode = max,
+    verbose=1)
+
+training = False
+if training :
+        history = model.fit_generator(train_generator, 
+                                      validation_data=valid_generator,
+                                      steps_per_epoch=None, 
+                                      validation_steps=6, 
+                                      epochs = 20,
+                                      callbacks = [early_stopping])
 
 
 
 
-model.load_weights("./nih/pretrained_model.h5")
-predicted_vals = model.predict_generator(test_generator, steps = len(test_generator))
+        plt.plot(history.history['loss'])
+        plt.plot(history.history['val_loss'])
+        plt.ylabel("loss")
+        plt.xlabel("epoch")
+        plt.title("Training Loss Curve")
+        plt.savefig("training_loss", dpi =100)
+
+        model.save_weights("./nih/den_model.h5")
+
+model.load_weights("./nih/den_model01.h5")
+print("length of the generator:" ,len(train_generator) )
+predicted_vals = model.predict(train_generator, steps = len(train_generator))
 
 print(test_generator.labels.shape)
 
-true =  np.argmax(test_generator.labels,axis=1) 
+#true =  np.argmax(test_generator.labels,axis=1)
+true =   train_generator.labels
+#print(true)
+#preds = np.argmax(predicted_vals, axis =1)
 
-preds = np.argmax(predicted_vals, axis =1)
+preds = predicted_vals#.reshape(-1)
 
-scikitplot.metrics.plot_confusion_matrix(true, preds , normalize= True, figsize=(8,8), cmap='inferno_r')
-plt.savefig("confusion_matrix")
+preds[preds <= 0.5] = 0.
+preds[preds > 0.5] = 1.
+
+print(confusion_matrix(true, preds , normalize= None))
+scikitplot.metrics.plot_confusion_matrix(true, preds , normalize= True, figsize=(10,10), cmap='inferno_r')
+plt.savefig("confusion_matrix.png")
 plt.close()
 
 
-cl_report = sklearn.metrics.classification_report(true, preds, target_names = labels)
+cl_report = sklearn.metrics.classification_report(true, preds, target_names  =['tuberculosis' , 'normal'])
 print("the classification report : \n" , cl_report)
 
 
 
-df = pd.read_csv("nih/train-small.csv")
-IMAGE_DIR = "nih/images-small/"
+df = pd.read_csv("nih/dataset_06.csv")
+IMAGE_DIR = "nih/ChinaSet_AllFiles/CXR_png/"
 
 # only show the lables with top 4 AUC
-auc_rocs = util.get_roc_curve(labels, predicted_vals, test_generator)
+auc_rocs = util.get_roc_curve(['tuberculosis'], predicted_vals, test_generator)
 plt.savefig("auc.png")
 plt.close()
 
-labels_to_show = np.take(labels, np.argsort(auc_rocs)[::-1])[:4]
 
 
-image_name_1 = '00008270_015.png'
-image_name_2 = '00011355_002.png'
+
+image_name_1 = 'CHNCXR_0602_1.png'
+image_name_2 = 'CHNCXR_0600_1.png'
+labeling = ['tuberculosis' ,'normal']
+labels_to_show = np.take(labeling, np.argsort(auc_rocs)[::-1])[:4]
 
 util.compute_gradcam(model, image_name_1, IMAGE_DIR, df, labels, labels_to_show)
 plt.savefig(image_name_1)
@@ -269,3 +301,56 @@ plt.close()
 util.compute_gradcam(model,image_name_2 , IMAGE_DIR, df, labels, labels_to_show)
 plt.savefig(image_name_2)
 plt.close()
+
+
+
+
+
+
+
+integrated_g = False
+
+if integrated_g :
+        # 1. Convert the image to numpy array
+        img = get_img_array('/content/nih/ChinaSet_AllFiles/CXR_png/CHNCXR_0001_0.png')
+
+        # 2. Keep a copy of the original image
+        orig_img = np.copy(img[0]).astype(np.uint8)
+
+        # 3. Preprocess the image
+        img_processed = tf.cast(preprocess_input(img), dtype=tf.float32)
+
+        print(img_processed.shape)
+        # 4. Get model predictions
+        preds = model.predict(img_processed, steps =1)
+        top_pred_idx = tf.argmax(preds[0])
+        #print("Predicted:", top_pred_idx, decode_predictions(preds, top=1)[0])
+
+        # 5. Get the gradients of the last layer for the predicted label
+        grads = get_gradients(img_processed, top_pred_idx=top_pred_idx, model = model)
+
+        # 6. Get the integrated gradients
+        igrads = random_baseline_integrated_gradients(
+            np.copy(orig_img), top_pred_idx=top_pred_idx, num_steps=2, num_runs=2, model =model
+        )
+
+
+        # 7. Process the gradients and plot
+        vis = GradVisualizer()
+        vis.visualize(
+            image=orig_img,
+            gradients=grads[0].numpy(),
+            integrated_gradients=igrads.numpy(),
+            clip_above_percentile=99,
+            clip_below_percentile=0,
+        )
+
+        vis.visualize(
+            image=orig_img,
+            gradients=grads[0].numpy(),
+            integrated_gradients=igrads.numpy(),
+            clip_above_percentile=95,
+            clip_below_percentile=28,
+            morphological_cleanup=True,
+            outlines=True,
+        )
