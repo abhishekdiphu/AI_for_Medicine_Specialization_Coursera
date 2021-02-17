@@ -45,3 +45,19 @@
 
 - the average treatment effect is the expectation of the difference in the potential outcomes, and the expectation can be given by taking the average. 
 
+
+
+## T-Learner :
+- Uses two models for estimating for one model for treatment arm and one model for controlled arm.
+
+- thats why known as two tree method.
+
+- but can only use half the data for each of the model.
+
+
+## S-Learner :
+- Uses single model for estimating  for treatment arm and for controlled arm.
+
+- thats why known as single tree method.
+
+- but can use full of  the data for  the model.
