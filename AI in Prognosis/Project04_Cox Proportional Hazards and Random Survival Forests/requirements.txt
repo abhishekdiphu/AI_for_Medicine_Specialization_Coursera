@@ -1,0 +1,1 @@
+#!R -e 'install.packages(c("randomForestSRC"), repos="https://cran.r-project.org",dependencies=TRUE)'
