@@ -1,3 +1,64 @@
+## Dataset :
+
+- we'll be examining data from an RCT, measuring the effect of a particular drug combination on colon cancer. Specifically, we'll be looking the effect of Levamisole and Fluorouracil on patients who have had surgery to remove their colon cancer. After surgery, the curability of the patient depends on the remaining residual cancer. In this study, it was found that this particular drug combination had a clear beneficial effect, when compared with Chemotherapy.
+
+- sex (binary): 1 if Male, 0 otherwise
+- age (int): age of patient at start of the study
+- obstruct (binary): obstruction of colon by tumor
+- perfor (binary): perforation of colon
+- adhere (binary): adherence to nearby organs
+- nodes (int): number of lymphnodes with detectable cancer
+- node4 (binary): more than 4 positive lymph nodes
+- outcome (binary): 1 if died within 5 years
+- TRTMT (binary): treated with levamisole + fluoroucil
+- differ (one-hot): differentiation of tumor
+- extent (one-hot): extent of local spread
+
+
+- pay attention to the TRTMT and outcome columns. Our primary endpoint for our analysis will be the 5-year survival rate, which is captured in the outcome variable.
+
+## Some statistics :
+
+### Proportion Treated:
+
+ptreatment=ntreatment/n is 49.99 %
+
+- ntreatment  is the number of patients where TRTMT = True
+- n  is the total number of patients.
+
+
+## The probability of dying for patients who received the treatment is:
+
+p(treatment, death)=n(treatment,death)/ ntreatment  = 37 %
+
+- n(treatment,death)  is the number of patients who received the treatment and died.
+- ntreatment  is the number of patients who received treatment.
+
+##The probability of dying for patients in the control group (who did not received treatment) is:
+
+p(control, death)=n(control,death)/(ncontrol) = 48 %
+
+- n(control,death)  is the number of patients in the control group (did not receive the treatment) who died.
+- ncontrol  is the number of patients in the control group (did not receive treatment).
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 # Absolute risk reduction:
 - Let's say a doctor is trying out a new treatment and wants to see how effective the treatment is going to be for reducing heart attack 
 
@@ -45,7 +106,11 @@
 
 - the average treatment effect is the expectation of the difference in the potential outcomes, and the expectation can be given by taking the average. 
 
+- benifit = -1 | harm = 1 | no effect = 0
 
+## c- benifit : (same as c-index or harell c index)
+
+ = (concodeance-pairs + 0.5 * risk_ties) / (permissible pairs)
 
 ## T-Learner :
 - Uses two models for estimating for one model for treatment arm and one model for controlled arm.
@@ -61,3 +126,7 @@
 - thats why known as single tree method.
 
 - but can use full of  the data for  the model.
+
+
+
+
