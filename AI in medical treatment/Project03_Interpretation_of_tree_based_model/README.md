@@ -7,3 +7,14 @@ When developing predictive models and risk measures, it's often helpful to know 
 ## Permuation Method for Feature Importance:
 
 In the permutation method, the importance of feature  i  would be the regular performance of the model minus the performance with the values for feature  i  permuted in the dataset. This way we can assess how well a model without that feature would do without having to train a new model for each feature.
+
+## Shapley Values for Random Forests:
+use Shapley values to try and understand the model output on specific individuals. In general Shapley values take exponential time to compute, but luckily there are faster approximations for forests in particular that run in polynomial time., we might also want to understand model output in aggregate. Shapley values allow us to do this as well.
+
+#### Visualizing Interactions between Features
+The shap library also lets you visualize interactions between features using dependence plots. These plot the Shapley value for a given feature for each data point, and color the points in using the value for another feature. This lets us begin to explain the variation in shapley value for a single value of the main feature.
+ 
+ 
+- pip install lifelines shap
+- run in cmd prmt :   python interpreter.py
+- visulaization will be stored in visulaization/shap folder 
