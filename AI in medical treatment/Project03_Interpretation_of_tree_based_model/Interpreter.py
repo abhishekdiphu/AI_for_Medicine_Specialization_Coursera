@@ -137,7 +137,7 @@ importances.T.plot.bar()
 plt.ylabel("Importance")
 l = plt.legend()
 l.remove()
-plt.savefig('importance')
+plt.savefig(viz_folder + '/importance')
 plt.show()
 plt.close()
 
@@ -148,9 +148,26 @@ for i in range(0 ,20 ,2):
     i = i # Picking an individual
     shap_value = explainer.shap_values(X_test.loc[X_test_risky.index[i], :])[1]
     shap.force_plot(explainer.expected_value[1], shap_value, feature_names=X_test.columns, matplotlib=True , show=False)
-    plt.savefig(str(i))
+    plt.savefig(viz_folder + '/' + "forceplot" + str(i))
 
 shap_values = shap.TreeExplainer(rf).shap_values(X_test)[1]
 
 shap.summary_plot(shap_values, X_test, show = False )
 plt.savefig(viz_folder + '/summary_plot')
+
+
+
+
+shap.dependence_plot('Age', shap_values, X_test, interaction_index = 'Sex', show =False)
+plt.savefig(viz_folder + '/dep_plot_age_vs_sex')
+plt.close()
+shap.dependence_plot('Age', shap_values, X_test, interaction_index = 'Poverty index',  show =False)
+plt.savefig(viz_folder + '/dep_plot_age_vs_prov_idx')
+plt.close()
+
+shap.dependence_plot('Poverty index', shap_values, X_test, interaction_index = 'Sex', show =False)
+plt.savefig(viz_folder + '/dep_plot_prov_idx_vs_sex')
+plt.close()
+
+
+
