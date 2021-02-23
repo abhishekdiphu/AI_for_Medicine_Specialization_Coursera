@@ -16,5 +16,8 @@ The shap library also lets you visualize interactions between features using dep
  
  
 - pip install lifelines shap
+#### to train:
+- run python train/training.py
+#### to interpret :
 - run in cmd prmt :   python interpreter.py
 - visulaization will be stored in visulaization/shap folder 
