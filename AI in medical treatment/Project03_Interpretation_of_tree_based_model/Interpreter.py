@@ -11,7 +11,7 @@ from joblib import dump, load
 import os
 from util import *
 
-
+model_type = "joblib"
 viz_folder = "/content/visualization/shap"
 
 if os.path.exists(viz_folder):
@@ -114,8 +114,12 @@ plt.rcParams['figure.figsize'] = [10, 7]
 
 
 
-#rf = pickle.load(open('nhanes_rf.sav', 'rb')) # Loading the model
-rf = load('rf_imputed.joblib') 
+ # Loading the model
+if model_type == "joblib":
+  rf = load('rf_imputed.joblib') 
+else:
+  rf = pickle.load(open('nhanes_rf.sav', 'rb'))
+  
 test_df = pd.read_csv('nhanest_test.csv')
 test_df = test_df.drop(test_df.columns[0], axis=1)
 X_test = test_df.drop('y', axis=1)
