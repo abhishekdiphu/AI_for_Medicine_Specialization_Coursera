@@ -1,4 +1,5 @@
 #import shap
+import os
 import sklearn
 import itertools
 import pydotplus
@@ -21,7 +22,13 @@ from sklearn.impute import IterativeImputer, SimpleImputer
 from util import load_data, cindex
 # UNQ_C1 (UNIQUE CELL IDENTIFIER, DO NOT EDIT)
 
+viz_folder = "/content/train/plots"
 
+if os.path.exists(viz_folder):
+  print("visulaization folder exist")
+else:
+  print("visulaization folder does not exist...making new folder")
+  os.makedirs(viz_folder)
 
 def fraction_rows_missing(df):
     '''
@@ -63,12 +70,12 @@ print("\nDied within 10 years for the patient no:30? {}".format(y_train.loc[y_tr
 
 sns.heatmap(X_train.isnull(), cbar=False)
 plt.title("Training")
-plt.savefig('MissingDataheatmap_training_data')
+plt.savefig('/content/train/plots/MissingDataheatmap_training_data')
 plt.close()
 
 sns.heatmap(X_val.isnull(), cbar=False)
 plt.title("Validation")
-plt.savefig("MissingDataheatmap_val_data")
+plt.savefig("/content/train/plots/MissingDataheatmap_val_data")
 plt.close()
 
 
@@ -281,7 +288,7 @@ for col in columns_except_Systolic_BP:
     sns.distplot(X_train.loc[:, col], norm_hist=True, kde=False, label='full data')
     sns.distplot(dropped_rows.loc[:, col], norm_hist=True, kde=False, label='without missing data')
     plt.legend()
-    plt.savefig('imputation' + str(col))
+    plt.savefig('/content/train/plots/imputation' + str(col))
     #plt.show()
     plt.close()
 
@@ -395,4 +402,9 @@ Y = [performance01 , performance02, performance03]
 plt.close()
 plt.title('C-INDEX')
 plt.bar(X,Y)
-plt.savefig('comparison')
+plt.savefig('/content/train/plots/comparison')
+
+
+
+from joblib import dump, load
+dump(rf_imputed, 'rf_imputed.joblib')

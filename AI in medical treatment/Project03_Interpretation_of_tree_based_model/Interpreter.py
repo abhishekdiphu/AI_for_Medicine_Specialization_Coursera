@@ -7,7 +7,7 @@ import cv2
 import sklearn
 import lifelines
 import shap
-
+from joblib import dump, load
 import os
 from util import *
 
@@ -114,7 +114,8 @@ plt.rcParams['figure.figsize'] = [10, 7]
 
 
 
-rf = pickle.load(open('nhanes_rf.sav', 'rb')) # Loading the model
+#rf = pickle.load(open('nhanes_rf.sav', 'rb')) # Loading the model
+rf = load('rf_imputed.joblib') 
 test_df = pd.read_csv('nhanest_test.csv')
 test_df = test_df.drop(test_df.columns[0], axis=1)
 X_test = test_df.drop('y', axis=1)
