@@ -1,4 +1,16 @@
 
+### model is stored in :
+- model.py (its a 2d unet model)
+
+### to train:
+- python training.py
+
+### to do inference :
+- python infernece.py
+- models are stored in models folders
+- data is put in data folders.
+- output volume from the prediction is stored in data folder as out.nii.gz format
+
 ## NIFTI :
 
 Like DICOM, NIFTI, which stands for Neuroimaging Informatics Technology Initiative, is an open standard that is available at https://nifti.nimh.nih.gov/nifti-2. The standard has started out as a format to store neurological imaging data and has slowly seen a larger adoption across other types of biomedical imaging fields.

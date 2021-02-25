@@ -22,13 +22,23 @@ from sklearn.impute import IterativeImputer, SimpleImputer
 from util import load_data, cindex
 # UNQ_C1 (UNIQUE CELL IDENTIFIER, DO NOT EDIT)
 
-viz_folder = "/content/train/plots"
 
+from sklearn.ensemble import GradientBoostingClassifier
+
+viz_folder = "/content/train/plots"
+model_path = "/content/models"
 if os.path.exists(viz_folder):
   print("visulaization folder exist")
 else:
   print("visulaization folder does not exist...making new folder")
   os.makedirs(viz_folder)
+
+if os.path.exists(model_path):
+  print("models folder exist")
+else:
+  print("models folder does not exist...making new folder")
+  os.makedirs(model_path)
+
 
 def fraction_rows_missing(df):
     '''
@@ -90,9 +100,9 @@ dt = DecisionTreeClassifier(max_depth=None, random_state=10)
 dt.fit(X_train_dropped, y_train_dropped)
 
 y_train_preds = dt.predict_proba(X_train_dropped)[:, 1]
-print(f"Train C-Index: {cindex(y_train_dropped.values, y_train_preds)}")
+print(f"DecisionTreeClassifier : Train C-Index: {cindex(y_train_dropped.values, y_train_preds)}")
 y_val_preds = dt.predict_proba(X_val_dropped)[:, 1]
-print(f"Val C-Index: {cindex(y_val_dropped.values, y_val_preds)}")
+print(f"DecisionTreeClassifier : Val C-Index: {cindex(y_val_dropped.values, y_val_preds)}")
 
 # Experiment with different hyperparameters for the DecisionTreeClassifier
 # until you get a c-index above 0.6 for the validation set
@@ -108,8 +118,8 @@ dt_reg.fit(X_train_dropped, y_train_dropped)
 
 y_train_preds = dt_reg.predict_proba(X_train_dropped)[:, 1]
 y_val_preds = dt_reg.predict_proba(X_val_dropped)[:, 1]
-print(f"Train C-Index: {cindex(y_train_dropped.values, y_train_preds)}")
-print(f"Val C-Index (expected > 0.6): {cindex(y_val_dropped.values, y_val_preds)}")
+print(f" DecisionTreeClassifier : Train C-Index: {cindex(y_train_dropped.values, y_train_preds)}")
+print(f" DecisionTreeClassifier : Val C-Index (expected > 0.6): {cindex(y_val_dropped.values, y_val_preds)}")
 
 dot_data = StringIO()
 export_graphviz(dt_reg, feature_names=X_train_dropped.columns, out_file=dot_data,  
@@ -118,7 +128,10 @@ export_graphviz(dt_reg, feature_names=X_train_dropped.columns, out_file=dot_data
 graph = pydotplus.graph_from_dot_data(dot_data.getvalue())  
 Image(graph.create_png())
 
-############################################ RANDOM FOREST ################################################### 
+
+
+
+############################################### RANDOM FOREST ################################################### 
 
 def holdout_grid_search(clf, X_train_hp, y_train_hp, X_val_hp, y_val_hp, hyperparams, fixed_hyperparams={}):
     '''
@@ -246,23 +259,102 @@ rf = RandomForestClassifier(n_estimators=100, random_state=10)
 rf.fit(X_train_dropped, y_train_dropped)
 
 y_train_rf_preds = rf.predict_proba(X_train_dropped)[:, 1]
-print(f"Train C-Index: {cindex(y_train_dropped.values, y_train_rf_preds)}")
+print(f"RF : Train C-Index: {cindex(y_train_dropped.values, y_train_rf_preds)}")
 
 y_val_rf_preds = rf.predict_proba(X_val_dropped)[:, 1]
-print(f"Val C-Index: {cindex(y_val_dropped.values, y_val_rf_preds)}")
+print(f"RF : Val C-Index: {cindex(y_val_dropped.values, y_val_rf_preds)}")
 
 
 best_rf, best_hyperparams = random_forest_grid_search(X_train_dropped, y_train_dropped, X_val_dropped, y_val_dropped)
 # UNQ_C3 (UNIQUE CELL IDENTIFIER, DO NOT EDIT)
 y_test_best = best_rf.predict_proba(X_test)[:, 1]
 
-print(f"Test C-Index: {cindex(y_test.values, y_test_best)}")
+print(f"RF : Test C-Index: {cindex(y_test.values, y_test_best)}")
 
+
+
+
+
+############################################ GRADIENT BOOSTING ################################################################# 
+
+
+
+def gradient_boosting_grid_search(X_train_dropped, y_train_dropped, X_val_dropped, y_val_dropped):
+
+    # Define ranges for the chosen random forest hyperparameters 
+    hyperparams = {
+        
+        ### START CODE HERE (REPLACE array values with your code) ###
+
+        # how many trees should be in the forest (int)
+        'n_estimators': [200, 300,400, 600],
+
+        # the maximum depth of trees in the forest (int)
+        
+        'max_depth': [5,10,20,50],
+
+        'learning_rate':[0.1 , 1.0 , 0.2],
+        
+        # the minimum number of samples in a leaf as a fraction
+        # of the total number of samples in the training set
+        # Can be int (in which case that is the minimum number)
+        # or float (in which case the minimum is that fraction of the
+        # number of training set samples)
+        'min_samples_leaf': [1],
+
+        ### END CODE HERE ###
+    }
+
+    
+    fixed_hyperparams = {
+        'random_state': 10,
+    }
+    
+    gb = GradientBoostingClassifier
+
+    best_gb, best_hyperparams = holdout_grid_search(gb, X_train_dropped, y_train_dropped,
+                                                    X_val_dropped, y_val_dropped, hyperparams,
+                                                    fixed_hyperparams)
+
+    print(f"Best hyperparameters:\n{best_hyperparams}")
+
+    
+    y_train_best = best_gb.predict_proba(X_train_dropped)[:, 1]
+    print(f"Train C-Index: {cindex(y_train_dropped, y_train_best)}")
+
+    y_val_best = best_gb.predict_proba(X_val_dropped)[:, 1]
+    print(f"Val C-Index: {cindex(y_val_dropped, y_val_best)}")
+    
+    # add fixed hyperparamters to best combination of variable hyperparameters
+    best_hyperparams.update(fixed_hyperparams)
+    
+    return best_gb, best_hyperparams
+
+
+gb = GradientBoostingClassifier(learning_rate = 0.1 , n_estimators=400, random_state=10)
+gb.fit(X_train_dropped, y_train_dropped)
+
+y_train_gb_preds = gb.predict_proba(X_train_dropped)[:, 1]
+print(f"GradientBoosting  : Train C-Index: {cindex(y_train_dropped.values, y_train_rf_preds)}")
+
+y_val_gb_preds = gb.predict_proba(X_val_dropped)[:, 1]
+print(f"GradientBoosting  : Val C-Index: {cindex(y_val_dropped.values, y_val_rf_preds)}")
+
+
+best_gb, best_hyperparams = gradient_boosting_grid_search(X_train_dropped, y_train_dropped, X_val_dropped, y_val_dropped)
+# UNQ_C3 (UNIQUE CELL IDENTIFIER, DO NOT EDIT)
+
+y_test_best = best_gb.predict_proba(X_test)[:, 1]
+
+print(f"GradientBoosting  : Test C-Index: {cindex(y_test.values, y_test_best)}")
 
 
 
 
 ###################################### IMPUTATION ###########################################################
+
+
+
 # UNQ_C4 (UNIQUE CELL IDENTIFIER, DO NOT EDIT)
 def bad_subset(forest, X_test, y_test):
     # define mask to select large subset with poor performance
@@ -292,9 +384,15 @@ for col in columns_except_Systolic_BP:
     #plt.show()
     plt.close()
 
+# for random forest #
 performance, subgroup_size = bad_subset(best_rf, X_test, y_test)
-print("Subgroup size should greater than 250, performance should be less than 0.69 ")
-print(f"Subgroup size: {subgroup_size}, C-Index: {performance}")
+print("RF :Subgroup size should greater than 250, performance should be less than 0.69 ")
+print(f"RF : Subgroup size: {subgroup_size}, C-Index: {performance}")
+
+# for gradient boosting #
+performance, subgroup_size = bad_subset(best_gb, X_test, y_test)
+print("GB : Subgroup size should greater than 250, performance should be less than 0.69 ")
+print(f"GB : Subgroup size: {subgroup_size}, C-Index: {performance}")
 
 
 
@@ -329,6 +427,9 @@ hyperparams = {
     ### END CODE HERE ###
 }
 
+# Define ranges for the chosen random forest hyperparameters 
+hyperparams_gb = {'n_estimators': [400], 'max_depth': [5],
+                  'learning_rate': [0.1], 'min_samples_leaf': [1]}
 
 
 # UNQ_C5 (UNIQUE CELL IDENTIFIER, DO NOT EDIT)
@@ -348,6 +449,28 @@ print(f"- Val C-Index: {cindex(y_val, y_val_best):.4f}")
 
 y_test_imp = rf_mean_imputed.predict_proba(X_test)[:, 1]
 print(f"- Test C-Index: {cindex(y_test, y_test_imp):.4f}")
+
+
+
+
+# UNQ_C5 (UNIQUE CELL IDENTIFIER, DO NOT EDIT)
+gb = GradientBoostingClassifier
+
+gb_mean_imputed, best_hyperparams_mean_imputed = holdout_grid_search(gb, X_train_mean_imputed, y_train,
+                                                                     X_val_mean_imputed, y_val,
+                                                                     hyperparams_gb, {'random_state': 10})
+
+print("Performance for best hyperparameters gb:")
+
+y_train_best = rf_mean_imputed.predict_proba(X_train_mean_imputed)[:, 1]
+print(f"- gb Train C-Index: {cindex(y_train, y_train_best):.4f}")
+
+y_val_best = rf_mean_imputed.predict_proba(X_val_mean_imputed)[:, 1]
+print(f"- gb Val C-Index: {cindex(y_val, y_val_best):.4f}")
+
+y_test_imp = rf_mean_imputed.predict_proba(X_test)[:, 1]
+print(f"- gb Test C-Index: {cindex(y_test, y_test_imp):.4f}")
+
 
 
 
@@ -385,20 +508,47 @@ print(f"- Test C-Index: {cindex(y_test, y_test_imp):.4f}")
 
 
 
+### gradient boosting iterative imputaion:
+gb = GradientBoostingClassifier
+
+gb_imputed, best_hyperparams_imputed = holdout_grid_search(gb, X_train_imputed, y_train,
+                                                           X_val_imputed, y_val,
+                                                           hyperparams_gb, {'random_state': 10})
+
+print("Performance for best hyperparameters gb :")
+
+y_train_best = gb_imputed.predict_proba(X_train_imputed)[:, 1]
+print(f"- gb Train C-Index: {cindex(y_train, y_train_best):.4f}")
+
+y_val_best = gb_imputed.predict_proba(X_val_imputed)[:, 1]
+print(f"- gb Val C-Index: {cindex(y_val, y_val_best):.4f}")
+
+y_test_imp = gb_imputed.predict_proba(X_test)[:, 1]
+print(f"- gb Test C-Index: {cindex(y_test, y_test_imp):.4f}")
+
+
+
 
 
 performance01, subgroup_size = bad_subset(best_rf, X_test, y_test)
-print(f"C-Index (no imputation): {performance01}")
+print(f"C-Index rf (no imputation): {performance01}")
 
 performance02, subgroup_size = bad_subset(rf_mean_imputed, X_test, y_test)
-print(f"C-Index (mean imputation): {performance02}")
+print(f"C-Index rf (mean imputation): {performance02}")
 
 performance03, subgroup_size = bad_subset(rf_imputed, X_test, y_test)
-print(f"C-Index (multivariate feature imputation): {performance03}")
+print(f"C-Index rf (multivariate feature imputation): {performance03}")
 
-X = ['(no imputation)' ,'mean imputation' , 'multivariate feature imputation']
+performance04, subgroup_size = bad_subset(gb_mean_imputed, X_test, y_test)
+print(f"C-Index rf (mean imputation): {performance04}")
 
-Y = [performance01 , performance02, performance03]
+performance05, subgroup_size = bad_subset(gb_imputed, X_test, y_test)
+print(f"C-Index gb (multivariate feature imputation): {performance05}")
+
+X = ['rf-no imputation' ,'rf-mean imputation' , 'rf-multivariate imputation',
+      'gb-mean imputation' , 'gb-multivariate imputation']
+
+Y = [performance01 , performance02, performance03, performance04, performance05]
 plt.close()
 plt.title('C-INDEX')
 plt.bar(X,Y)
@@ -407,4 +557,4 @@ plt.savefig('/content/train/plots/comparison')
 
 
 from joblib import dump, load
-dump(rf_imputed, 'rf_imputed.joblib')
+dump(rf_imputed, model_path + '/rf_imputed.joblib')
