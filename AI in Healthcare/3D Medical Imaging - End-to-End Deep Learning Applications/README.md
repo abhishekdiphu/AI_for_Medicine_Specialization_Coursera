@@ -11,6 +11,11 @@
 - data is put in data folders.
 - output volume from the prediction is stored in data folder as out.nii.gz format
 
+### to evaluate the performace :
+- python evaluation.py
+
+# 3D MEDICAL IMAGING :
+
 ## NIFTI :
 
 Like DICOM, NIFTI, which stands for Neuroimaging Informatics Technology Initiative, is an open standard that is available at https://nifti.nimh.nih.gov/nifti-2. The standard has started out as a format to store neurological imaging data and has slowly seen a larger adoption across other types of biomedical imaging fields.
