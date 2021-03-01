@@ -1,4 +1,29 @@
 
+
+
+## Model Network :
+- UNet
+- its a encoder-decoder network
+- input shape of 512 x 512.
+- output shape is 512 x 512
+- skip connection between encoder and decoder network.
+
+
+## Dataset:
+### Spleen 
+
+- bits per pixel: 32
+- Spatial unit: mm, Temporal unit: sec
+- Grid is regular with grid spacings: [1.       0.794922 0.794922 5.       0.       0.       0.       0.      ]
+- Sagittal: 0, Axial: 1, Coronal: 2
+- the volume (in mm³) of a spleen: 96672
+- one outlier above 500000
+- image_data.shape: (512, 512, 90), label_data.shape: (512, 512, 90) 
+- histogram of voxels in the images .
+
+
+
+
 ### model is stored in :
 - model.py (its a 2d unet model)
 
