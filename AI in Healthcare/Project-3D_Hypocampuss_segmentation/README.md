@@ -58,7 +58,7 @@ Segmentation is still hard.
 
 ## Performance metric :
 
-- soft dice loss
+- dice coefficient
 - jaccard index
 
 ## Experiments results:
