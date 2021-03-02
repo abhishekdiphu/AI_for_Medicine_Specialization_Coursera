@@ -14,10 +14,10 @@ class Config:
     """
     def __init__(self):
         self.name = "Basic_unet"
-        self.root_dir = "/content/Project/section2/src/out/Task09_Spleen"
-        self.n_epochs = 10
-        self.learning_rate = 0.0002
-        self.batch_size = 8
+        self.root_dir = "/content/Project/Model_training/src/out/Task09_Spleen"
+        self.n_epochs = 20
+        self.learning_rate = 0.0001
+        self.batch_size = 16
         self.patch_size = 128
         self.test_results_dir = "./runs"
 
