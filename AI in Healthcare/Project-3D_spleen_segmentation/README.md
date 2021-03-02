@@ -29,7 +29,7 @@ Segmentation is still hard.
 #### Image Preprocessing :
 - volumes are approximately of size 512 x 512 x 90.
 - Since the unet is a 2d architecure , so , slices are made of single channels for the architecture.
-- Once these slices are created , they are resized to a shape of 128 x 128 x 16 , with padding on the sides , keeping the aspect ratio of the original dimension intact.
+- Once these slices are created , they are cropped in a  shape of 128 x 128 x 16 , with padding on the sides , keeping the aspect ratio of the original dimension intact.
 - background ratio = 0.95
 -The image slices are then standardized by normalizing them within range of 0 to 1.
 - similar to the original images , the labels  are also created in a similar manner.
