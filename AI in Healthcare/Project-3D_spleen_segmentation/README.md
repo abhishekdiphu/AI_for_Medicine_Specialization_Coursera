@@ -43,8 +43,17 @@ Segmentation is still hard.
 
 ## Performance metric :
 
-- dice coefficient
-- jaccard index
+- dice coefficient : lies between 0 to 1. 1 is better ,means all the predicted area and ground truth area overlap perfectly .0 is worst.
+if a is the predicted volume , and b is  the groundtruth volume, then ,
+intersection = np.sum(a*b) 
+volumes = np.sum(a) + np.sum(b)
+dice_coff = 2.0*(intersection) / float(volumes)
+
+- jaccard index.
+if a is the predicted volume , and b is  the groundtruth volume, then ,
+intersection = np.sum(a*b)
+volumes = np.sum(a) + np.sum(b) - intersection
+(intersection) / float(volumes)
 
 ## Experiments results:
 
