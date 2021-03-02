@@ -22,9 +22,15 @@
 We are using the "Spleen" dataset from the [Medical Decathlon competition](http://medicaldecathlon.com/). This dataset is stored as a collection of NIFTI files, with one file per volume, and one file per corresponding segmentation mask. The original images here are T2 MRI scans of the full brain. As noted, in this dataset we are using cropped volumes where only the region around the hippocampus has been cut out. This makes the size of our dataset quite a bit smaller, our machine learning problem a bit simpler and allows us to have reasonable training times. We should not think of it as "toy" problem, though. Algorithms that crop rectangular regions of interest are quite common in medical imaging.
 Segmentation is still hard.
 
-- 2 classes
+### 2 classes:
 - 0 is background.
 - 1 is spleen.
+### Notes:
+- the volume (in mm³) of a spleen: 96672.
+- Spatial unit: mm, Temporal unit: sec
+- Axis are : Sagittal: 0, Coronal: 1, Axial: 2
+- pixdim are : 0.919922 0.919922 1.60001
+- one outlier above 500000
 
 #### Image Preprocessing :
 - volumes are approximately of size 512 x 512 x 90.
@@ -33,6 +39,7 @@ Segmentation is still hard.
 - background ratio = 0.95
 -The image slices are then standardized by normalizing them within range of 0 to 1.
 - similar to the original images , the labels  are also created in a similar manner.
+ 
 
 ## Performance metric :
 
