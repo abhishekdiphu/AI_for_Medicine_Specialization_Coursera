@@ -51,6 +51,8 @@ Sementic segmentation of Spleen dataset. We have used only single volume of sple
 ### vocab
 - 1. Imaging modality: a device used to acquire a medical image
 - 2. MRI scanner: Magnetic Resonance Imaging scanner
+- 3. Contrast resolution: the ability of an imaging modality to distinguish between differences in image intensity
+- 4. Spatial resolution: the ability of an imaging modality to differentiate between smaller objects
 
 ## NIFTI :
 
