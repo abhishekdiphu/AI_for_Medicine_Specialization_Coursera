@@ -21,6 +21,7 @@
 
 We are using the "Spleen" dataset from the [Medical Decathlon competition](http://medicaldecathlon.com/). This dataset is stored as a collection of NIFTI files, with one file per volume, and one file per corresponding segmentation mask. The original images here are T2 MRI scans of the full brain. As noted, in this dataset we are using cropped volumes where only the region around the hippocampus has been cut out. This makes the size of our dataset quite a bit smaller, our machine learning problem a bit simpler and allows us to have reasonable training times. We should not think of it as "toy" problem, though. Algorithms that crop rectangular regions of interest are quite common in medical imaging.
 Segmentation is still hard.
+<img src="./Model_training/out/training_monitor/3dslicer.png" width=400px>
 
 ### 2 classes:
 - 0 is background.
