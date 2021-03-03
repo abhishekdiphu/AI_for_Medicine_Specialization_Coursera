@@ -43,6 +43,15 @@ Sementic segmentation of Spleen dataset. We have used only single volume of sple
 
 # 3D MEDICAL IMAGING :
 
+## Modelities in 3D imaging :
+- CT 
+- MRI
+- SPECT
+- ULTRASOUND
+### vocab
+- 1. Imaging modality: a device used to acquire a medical image
+- 2. MRI scanner: Magnetic Resonance Imaging scanner
+
 ## NIFTI :
 
 Like DICOM, NIFTI, which stands for Neuroimaging Informatics Technology Initiative, is an open standard that is available at https://nifti.nimh.nih.gov/nifti-2. The standard has started out as a format to store neurological imaging data and has slowly seen a larger adoption across other types of biomedical imaging fields.
