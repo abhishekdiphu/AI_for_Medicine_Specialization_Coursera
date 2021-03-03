@@ -57,6 +57,7 @@ Segmentation is still hard.
 
 ## Experiments results:
 
+<img src="./Model_training/out/training_monitor/loss.png" width=400em>
 
 ## Conclusion :
 
@@ -108,8 +109,6 @@ In the project directory called `section1` you will find a Python Notebook that 
 Navigate to the directory `section1/out` to find the [README.md](section1/out/README.md) with instructions on what is expected as the outcome. 
 
 ### Section 2: Training a segmentation CNN
-
-<img src="./readme.img/loss.png" width=400em>
 
 You will perform this section in the same workspace as Section 1: **Workspace 1**. This workspace has a Python virtual environment called **medai** [TODO: how are we doing this?] which is set up with everything that you need to analyze inspect the dataset and prepare it for machine learning.
 
