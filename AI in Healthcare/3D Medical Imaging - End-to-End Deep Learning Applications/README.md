@@ -1,5 +1,7 @@
 
+## Introduction :
 
+Sementic segmentation of Spleen dataset. We have used only single volume of spleen MRI scan.A 2d unet is being used . So data volume has been sliced , to shape of single channel along a choosen axis preferable across coronal axis. 
 
 ## Model Network :
 - UNet
