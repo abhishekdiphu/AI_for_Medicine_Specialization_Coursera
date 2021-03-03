@@ -27,7 +27,7 @@
     + Natural Language Entity Extraction
   + Week 3
     + ML Interpretation 
-**[AI for healthcare Udacity](https://www.coursera.org/specializations/ai-for-medicine?)**
++ **[AI for healthcare Udacity](https://www.coursera.org/specializations/ai-for-medicine?)**
  
   + 2D imaging
   + 3D imaging 
