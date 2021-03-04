@@ -93,6 +93,17 @@ It can translated as ,
 - 3. Sensitivity:The probability of a test being positive, given that a patient has the underlying disease/condition.
 - 4. Specitivity:The probability of a test being negative, given that a patient does not have the underlying disease/condition.
 - 5. Dice:
+## Choosing a clinical problem and framing it as a machine learning task.
+
+| Steps                            |               Example              |  
+|----------------------------------| -----------------------------------|
+| Choosing a clinical case.        | Dementia due to alzhemima disease progression|
+| Background research.             | find some scientific papers         | 
+| Framing the problem as a machine learning task.|Diagonis as a segmentation task for the hippocampas size | 
+
+
+
+
 
 ## NIFTI :
 
