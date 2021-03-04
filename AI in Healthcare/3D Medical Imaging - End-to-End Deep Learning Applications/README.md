@@ -55,6 +55,8 @@ Sementic segmentation of Spleen dataset. We have used only single volume of sple
 
 # 3D MEDICAL IMAGING :
 
+# 3D Medical Imaging - Clinical Fundamentals
+
 ## Modelities in 3D imaging :
 - CT 
 - MRI
@@ -84,7 +86,7 @@ It can translated as ,
 - Posterior odds = Prior odds * Likehood ratio
 
 
-- 1.  Likihood ratio :A diagnostic performance metric used to determine whether a test result usefully changes the probability that a condition/disease is present.
+- 1.  Likihood ratio :A diagnostic performance metric used to determine whether a test result usefully changes the probability that a condition/disease is present.range is 0 to infinite.1 means not helpful . less than 1 means less likely the disease is present , larger than 1 means , more likely disease is present.
 
 
 - 2. Accuracy:
