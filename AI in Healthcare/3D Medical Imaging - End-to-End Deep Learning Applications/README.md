@@ -161,3 +161,11 @@ Conversions between DICOM values and screen space are particularly important if 
 - VR - Value Representation. This is the data type of a DICOM data element.
 - Data Element Type - identifiers that are used by Information Object Definitions to specify if Data Elements are mandatory, conditional or optional.
 - NIFTI - Neuroimaging Informatics Technology Initiative, is an open standard that is used to store various biomedical data, including 3D images.
+
+
+
+
+# Referneces :
+
+1. Udacity github repositories
+2. AI in Healthcare course (Udacity)
