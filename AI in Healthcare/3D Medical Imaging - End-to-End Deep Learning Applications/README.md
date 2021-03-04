@@ -54,6 +54,17 @@ Sementic segmentation of Spleen dataset. We have used only single volume of sple
 - 3. Contrast resolution: the ability of an imaging modality to distinguish between differences in image intensity
 - 4. Spatial resolution: the ability of an imaging modality to differentiate between smaller objects
 
+## People (end users) using 3d imaging :
+- 1. Primary users : 
+- 2. Secialist :
+- 3. Surgeons
+- 4. Radiologist : they are the imaging specialist
+
+## Some usecases of 3d medical imageing 
+- 1. Diagonisis
+- 2. Prognosis
+- 3. Procedural process such as surgery.
+-
 ## NIFTI :
 
 Like DICOM, NIFTI, which stands for Neuroimaging Informatics Technology Initiative, is an open standard that is available at https://nifti.nimh.nih.gov/nifti-2. The standard has started out as a format to store neurological imaging data and has slowly seen a larger adoption across other types of biomedical imaging fields.
