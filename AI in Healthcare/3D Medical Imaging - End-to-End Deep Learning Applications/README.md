@@ -109,11 +109,32 @@ The main operating agents of a CT scanner are X-rays, which are a form of electr
 
 X-rays are a form of ionizing radiation, which means that they carry enough energy to detach electrons from atoms. This presents certain health risks, but the short wavelength of this part of the electromagnetic spectrum allows the radiation to interact with the many structures that compose a human body, thus allowing us to measure the amount of photons that reach detectors and make deductions about the structures that were in the way of photons as they were traveling from the source to the detector, with a high precision.
 
-#### CT scanners
-As you have seen, the CT scanner operates by projecting X-rays through the subject’s body.
+#### CT SCANNERS
+As you have seen, the CT scanner operates by projecting X-rays through the subject’s body.it measures
+amount of photons passing through the body attenuated by material between the emitter and detector
 
 X-rays get absorbed or scattered by the anatomy and thus detectors measure the amount of this attenuation that happens along each path that the ray is taking. A collimator shapes the beam and ensures that the X-rays only pass through a narrow slice of the object being imaged. Rotation of a source inside a gantry makes sure that projections happen from different angles so that we can get a good 2D representation of the slice. The moving table ensures that multiple such slices are imaged. A collection of slices makes up a 3-dimensional CT image.
 
+###### Sinogram : 
+data comming out of ct scanner are called sinogram . Through a algo called backprojection , a single slice of  image is reconstructed .
+
+###### HU scale :
+Hounsfield Scale, named after Sir Godfrey Hounsfield who invented modern CT scanners in the 1970s.
+Hounsfield Scale maps tissue types to pixel values of CT scans and is essential to understanding CT scans. 0 is water , ranging from -1000 to 1000.
+
+#### MR SCANNERS:
+it stands for magnetic resonance. looks like CT scanners , but works in a differnt way. measure the effect of magnetic resonance (electromagnatic). it is much safer than CT , since , no ionaization radiation is emitted. It produces better soft tissue  contrast resolutions .
+          MR scanner leverages a basic physical property of protons (charged elementary particles that make up atoms) to align themselves along the vector of magnetic fields. This effect is particularly pronounced in protons that make up hydrogen atoms. Hydrogen atoms make up water molecules, and water makes up to 50-70% of a human body.
+
+The thing with protons is that they possess a property called spin which could be thought of as spinning around an axis. In a normal environment, the direction of this axis is randomly distributed across different protons. In the presence of a strong magnetic field, though, the proton spins get aligned along the direction of the magnetic field, and start precessing (think of what a spinning top that’s lost some of its momentum is doing):
+  When an external radiofrequency pulse is applied, of a frequency proportional to the frequency of precession, the protons respond to this pulse in unison, or resonate, and flip the orientation of their spins. Once this pulse is gone, they return to their original orientation (along the static magnetic field).
+
+The way in which protons return to their original orientation is different and depends on the tissue type that protons are a part of.
+
+Since many protons are returning to their original orientation at once, they generate electrical currents in the coils that are placed nearby. Due to the resonance effect these currents are not insignificant and can be measured - these measurements constitute the data about the tissue being studied which is collected by the MRI scanner.
+
+###### Gradient fields:
+are used to vary the static magnetic field, and thus precession frequency, spatially. This allows the MR scanner to isolate a part of the body (i.e. a slice) that is being imaging. Further gradient fields are used to isolate information coming from specific locations within a slice.
 
 
 ## NIFTI :
