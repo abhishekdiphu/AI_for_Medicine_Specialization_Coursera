@@ -64,7 +64,16 @@ Sementic segmentation of Spleen dataset. We have used only single volume of sple
 - 1. Diagonisis
 - 2. Prognosis
 - 3. Procedural process such as surgery.
--
+
+## Diagnostic performance metric:
+- 1.  Likihood ratio :A diagnostic performance metric used to determine whether a test result usefully changes the probability that a condition/disease is present.
+
+
+- 2. Accuracy:
+- Sensitivity:The probability of a test being positive, given that a patient has the underlying disease/condition.
+- Specitivity:The probability of a test being negative, given that a patient does not have the underlying disease/condition.
+- Dice:
+- 
 ## NIFTI :
 
 Like DICOM, NIFTI, which stands for Neuroimaging Informatics Technology Initiative, is an open standard that is available at https://nifti.nimh.nih.gov/nifti-2. The standard has started out as a format to store neurological imaging data and has slowly seen a larger adoption across other types of biomedical imaging fields.
