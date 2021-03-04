@@ -1,4 +1,15 @@
 
+
+| Model | image-size | learning rate | dice | jaccard | 
+| ------| -----------| ------------- | -----| --------|
+| unet  | 64x64      |0.00001        |0.0   |0.00000  |
+| unet  | 64x64      |0.00001        |0.0   |0.00000  |
+| unet  | 64x64      |0.00001        |0.0   |0.00000  |
+| unet  | 64x64      |0.00001        |0.0   |0.00000  |
+| unet  | 64x64      |0.00001        |0.0   |0.00000  |
+| unet  | 64x64      |0.00001        |0.0   |0.00000  |
+
+
 ## Introduction :
 
 Sementic segmentation of Spleen dataset. We have used only single volume of spleen MRI scan.A 2d unet is being used . So data volume has been sliced , to shape of single channel along a choosen axis preferable across coronal axis. 
