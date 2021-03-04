@@ -101,7 +101,18 @@ It can translated as ,
 | Background research.             | find some scientific papers         | 
 | Framing the problem as a machine learning task.|Diagonis as a segmentation task for the hippocampas size | 
 
+## Physical Principles of CT Scanners
+#### 1. X-rays:
+The main operating agents of a CT scanner are X-rays, which are a form of electromagnetic radiation.It lies between gamma ray and UV light.
 
+#### Physical Principles of CT Scanners
+
+X-rays are a form of ionizing radiation, which means that they carry enough energy to detach electrons from atoms. This presents certain health risks, but the short wavelength of this part of the electromagnetic spectrum allows the radiation to interact with the many structures that compose a human body, thus allowing us to measure the amount of photons that reach detectors and make deductions about the structures that were in the way of photons as they were traveling from the source to the detector, with a high precision.
+
+#### CT scanners
+As you have seen, the CT scanner operates by projecting X-rays through the subject’s body.
+
+X-rays get absorbed or scattered by the anatomy and thus detectors measure the amount of this attenuation that happens along each path that the ray is taking. A collimator shapes the beam and ensures that the X-rays only pass through a narrow slice of the object being imaged. Rotation of a source inside a gantry makes sure that projections happen from different angles so that we can get a good 2D representation of the slice. The moving table ensures that multiple such slices are imaged. A collection of slices makes up a 3-dimensional CT image.
 
 
 
