@@ -145,7 +145,8 @@ are used to vary the static magnetic field, and thus precession frequency, spati
 - Pulse Sequences: the combination of gradient fields, RF pulses, and aspects of the signal that is getting measured. Together, these are called a pulse sequence.
           Two very common sequences are called “T1-weighted” and “T2-weighted” sequences (technically these two are looking at different aspects of the same combination of electromagnetic fields). T1 produces greater contrast resolution for fat, and T2 produces greater detail in fluids. Quite often, a contrast medium is used along with a T1 sequence to make certain structures stand out. Thus, the gadolinium agent is often used in neuroradiology to improve the visibility of things like tumors and hemorrhages.
 
-
+### Common 3D imaging data tasks:
+- Windowing, Multi-planar reconstruction (MPR), 3D reconstruction, and registration, are common to many problems that involve viewing or processing 3D medical images.
 ## NIFTI :
 
 Like DICOM, NIFTI, which stands for Neuroimaging Informatics Technology Initiative, is an open standard that is available at https://nifti.nimh.nih.gov/nifti-2. The standard has started out as a format to store neurological imaging data and has slowly seen a larger adoption across other types of biomedical imaging fields.
