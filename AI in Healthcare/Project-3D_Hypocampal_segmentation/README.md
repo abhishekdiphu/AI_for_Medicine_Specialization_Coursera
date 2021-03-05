@@ -62,6 +62,9 @@ Segmentation is still hard.
 - jaccard index
 
 ## Experiments results:
+| Model | dice | jaccard | learning rate | patch-size |
+|-------|------|---------|---------------|------------|
+|UNET-2D| 0.903|   0.825 |    0.0002     | 64 x 64    |
 
 
 ## Conclusion :
