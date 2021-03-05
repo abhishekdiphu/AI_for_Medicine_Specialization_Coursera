@@ -147,6 +147,23 @@ are used to vary the static magnetic field, and thus precession frequency, spati
 
 ### Common 3D imaging data tasks:
 - Windowing, Multi-planar reconstruction (MPR), 3D reconstruction, and registration, are common to many problems that involve viewing or processing 3D medical images.
+###### Windowing:
+mapping high dynamic range of medical images onto the screen-space gray color scale
+
+###### Multi-Planar Reconstruction:
+This is where we construct 2-dimensional images in planes that are not the original acquisition plane. Typically one wants to see images in the cardinal planes - axial, coronal and sagittal, which are orthogonal to each other. Sometimes one is also interested in planes which are not orthogonal to the primary acquisition plane, and in such case we talk about oblique MPR.
+
+###### 3D Reconstruction:
+constructing a 3D model from multiple slices of 3D medical imaging data.voxel-based or volumetric reconstruction is quite often used in medical images to reconstruct 3D images.
+- One will be a primary plane, where as other two will be reconstructed planes.
+
+###### Registration: 
+Some time we need to superimpose anatomy from  differnt modalites.it the process of shifting all the voxels from one image (known as the moving image ) to a another image known as fixed image so that some constraints are  fulfilled . 
+- rigid registration  : rotation , translation 
+- affine registration : has to do with rescaling
+- arbitary registration
+- eg CT scan on top of MRI scan. 
+
 ## NIFTI :
 
 Like DICOM, NIFTI, which stands for Neuroimaging Informatics Technology Initiative, is an open standard that is available at https://nifti.nimh.nih.gov/nifti-2. The standard has started out as a format to store neurological imaging data and has slowly seen a larger adoption across other types of biomedical imaging fields.
