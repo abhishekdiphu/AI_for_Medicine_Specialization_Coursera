@@ -136,6 +136,15 @@ Since many protons are returning to their original orientation at once, they gen
 ###### Gradient fields:
 are used to vary the static magnetic field, and thus precession frequency, spatially. This allows the MR scanner to isolate a part of the body (i.e. a slice) that is being imaging. Further gradient fields are used to isolate information coming from specific locations within a slice.
 
+##### MRI: K-space, Reconstruction, T1 and T2
+- K-Space : The currents measured by RF coils get turned into a digital format, and represented as vectors in “K-space”. The concept of K-space goes back to the wave theory in physics and basically defines a space of vectors that describe characteristics of electromagnetic waves.
+
+- Image-recontruction : In our case, these wave vectors carry information about the characteristics of the matter in the space that has been measured. Essentially, these vectors record the spatial frequency of signal intensity, and thus, through the process that involves an Inverse Fourier Transform and a lot of de-noising and other optimizations, get turned into a familiar 2D image that represents a slice through a human body with different anatomy having different pixel intensity. This process is referred to as image reconstruction in MR physics. Typically, image reconstruction is performed on a computer that is directly embedded into an MR scanner, and the problem of optimizing or scaling image reconstruction alone is a very interesting one.
+- Due to greater control over the electromagnetic fields, MR scanners can obtain data directly for a 3D volume in a single “sweep”, without having to go slice-by-slice.
+
+- Pulse Sequences: the combination of gradient fields, RF pulses, and aspects of the signal that is getting measured. Together, these are called a pulse sequence.
+          Two very common sequences are called “T1-weighted” and “T2-weighted” sequences (technically these two are looking at different aspects of the same combination of electromagnetic fields). T1 produces greater contrast resolution for fat, and T2 produces greater detail in fluids. Quite often, a contrast medium is used along with a T1 sequence to make certain structures stand out. Thus, the gadolinium agent is often used in neuroradiology to improve the visibility of things like tumors and hemorrhages.
+
 
 ## NIFTI :
 
