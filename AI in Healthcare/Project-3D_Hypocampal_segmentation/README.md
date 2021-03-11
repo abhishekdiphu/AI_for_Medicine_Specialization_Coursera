@@ -48,7 +48,8 @@ You have seen throughout the course that a large part of AI development effort i
 
 We are using the "Hippocampus" dataset from the [Medical Decathlon competition](http://medicaldecathlon.com/). This dataset is stored as a collection of NIFTI files, with one file per volume, and one file per corresponding segmentation mask. The original images here are T2 MRI scans of the full brain. As noted, in this dataset we are using cropped volumes where only the region around the hippocampus has been cut out. This makes the size of our dataset quite a bit smaller, our machine learning problem a bit simpler and allows us to have reasonable training times. We should not think of it as "toy" problem, though. Algorithms that crop rectangular regions of interest are quite common in medical imaging.
 Segmentation is still hard.
-
+- total volume = 261 3d images
+- 
 #### Image Preprocessing :
 - volumes are approximately of size 35 x 35 x 28.
 - Since the unet is a 2d architecure , so , slices are made of single channels for the architecture.
@@ -159,6 +160,16 @@ Specifically, we have the following software in this setup:
 * PACS server is represented by [Orthanc](http://orthanc-server.com/) deployment that is listening to DICOM DIMSE requests on port 4242. Orthanc also has a DicomWeb interface that is exposed at port 8042, prefix /dicom-web. There is no authentication and you are welcome to explore either one of the mechanisms of access using a tool like curl or Postman. Our PACS server is also running an auto-routing module that sends a copy of everything it receives to an AI server. See instructions ad the end of this page on how to launch if you are using the Udacity Workspace.  
 * Viewer system is represented by [OHIF](http://ohif.org/). It is connecting to the Orthanc server using DicomWeb and is serving a web application on port 3000. Again, see instructions at the end of this page if you are using the Udacity Workspace.
 * AI server is represented by a couple of scripts. `section3/src/deploy_scripts/start_listener.sh` brings up a DCMTK's `storescp` and configures it to just copy everything it receives into a directory that you will need to specify by editing this script, organizing studies as one folder per study. HippoVolume.AI is the AI module that you will create in this section.
+
+###### Steps :
+
+1. run `section3/src/deploy_scripts/route_dicoms.lua`.
+2. run `section3/src/deploy_scripts/send_volume.sh`.
+3. run `inference_dcm.py`.
+4. run `section3/src/deploy_scripts/start_listener.sh'.
+5. check localhost://8042.
+6. check localhost://3000.
+
 
 If you want to replicate this environment on your local machine, you will find instructions in the Project Overview concept.
 
