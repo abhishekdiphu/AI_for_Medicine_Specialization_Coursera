@@ -167,8 +167,8 @@ Specifically, we have the following software in this setup:
 2. run `section3/src/deploy_scripts/send_volume.sh`.
 3. run `inference_dcm.py`.
 4. run `section3/src/deploy_scripts/start_listener.sh'.
-5. check localhost://8042.
-6. check localhost://3000.
+5. check localhost://8042 for accessing the server.
+6. check localhost://3000 for accessing the OHIF viewer. 
 
 
 If you want to replicate this environment on your local machine, you will find instructions in the Project Overview concept.
