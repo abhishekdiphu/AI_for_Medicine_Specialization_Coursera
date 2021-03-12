@@ -4,7 +4,7 @@
 
 ## Introduction :
 
-### Quantifying Alzheimer's Disease Progression Through Automated Measurement of Hippocampal Volume
+###### Quantifying Alzheimer's Disease Progression Through Automated Measurement of Hippocampal Volume
 
 Alzheimer's disease (AD) is a progressive neurodegenerative disorder that results in impaired neuronal (brain cell) function and eventually, cell death. AD is the most common cause of dementia. Clinically, it is characterized by memory loss, inability to learn new material, loss of language function, and other manifestations. 
 
@@ -20,17 +20,9 @@ Humans have two hippocampi, one in each hemishpere of the brain. They are locate
 
 <img src="./readme.img/Hippocampus_and_seahorse_cropped.jpg" width=200/>
 
-According to [studies](https://www.sciencedirect.com/science/article/pii/S2213158219302542), the volume of the hippocampus varies in a population, depending on various parameters, within certain boundaries, and it is possible to identify a "normal" range when taking into account age, sex and brain hemisphere. 
 
-<img src="./readme.img/nomogram_fem_right.svg" width=300>
-
-There is one problem with measuring the volume of the hippocampus using MRI scans, though - namely, the process tends to be quite tedious since every slice of the 3D volume needs to be analyzed, and the shape of the structure needs to be traced. The fact that the hippocampus has a non-uniform shape only makes it more challenging. Do you think you could spot the hippocampi in this axial slice?
-
+There is one problem with measuring the volume of the hippocampus using MRI scans, though - namely, the process tends to be quite tedious since every slice of the 3D volume needs to be analyzed, and the shape of the structure needs to be traced. The fact that the hippocampus has a non-uniform shape only makes it more challenging. 
 <img src="./readme.img/mri.jpg" width=200>
-
-As you might have guessed by now, we are going to build a piece of AI software that could help clinicians perform this task faster and more consistently.
-
-You have seen throughout the course that a large part of AI development effort is taken up by curating the dataset and proving clinical efficacy. In this project, we will focus on the technical aspects of building a segmentation model and integrating it into the clinician's workflow, leaving the dataset curation and model validation questions largely outside the scope of this project.
 
 
 ## Method :
@@ -76,6 +68,13 @@ Segmentation is still hard.
 
 
 
+
+
+
+
+
+
+
 ## The Programming Environment
 
 You will have two options for the environment to use throughout this project:
@@ -94,6 +93,9 @@ If you would like to run the project locally, you would need a Python 3.7+ envir
 * json
 * torch (preferably with CUDA)
 * tensorboard
+* Medpy
+
+
 
 In the 3rd section of the project we will be working with three software products for emulating the clinical network. You would need to install and configure:
 
@@ -172,12 +174,15 @@ Specifically, we have the following software in this setup:
 
 ###### Steps :
 
-1. run `section3/src/deploy_scripts/route_dicoms.lua`.
-2. run `section3/src/deploy_scripts/send_volume.sh`.
-3. run `inference_dcm.py`.
-4. run `section3/src/deploy_scripts/start_listener.sh'.
-5. check localhost://8042 for accessing the server.
-6. check localhost://3000 for accessing the OHIF viewer. 
+
+1. run server Othanac at localhost:8042 in a terminal (folllow https://docs.ohif.org/configuring/)
+2. run OHIF at localhost:3000 in another terminal (folllow https://docs.ohif.org/configuring/)
+3. run `section3/src/deploy_scripts/route_dicoms.lua`.
+4. run `section3/src/deploy_scripts/send_volume.sh`.
+5. run `inference_dcm.py "<address of the test volumes>"`.
+6. run `section3/src/deploy_scripts/start_listener.sh'.
+7. check localhost://8042 for accessing the server.
+8. check localhost://3000 for accessing the OHIF viewer. 
 
 
 If you want to replicate this environment on your local machine, you will find instructions in the Project Overview concept.
