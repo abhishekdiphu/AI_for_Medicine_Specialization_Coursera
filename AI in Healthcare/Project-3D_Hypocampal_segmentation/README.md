@@ -69,10 +69,7 @@ Segmentation is still hard.
 
 #### Test result visualization in the application:
 
-![HippoAI (final report)]
-
-(./Application_Deployment/out/hippoAI.png
-)
+![HippoAI (final report)](./Application_Deployment/out/hippoAI.png)
 
 
 ## Conclusion :
