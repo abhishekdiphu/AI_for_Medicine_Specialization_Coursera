@@ -8,7 +8,7 @@ import torch
 from PIL import Image
 
 # Tell Matplotlib to not try and use interactive backend
-mpl.use("agg")
+#mpl.use("agg")
 
 def mpl_image_grid(images):
     """
@@ -43,7 +43,8 @@ def mpl_image_grid(images):
             plt.imshow(img)
         else: # plotting only 1st channel
             plt.imshow((images[i, 0]*255).int(), cmap= "gray")
-
+            
+    plt.savefig("figure.png")
     return figure
 
 def log_to_tensorboard(writer, loss, data, target, prediction_softmax, prediction, counter):

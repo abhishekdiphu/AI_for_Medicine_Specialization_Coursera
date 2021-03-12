@@ -23,6 +23,7 @@ import pydicom
 from PIL import Image
 from PIL import ImageFont
 from PIL import ImageDraw
+from utils.utils import med_reshape
 
 from inference.UNetInferenceAgent import UNetInferenceAgent
 
@@ -61,14 +62,39 @@ def get_predicted_volumes(pred):
 
     # TASK: Compute the volume of your hippocampal prediction
     # <YOUR CODE HERE>
-    
-    volume_ant = np.sum(pred==1)
-    volume_post = np.sum(pred==2)
-    total_volume = volume_ant + volume_post
-    
-    return {"anterior": volume_ant, "posterior": volume_post, "total": total_volume}
+    volume_ant = volume_post = total_volume = []
 
-def create_report(inference, header, orig_vol, pred_vol):
+    # Here we compute segmentation predictions for each hippocampal slice of volume
+    # and turn them into NumPy array of the same shape as the original volume
+    for i in range(pred.shape[2]):
+        vol = pred[:,:,i]
+        lbl = np.zeros(vol.shape)
+        if np.sum(vol) >0:
+            lbl = vol == 1
+            lbl = lbl.astype(np.int)
+            if np.sum(lbl) > 0:
+                #print(f"1: {i}")
+                volume_ant.append(lbl)
+                np.dot(lbl, 0)
+            else: volume_ant.append(lbl)
+            lbl = vol == 2
+            lbl = lbl.astype(np.int)
+            if np.sum(lbl) > 0:
+                #print(f"2: {i}")
+                volume_post.append(lbl)
+                np.dot(lbl, 0)
+            else: volume_post.append(lbl)
+        total_volume.append(vol)
+
+    print("differnt volume in the prediction volume :" , np.unique(pred))
+    volume_ant_text = np.sum(pred==1)
+    volume_post_text = np.sum(pred==2)
+    total_volume_text = volume_ant_text + volume_post_text
+    
+    return {"anterior": volume_ant_text, "posterior": volume_post_text, "total": total_volume_text,
+            "anterior_pred": volume_ant, "posterior_pred": volume_post, "total_pred": total_volume}
+
+def create_report(inference, header, orig_vol, pred_lbl):
     """Generates an image with inference report
 
     Arguments:
@@ -93,7 +119,8 @@ def create_report(inference, header, orig_vol, pred_vol):
     header_font = ImageFont.truetype("assets/Roboto-Regular.ttf", size=40)
     main_font = ImageFont.truetype("assets/Roboto-Regular.ttf", size=20)
 
-#     slice_nums = [orig_vol.shape[2]//3, orig_vol.shape[2]//2, orig_vol.shape[2]*3//4] # is there a better choice?
+    slice_nums = [orig_vol.shape[2]//3, orig_vol.shape[2]//2, orig_vol.shape[2]*3//4] # is there a better choice?
+    print("slice_nums",slice_nums)
 
     # TASK: Create the report here and show information that you think would be relevant to
     # clinicians. A sample code is provided below, but feel free to use your creative 
@@ -102,7 +129,7 @@ def create_report(inference, header, orig_vol, pred_vol):
     # depend on how you present them.
 
     # SAMPLE CODE BELOW: UNCOMMENT AND CUSTOMIZE
-    draw.text((70, 70), "HippoVolume.AI_1", (255, 255, 255), font=header_font)
+    draw.text((70, 70), "HippoVolume.AI", (255, 255, 255), font=header_font)
     
     volume_unit = float(header.SliceThickness)*np.prod(header.PixelSpacing)
     vol_size = volume_unit * inference["total"]
@@ -125,20 +152,51 @@ def create_report(inference, header, orig_vol, pred_vol):
     #
     # Create a PIL image from array:
     # Numpy array needs to flipped, transposed and normalized to a matrix of values in the range of [0..255]
-    
-    nd_orig = np.flip((orig_vol[0, :, :]/np.max(orig_vol[0, :, :]))*0xff).T.astype(np.uint8)
+    new_vol = med_reshape(orig_vol, new_shape=(pred_lbl.shape[0], pred_lbl.shape[1], orig_vol.shape[2]))
+    slice1 = slice2 = slice3 = np.zeros((new_vol.shape[0], new_vol.shape[1]))
+    x = 10
+    y = 300
+    for i in slice_nums:
+        #print(inference["anterior_pred"])
+        slice1 = inference["anterior_pred"][i]
+        #print("slice1", slice1)
+        pil_i1 = conv_arr2pil(slice1)
+        pimg.paste(pil_i1, box=(x, y+20))
+        slice2 = inference["posterior_pred"][i]
+        pil_i2 = conv_arr2pil(slice2)
+        pimg.paste(pil_i2, box=(x+200, y+20))
+        slice3 = new_vol[:,:,i] + slice1 + slice2
+        pil_i3 = conv_arr2pil(slice3)
+        pil_i3 = Image.blend(pil_i3, pil_i2, alpha=.3)
+        pimg.paste(pil_i3, box=(x+400, y+20))
+        y += 200
+        slice1 *= 0
+        slice2 *= 0
+        slice3 *= 0
+    #nd_orig = np.flip((orig_vol[0, :, :]/np.max(orig_vol[0, :, :]))*0xff).T.astype(np.uint8)
     # create a PIL image from numpy array
-    pil_orig = Image.fromarray(nd_orig, mode="L").convert("RGBA").resize((400, 400))
+    #pil_orig = Image.fromarray(nd_orig, mode="L").convert("RGBA").resize((400, 400))
     # paste the PIL image into the main report image object (pimg)
-    pimg.paste(pil_orig, box=(10, 350))
+    #pil_orig.save("original.png")
+    #pimg.paste(pil_orig, box=(10, 350))
     
-    nd_pred = np.flip((pred_vol[0, :, :]/np.max(pred_vol[0, :, :]))*0xff).T.astype(np.uint8)
+    #nd_pred = np.flip((pred_vol[1, :, :]/np.max(pred_vol[1, :, :]))*0xff).T.astype(np.uint8)
     # create a PIL image from numpy array
-    pil_pred = Image.fromarray(nd_pred, mode="L").convert("RGBA").resize((400, 400))
+    #pil_pred = Image.fromarray(nd_pred, mode="L").convert("RGBA").resize((400, 400))
     # paste the PIL image into the main report image object (pimg)
-    pimg.paste(pil_pred, box=(10, 350)) 
+    #pil_pred.save("original_pred.png")
+    #pimg.paste(pil_pred, box=(300, 350)) 
 
     return pimg
+
+def conv_arr2pil(slice):
+    if np.max(slice) > 0:
+        nd_img = np.flip((slice/np.max(slice))*0xff).T.astype(np.uint8)
+    else: nd_img = np.flip(slice*0xff).T.astype(np.uint8)
+    # This is how you create a PIL image from numpy array
+    pil_i = Image.fromarray(nd_img, mode="P").convert("RGBA").resize((200, 200))
+    # Paste the PIL image into our main report image object (pimg)
+    return pil_i
 
 def save_report_as_dcm(header, report, path):
     """Writes the supplied image as a DICOM Secondary Capture file
@@ -267,11 +325,11 @@ def get_series_for_inference(path):
 
 def os_command(command):
     # Comment this if running under Windows
-    sp = subprocess.Popen(["/bin/bash", "-i", "-c", command])
-    sp.communicate()
+    #sp = subprocess.Popen(["/bin/bash", "-i", "-c", command])
+    #sp.communicate()
 
     # Uncomment this if running under Windows
-    # os.system(command)
+     os.system(command)
 
 if __name__ == "__main__":
     # This code expects a single command line argument with link to the directory containing
@@ -309,7 +367,7 @@ if __name__ == "__main__":
 
     # Create and save the report
     print("Creating and pushing report...")
-    report_save_path = r"/home/workspace/out/report.dcm"
+    report_save_path = r"/data/report.dcm"
     # TASK: create_report is not complete. Go and complete it. 
     # STAND OUT SUGGESTION: save_report_as_dcm has some suggestions if you want to expand your
     # knowledge of DICOM format
@@ -319,6 +377,8 @@ if __name__ == "__main__":
     # Send report to our storage archive
     # TASK: Write a command line string that will issue a DICOM C-STORE request to send our report
     # to our Orthanc server (that runs on port 4242 of the local machine), using storescu tool
+    print("Next HIPP0AI")
+    print(report_save_path)
     os_command(f"storescu 127.0.0.1 4242 -v -aec HIPPOAI +r +sd {report_save_path}")
 
     # This line will remove the study dir if run as root user
