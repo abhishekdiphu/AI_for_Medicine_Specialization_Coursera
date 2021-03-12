@@ -104,6 +104,11 @@ In the 3rd section of the project we will be working with three software product
 * [DCMTK tools](https://dcmtk.org/) for testing and emulating a modality. Note that if you are running a Linux distribution, you might be able to install dcmtk directly from the package manager (e.g. `apt-get install dcmtk` in Ubuntu)
 
 ## Project Instructions
+|folder          |     renamed as        |
+|----------------|-----------------------|
+|1. section01 -> | exploratory analysis  |
+|2. section02 -> | model_training        |
+|3. section03 -> | application deployment|
 
 ### Section 1: Curating a dataset of Brain MRIs
 
