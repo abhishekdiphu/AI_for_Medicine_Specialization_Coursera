@@ -67,7 +67,11 @@ Segmentation is still hard.
 |-------|------|---------|---------------|------------|
 |UNET-2D| 0.903|   0.825 |    0.0002     | 64 x 64    |
 
-![HippoAI (final report)](./Application_Deployment/out/hippoAI.png
+#### Test result visualization in the application:
+
+![HippoAI (final report)]
+
+(./Application_Deployment/out/hippoAI.png
 )
 
 
