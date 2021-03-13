@@ -72,6 +72,7 @@ Segmentation is still hard.
 - Dice=2|A∩B| / |A|+|B| ,  where |A∩B| represents the common elements between sets A and B, and |A| represents the number of elements in set A (and likewise for set B).For the case of evaluating a Dice coefficient on predicted segmentation masks, we can approximate |A∩B| as the element-wise multiplication between the prediction and target mask, and then sum the resulting matrix.
 
 - jaccard index
+- J(A,B) = |A ∩ B| / |A u B|
 
 ## Experiments results:
 | Model | dice | jaccard | learning rate | patch-size |
