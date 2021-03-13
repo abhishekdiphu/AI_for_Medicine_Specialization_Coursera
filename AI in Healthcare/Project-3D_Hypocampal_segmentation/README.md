@@ -27,13 +27,17 @@ There is one problem with measuring the volume of the hippocampus using MRI scan
 
 ## Method :
 
-
 ### 1. Model architecture :
 
-- 2D UNet architecture 
+- 2D UNet architecture
+- it has a encoder-decoder architecture.
+- there are skip connections between the encoder and decoder layers at the same resolution. 
+- encoder part has conv layers + maxpooling layers , where decoder parts  has unpooling + transpose conv layers .
+- no fc layers are used so that using conv layess , spatial resolution can be preserved. The input and output resolution are same.
+- 
 
 ### 2. Loss fucntion 
-- Cross entropy Loss function 
+- Cross entropy Loss function .Since there are 3 classed , background-0 , posterior-2, antsorior-1
 
 
 ## The Dataset
