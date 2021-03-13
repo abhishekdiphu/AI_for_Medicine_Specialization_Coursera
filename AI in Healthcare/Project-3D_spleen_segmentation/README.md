@@ -23,6 +23,10 @@ We are using the "Spleen" dataset from the [Medical Decathlon competition](http:
 Segmentation is still hard.
 <img src="./Model_training/out/training_monitor/3dslicer.png" width=400px>
 
+<img src="./Model_training/out/training_monitor/train_and_label.png" width=400px>
+
+
+
 ### 2 classes:
 - 0 is background.
 - 1 is spleen.
