@@ -26,6 +26,15 @@ There is one problem with measuring the volume of the hippocampus using MRI scan
 
 
 ## Method :
+### 0. Task:
+###### Sementic Segmentation:
+The goal of segmentation is to label each and every pixel in the image with a particular class  that it represent , eg pixels belonging to  car in the image should be labeled as car class.Since  we're predicting for every pixel in the image, this task is also referred to as dense prediction. It  is to be kept in mind that , that we're not separating instances of the same class; we only care about the category of each pixel. In other words, if you have two objects of the same category in an input image, the segmentation map does not inherently distinguish these as separate objects. 
+      There exists a different class of models, known as instance segmentation models, which do distinguish between separate objects of the same class.In Medical image diagnostics Machines can augment analysis performed by radiologists, greatly reducing the time required to run diagnositic tests.
+      The  goal is to take a grayscale hippocampus image (height×width×1) and output a segmentation map where each pixel contains a class label represented as an integer (height×width×1).When we overlay a single channel of our target (or prediction), we refer to this as a mask which illuminates the regions of an image where a specific class is present.
+
+
+
+
 
 ### 1. Model architecture :
 
