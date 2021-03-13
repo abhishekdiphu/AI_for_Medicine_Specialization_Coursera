@@ -76,9 +76,11 @@ def get_predicted_volumes(pred):
                 #print(f"1: {i}")
                 volume_ant.append(lbl)
                 np.dot(lbl, 0)
-            else: volume_ant.append(lbl)
+            else: 
+                volume_ant.append(lbl)
             lbl = vol == 2
             lbl = lbl.astype(np.int)
+            
             if np.sum(lbl) > 0:
                 #print(f"2: {i}")
                 volume_post.append(lbl)
@@ -119,7 +121,7 @@ def create_report(inference, header, orig_vol, pred_lbl):
     header_font = ImageFont.truetype("assets/Roboto-Regular.ttf", size=40)
     main_font = ImageFont.truetype("assets/Roboto-Regular.ttf", size=20)
 
-    slice_nums = [orig_vol.shape[2]//3, orig_vol.shape[2]//2, orig_vol.shape[2]*3//4] # is there a better choice?
+    slice_nums = [orig_vol.shape[2]//8, orig_vol.shape[2]//7, orig_vol.shape[2]//2] # is there a better choice?
     print("slice_nums",slice_nums)
 
     # TASK: Create the report here and show information that you think would be relevant to
@@ -158,6 +160,7 @@ def create_report(inference, header, orig_vol, pred_lbl):
     y = 300
     for i in slice_nums:
         #print(inference["anterior_pred"])
+        
         slice1 = inference["anterior_pred"][i]
         #print("slice1", slice1)
         pil_i1 = conv_arr2pil(slice1)
