@@ -1,4 +1,4 @@
-# Sementic Segmentation of 3D volume of Hippocampal 
+# Sementic Segmentation of 3D volume of Hippocampal using 2D-UNET
 
 - It contains background information and instructions for the final project.
 
