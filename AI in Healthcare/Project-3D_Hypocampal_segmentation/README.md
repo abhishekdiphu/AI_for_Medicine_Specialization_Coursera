@@ -65,6 +65,9 @@ Segmentation is still hard.
 - Once these slices are created , they are resized to a shape of 64 x 64 x 1 or 128 x 128 x 1 , with padding on the sides , keeping the aspect ratio of the original dimension intact.
 -The image slices are then standardized by normalizing them within range of 0 to 1.
 - similar to the original images , the labels  are also created in a similar manner.
+<img src="./Model_training/out/training_monitor/train_images.png" width=400em>
+<img src="./Model_training/out/training_monitor/label_images.png" width=400em>
+
 
 ## Performance metric :
 
@@ -78,6 +81,11 @@ Segmentation is still hard.
 | Model | dice | jaccard | learning rate | patch-size |
 |-------|------|---------|---------------|------------|
 |UNET-2D| 0.903|   0.825 |    0.0002     | 64 x 64    |
+
+
+###### Loss Curve:
+
+<img src="./Model_training/out/training_monitor/loss.png" width=400em>
 
 #### Test result visualization in the application:
 
