@@ -46,7 +46,11 @@ The goal of segmentation is to label each and every pixel in the image with a pa
 - 
 
 ### 2. Loss fucntion 
-- Cross entropy Loss function .Since there are 3 classed , background-0 , posterior-2, antsorior-1
+- Cross entropy Loss function .Since there are 3 classed , background-0 , posterior-2, antsorior-1.
+- The most commonly used loss function for the task of image segmentation is a pixel-wise cross entropy loss. 
+- This loss examines each pixel individually, comparing the class predictions (depth-wise pixel vector) to our one-hot encoded target vector.
+- Since the cross entropy loss evaluates the class predictions for each pixel vector individually and then averages over all pixels, we're essentially asserting equal learning to each pixel in the image. This can be a problem if your various classes have unbalanced representation in the image, as training can be dominated by the most prevalent class.
+-  
 
 
 ## The Dataset
@@ -65,6 +69,9 @@ Segmentation is still hard.
 ## Performance metric :
 
 - dice coefficient
+Dice=2|A∩B||A|+|B|
+, where |A∩B| represents the common elements between sets A and B, and |A| represents the number of elements in set A (and likewise for set B).For the case of evaluating a Dice coefficient on predicted segmentation masks, we can approximate |A∩B| as the element-wise multiplication between the prediction and target mask, and then sum the resulting matrix.
+
 - jaccard index
 
 ## Experiments results:
