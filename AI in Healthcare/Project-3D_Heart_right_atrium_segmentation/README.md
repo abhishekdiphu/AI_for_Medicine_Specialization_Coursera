@@ -22,7 +22,7 @@ We are using the "heart" dataset from the [Medical Decathlon competition](http:/
 Segmentation is still hard.
 <img src="./Exploratory_analysis/img/slicer.png" width=400px>
 
-<img src="./Exploratory_analysis/img/train_and_label.png" width=400px>
+<img src="./Exploratory_analysis/img/train_und_label.png" width=400px>
 
 ##### Pixel intensity distribution :
 
