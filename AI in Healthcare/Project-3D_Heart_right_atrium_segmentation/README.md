@@ -79,6 +79,13 @@ Segmentation is still hard.
 
 <img src="./Model_training/out/training_monitor/loss.png" width=400em>
 
+###### test set :
+
+|model | dice  | jaccard index | lr     | input shape |
+|----- | ----  | ------------- | --     |-------------|
+|unet2d|  0.82 | 0.69          | 0.0002 | 128x128X40  |
+
+
 ## Conclusion :
 
 
