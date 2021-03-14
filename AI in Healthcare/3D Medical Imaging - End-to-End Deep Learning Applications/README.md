@@ -248,7 +248,72 @@ Conversions between DICOM values and screen space are particularly important if 
 
 
 
+# 3D Medical Imaging - End-to-End Deep Learning Applications:
 
+## Classification: Introduction and Use Cases
+- problems that lend themselves well to solutions via automated classification or object detection algorithm.
+
+- Detecting brain hemorrhages, or bleedings in the brain is particularly important in emergency scenarios when brain damage can happen within minutes. Often, radiologists have a backlog of images that they are going through, and it is not obvious which ones should be prioritized. An algorithm that will spot time-critical conditions will help with such prioritization
+
+- Screening and monitoring scenarios, such as the presented scenario of screening for lung nodules, can be quite tedious because objects that are sought can hide well, and meticulous scrolling through slices is required. Pointing human attention to areas which are likely to be suspicious is helpful and saves time
+
+- The presented scenario of incidental findings deals with an interesting phenomenon of selective attention where humans tend to ignore certain stimuli when multiple are applied. Thus, even trained observers may ignore something otherwise quite obvious, like an adrenal cyst when they know that image was taken with the purpose of evaluating potential vertebral disc degeneration. The famous “gorilla study” represents this marvelously.
+
+Note: when choosing a medical imaging problem to be solved by machine learning, it is tempting to assume that automated detection of certain conditions would be the most valuable thing to solve. However, this is not usually the case. Quite often detecting if a condition is present is not so difficult for a human observer who is already looking for such a condition. Things that bring most value usually lie in the area of productivity increase. Helping prioritize the more important exams, helping focus the attention of a human reader on small things or speed up tedious tasks usually is much more valuable. Therefore it is important to understand the clinical use case that the algorithm will be used well and think of end-user value first.
+
+- When it comes to classification and object detection problems, the key to solving those is identifying relevant features in the images, or feature extraction. Not so long ago, machine learning methods relied on manual feature design. With the advent of CNNs, feature extraction is done automatically by the network, and the job of a machine learning engineer is to define the general shape of such features. As the name implies, features in Convolutional Neural Networks take the shape of convolutions. In the next section, let’s take a closer look at some of the types of convolutions that are used for 3D medical image analysis.
+
+###### New Vocabulary
+1. Classification - the problem of determining which one of several classes an image belongs to.
+2. Object Detection - the problem of finding a (typically rectangular) region within an image that matches with one of several classes of interest.
+
+## Methods for Feature Extraction
+- 2D Convolution is an operation visualized in the image above, where a convolutional filter is applied to a single 2D image. Applying a 2D convolution approach to a 3D medical image would mean applying it to every single slice of the image. A neural network can be constructed to either process slices one at a time, or to stack such convolutions into a stack of 2D feature maps. Such an approach is fastest of all and uses least memory, but fails to use any information about the topology of the image in the 3rd dimension.
+
+- 2.5D Convolution is an approach where 2D convolutions are applied independently to areas around each voxel (either in neighboring planes or in orthogonal planes) and their results are summed up to form a 2D feature map. Such an approach leverages some 3-dimensional information.
+
+- 3D Convolution is an approach where the convolutional kernel is 3 dimensional and thus combines information from all 3 dimensions into the feature map. This approach leverages the 3-dimensional nature of the image, but uses the most memory and compute resources.
+
+- Understanding these is essential to being able to put together efficient deep neural networks where convolutions together with downsampling are used to extract higher-order semantic features from the image.
+
+## Segmentation: Introduction and Use Cases
+
+a few use cases for segmentation in 3D medical imaging:
+
+- Longitudinal follow up: Measuring volumes of things and monitoring how they change over time. These methods are very valuable in, e.g., oncology for tracking slow-growing tumors.
+
+- Quantifying disease severity: Quite often, it is possible to identify structures in the organism whose size correlates well with the progression of the disease. For example, the size of the hippocampus can tell clinicians about the progression of Alzheimer's disease.
+
+- Radiation Therapy Planning: One of the methods of treating cancer is exposing the tumor to ionizing radiation. In order to target the radiation, an accurate plan has to be created first, and this plan requires careful delineation of all affected organs on a CT scan
+
+- Novel Scenarios: Segmentation is a tedious process that is not quite often done in clinical practice. However, knowing the sizes and extents of the objects holds a lot of promise, especially when combined with other data types. Thus, the field of radiogenomics refers to the study of how the quantitative information obtained from radiological images can be combined with the genetic-molecular features of the organism to discover information not possible before.
+
+- Segmentation - the problem of identifying which specific pixels within an image belong to a certain object of interest.
+
+##  Segmentation Methods
+-A U-Net architecture has been very successful in analyzing 3D medical images and has spawned multiple offshoots. 
+
+### Performance metrices for segmentation task are 
+
+- Sensitivity and Specificity
+- Dice Similarity Coefficient
+- Jaccard Index
+- Hausdorff Distance
+
+
+# Tools and libraries
+
+We tried to minimize the dependency on external libraries and focus on understanding some key concepts. At the same time, there are many tools that the community has developed, which will help you get moving faster with the tasks typical for medical imaging ML workflows.
+
+A few tools/repos worthy of attention are:
+
+Fast.ai - python library for medical image analysis, with focus on ML: https://dev.fast.ai/medical.imaging
+MedPy - a library for medical image processing with lots of various higher-order processing methods: https://pypi.org/project/MedPy/
+Deepmedic, a library for 3D CNNs for medical image segmentation: https://github.com/deepmedic/deepmedic
+Work by the German Cancer Research Institute:
+https://github.com/MIC-DKFZ/trixi - a boilerplate for machine learning experiment
+https://github.com/MIC-DKFZ/batchgenerators - tooling for data augmentation
+A publication about a project dedicated to large-scale medical imaging ML model evaluation which includes a comprehensive overview of annotation tools and related problems (including inter-observer variability): https://link.springer.com/chapter/10.1007%2F978-3-319-49644-3_4
 # Referneces :
 
 1. Udacity github repositories
