@@ -23,7 +23,8 @@ Segmentation is still hard.
 <img src="./Exploratory_analysis/img/slicer.png" width=400px>
 
 ###### train & validation set
-<img src="./Exploratory_analysis/img/train_und_label.png" width=200px>
+
+<img src="./Exploratory_analysis/img/train_und_label.png" width=300px>
 
 ##### Pixel intensity distribution :
 
