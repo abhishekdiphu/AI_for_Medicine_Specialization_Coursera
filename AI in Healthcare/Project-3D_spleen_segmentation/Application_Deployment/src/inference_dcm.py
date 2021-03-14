@@ -27,6 +27,7 @@ from PIL import ImageDraw
 from inference.UNetInferenceAgent import UNetInferenceAgent
 
 def load_dicom_volume_as_numpy_from_list(dcmlist):
+    print("dcmlist :" , dcmlist)
     """Loads a list of PyDicom objects a Numpy array.
     Assumes that only one series is in the array
 
@@ -62,11 +63,11 @@ def get_predicted_volumes(pred):
     # TASK: Compute the volume of your hippocampal prediction
     # <YOUR CODE HERE>
     
-    volume_ant = np.sum(pred==1)
-    volume_post = np.sum(pred==2)
-    total_volume = volume_ant + volume_post
+    volume_ant = np.sum(pred==0)
+    volume_post = np.sum(pred==1)
+    total_volume = volume_post
     
-    return {"anterior": volume_ant, "posterior": volume_post, "total": total_volume}
+    return {"background": volume_ant, "spleen": volume_post, "total": total_volume}
 
 def create_report(inference, header, orig_vol, pred_vol):
     """Generates an image with inference report
@@ -102,7 +103,7 @@ def create_report(inference, header, orig_vol, pred_vol):
     # depend on how you present them.
 
     # SAMPLE CODE BELOW: UNCOMMENT AND CUSTOMIZE
-    draw.text((70, 70), "HippoVolume.AI_1", (255, 255, 255), font=header_font)
+    draw.text((70, 70), "HippoVolume.AI", (255, 255, 255), font=header_font)
     
     volume_unit = float(header.SliceThickness)*np.prod(header.PixelSpacing)
     vol_size = volume_unit * inference["total"]
@@ -113,8 +114,8 @@ def create_report(inference, header, orig_vol, pred_vol):
                         Series Description: {header.SeriesDescription}\n \
                         Modality: {header.Modality}\n \
                         Image Type: {header.ImageType}\n \
-                        Anterior Volume: {inference['anterior']}\n \
-                        Posterior Volume: {inference['posterior']}\n \
+                        background Volume: {inference['background']}\n \
+                        Spleen Volume: {inference['spleen']}\n \
                         Total Volume: {inference['total']}\n",                                     
                         (255, 255, 255), font=main_font)
 
@@ -237,6 +238,7 @@ def get_series_for_inference(path):
     # of files
     # We are reading all files into a list of PyDicom objects so that we can filter them later
     series_path = [dir for dir, subdirs, files in os.walk(path) if 'HCropVolume' in dir]
+    print("series_path" , series_path)
     chosen_path = np.random.choice(series_path)  
 #     dicoms = [pydicom.dcmread(os.path.join(path, f)) for f in os.listdir(path)]
 #     dicoms = []
@@ -255,6 +257,9 @@ def get_series_for_inference(path):
     # Hint: inspect the metadata of HippoCrop series
     
     # <YOUR CODE HERE>
+    print("chosen_path" , chosen_path)
+    for f in os.listdir(chosen_path):
+        print(f)
     series_for_inference = [pydicom.dcmread(os.path.join(chosen_path, f)) for f in os.listdir(chosen_path)]
 #     series_for_inference = [d for d in dicoms if d.SeriesDescription=="HippoCrop"]
 
@@ -309,7 +314,7 @@ if __name__ == "__main__":
 
     # Create and save the report
     print("Creating and pushing report...")
-    report_save_path = r"/home/workspace/out/report.dcm"
+    report_save_path = r"../out/report.dcm"
     # TASK: create_report is not complete. Go and complete it. 
     # STAND OUT SUGGESTION: save_report_as_dcm has some suggestions if you want to expand your
     # knowledge of DICOM format
@@ -319,15 +324,15 @@ if __name__ == "__main__":
     # Send report to our storage archive
     # TASK: Write a command line string that will issue a DICOM C-STORE request to send our report
     # to our Orthanc server (that runs on port 4242 of the local machine), using storescu tool
-    os_command(f"storescu 127.0.0.1 4242 -v -aec HIPPOAI +r +sd {report_save_path}")
+    ###os_command(f"storescu 127.0.0.1 4242 -v -aec HIPPOAI +r +sd {report_save_path}")
 
     # This line will remove the study dir if run as root user
     # Sleep to let our StoreSCP server process the report (remember - in our setup
     # the main archive is routing everyting that is sent to it, including our freshly generated
     # report) - we want to give it time to save before cleaning it up
-    time.sleep(2)
-    shutil.rmtree(study_dir, onerror=lambda f, p, e: print(f"Error deleting: {e[1]}"))
+    ##time.sleep(2)
+    ##shutil.rmtree(study_dir, onerror=lambda f, p, e: print(f"Error deleting: {e[1]}"))
 
     print(f"Inference successful on {header['SOPInstanceUID'].value}, out: {pred_label.shape}",
-          f"volume ant: {pred_volumes['anterior']}, ",
-          f"volume post: {pred_volumes['posterior']}, total volume: {pred_volumes['total']}")
+          f"volume ant: {pred_volumes['background']}, ",
+          f"volume post: {pred_volumes['spleen']}, total volume: {pred_volumes['total']}")
