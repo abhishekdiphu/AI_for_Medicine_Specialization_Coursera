@@ -354,7 +354,19 @@ In addition to DICOM protocol there are two more (among many) that you might run
 - If the algorithm introduces something new into the radiologists' workflow - how is this interaction going to happen?
 - Interfaces with existing systems. If your algorithm produces an output - where does it go? What should the systems processing your algorithm’s output be capable of doing?
 
-Tools of the trade
+Tools of the trade - intro
+
+Tools of the Trade - Scripting
+- some of the tools from the DCMTK toolkit to emulate the operation of a DICOM network. We have done the following:
+
+- Used dcmdump tool to view the DICOM metadata of a DICOM file
+- Used storecsp command to bring up an SCP listening to incoming C-STORE requests. The following is the command line that we used: storescp 109 -v -aet TESTSCP -od . --sort-on-study-uid st. This starts listening on port 109, with verbose logging, with AE Title “TESTSCP”, putting all incoming files into the current directory and organizing studies into directories named as study instance UIDs, with prefix st
+- Used echoscu command to verify that our SCP instance is alive and listening by running the following on the command line: echoscu localhost 109 -v
+- Used storescu command to issue a set of C-STORE requests to our SCP and send several DICOM studies. We used the following command to accomplish this: storescu localhost 109 -v -aec TESTSCU +r +sd .. Here, -aec parameter specifies the AE title that our SCU will use to identify itself (some SCPs might only receive data from known AE titles); +r parameter tells our tool to process directories recursively and +sd parameter specifies a directory to send.
+
+
+
+
 # Referneces :
 
 1. Udacity github repositories
