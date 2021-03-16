@@ -397,6 +397,40 @@ Let me take a bit of a sidetrack here and say a few words on formats for storing
 - OHIF - the open-source radiological image viewer: http://ohif.org/
 - Orthanc (https://www.orthanc-server.com/) is a tool that we have not really discussed in the lesson, but will use in the final project. Orthanc is a free open-source - implementation of a medical imaging archive that provides many features similar to a clinical PACS when it comes to storage
 - Radiant (https://www.radiantviewer.com/) is another freeware viewer that has been used by Mazen in the clinical vieweers.
+## Regulatory Landscape: Medical Devices
+
+###### US Foods and Drugs Administration (FDA), the main government regulatory body in all things healthcare, defines a medical device:
+An instrument, apparatus, implement, machine, contrivance, implant, in vitro reagent, or other similar or related article, including a component part, or accessory which is:
+
+- recognized in the official National Formulary, or the United States Pharmacopoeia, or any supplement to them,
+- intended for use in the diagnosis of disease or other conditions, or in the cure, mitigation, treatment, or prevention of disease, in man or other animals, or
+- intended to affect the structure or any function of the body of man or other animals, and which does not achieve its primary intended purposes through chemical action within or on the body of man or other animals …
+
+For comparison, this is how European Medical Device Regulation (MDR) defines the term:
+‘medical device’ means any instrument, apparatus, appliance, software, implant, reagent, material or other article intended by the manufacturer to be used, alone or in combination, for human beings for one or more of the following specific medical purposes:
+
+- diagnosis, prevention, monitoring, prediction, prognosis, treatment or alleviation of disease,
+- diagnosis, monitoring, treatment, alleviation of, or compensation for, an injury or disability,
+- investigation, replacement or modification of the anatomy or of a physiological or pathological process or state,
+- providing information by means of in vitro examination of specimens derived from the human body, including organ, blood and tissue donations,
+
+
+###### Regulatory process typically involves two big steps:
+
+Submitting a document package - called “510(k)” for Class II medical devices or “PMA” for Class III devices. This document package needs to include engineering artifacts providing evidence that you have followed the process and your process resulted in certain deliverables. For example, a PMA package has to include things like “Design Review notes” or “Software Verification plans”.
+Establishing a Quality Management System. This system is a set of processes that are designed to ensure that you maintain a level of quality in your engineering and operations that is commensurate with the risk that your device presents to patients and operators. For example, the QMS might define the need for a “post-launch surveillance” process that would ensure that you keep track of usage of the device in the field and have a feedback mechanism that has you reviewing potential risks that have been realized in the field and responding to them.
+The former communicates your intent to launch a product to the regulatory body, and the FDA would review your documentation package to ensure that you have followed the prescribed procedures while developing it. The latter establishes certain engineering processes.
+
+Note that the FDA or other agencies do not actually tell you what exactly do you have to produce. The rules are designed to ensure that you have the right process. It is up to you to decide how to apply this process to what you are doing.
+
+An aspect of a QMS that is probably the most relevant to an AI engineer is the validation process. A QMS might define the need to perform product validation before you release a new version of a product, which means that you need to provide evidence that your software indeed performs. If the product has an AI component at its heart, you may need to provide input along the following lines:
+
+1. What is the intended use of the product?
+2. How was the training data collected?
+3. How did you label your training data?
+4. How was the performance of the algorithm measured and how was the real-world performance estimated?
+5. What data will the algorithm perform well in the real world and what data it might not perform well on?
+6. As the owner of an AI algorithm, you would be best positioned to answer these questions and your input would be instrumental.
 
 ## Summary:
 
