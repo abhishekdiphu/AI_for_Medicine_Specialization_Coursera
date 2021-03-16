@@ -314,6 +314,30 @@ Work by the German Cancer Research Institute:
 https://github.com/MIC-DKFZ/trixi - a boilerplate for machine learning experiment
 https://github.com/MIC-DKFZ/batchgenerators - tooling for data augmentation
 A publication about a project dedicated to large-scale medical imaging ML model evaluation which includes a comprehensive overview of annotation tools and related problems (including inter-observer variability): https://link.springer.com/chapter/10.1007%2F978-3-319-49644-3_4
+
+
+# Deploying AI Algorithms in Real World Scenarios:
+
+## DICOM Networking: Introduction:
+When it comes to moving medical images around the hospital, the DICOM standard comes to the rescue. Alongside the definition of the format for storing images and metadata (which we have looked at in detail in previous lessons, it defines the networking protocol for moving the images around.
+
+## DICOM Networking: Services
+1. There are two types of DICOM networking: DIMSE (DICOM Message Service Element) and DICOMWeb. The former is designed to support data exchange in protected clinical networks that are largely isolated from the Internet. The latter is a set of RESTful APIs (link to the Standard) that are designed to communicate over the Internet. DIMSE networking does not have a notion of authentication and is prevalent inside hospitals.
+
+2. DIMSE networking defines how DICOM Application Entities talk to each other on protected networks. 
+3. DICOM Application Entities that talk to each other take on roles of Service Class Providers which are an an AE that provides services over DIMSE network and
+* Service Class Users which is an AI that requests service from an SCP
+4. SCPs typical respond to requests and SCUs issue them
+5. Full list of DIMSE services could be found in the Part 7 of the DICOM Standard, ones that you are most likely run into are:
+6. C-Echo - “DICOM ping” - checks if the other party can speak DICOM
+7. C-Store - request to store an instance
+8. An Application Entity (AE) is an actor on a network (e.g. a medical imaging modality or a PACS) that can talk DIMSE messages defined by three parameters:
+- Port
+- IP Address
+- Application Entity Title (AET) - an alphanumeric string
+
+
+
 # Referneces :
 
 1. Udacity github repositories
