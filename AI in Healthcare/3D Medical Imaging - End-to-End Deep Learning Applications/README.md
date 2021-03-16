@@ -354,9 +354,9 @@ In addition to DICOM protocol there are two more (among many) that you might run
 - If the algorithm introduces something new into the radiologists' workflow - how is this interaction going to happen?
 - Interfaces with existing systems. If your algorithm produces an output - where does it go? What should the systems processing your algorithm’s output be capable of doing?
 
-Tools of the trade - intro
+### Tools of the trade - intro
 
-Tools of the Trade - Scripting
+### Tools of the Trade - Scripting
 - some of the tools from the DCMTK toolkit to emulate the operation of a DICOM network. We have done the following:
 
 - Used dcmdump tool to view the DICOM metadata of a DICOM file
@@ -365,8 +365,55 @@ Tools of the Trade - Scripting
 - Used storescu command to issue a set of C-STORE requests to our SCP and send several DICOM studies. We used the following command to accomplish this: storescu localhost 109 -v -aec TESTSCU +r +sd .. Here, -aec parameter specifies the AE title that our SCU will use to identify itself (some SCPs might only receive data from known AE titles); +r parameter tells our tool to process directories recursively and +sd parameter specifies a directory to send.
 
 
+### Tools of the Trade - Radiologists' Tools:
+### Tools of the Trade - Viewers - OHIF:
+- Zero-footprint Web-based Viewer
+- OHIF, Open Health Imaging Foundation is an organization supported by both academic and commercial collaborators, which aims to deliver an open-source framework for building modern (as of 2020) web-based medical imaging applications.
+- OHIF set out to take an open-source project for Javascript-based medical image interactions, called Cornerstone and build a state-of-the-art responsive web application on it, using the latest and greatest in web development. A lot of viewers that have been commercialized by many recent AI startups are based on Cornerstone or OHIF.
+links :
+- OHIF website: http://ohif.org/
+- Cornerstone GitHub repository: https://github.com/cornerstonejs/cornerstone
 
+### Tools of the Trade - Viewers - 3D Slicer:
 
+#### Segmentation formats
+
+Let me take a bit of a sidetrack here and say a few words on formats for storing segmentation masks since this is how your segmentation ground truth data may come in and this is what you would be using a Slicer-like tool with. There are a few that are commonly used:
+
+- NIFTI, which you are already familiar with, allows you to define what essentially is a scalar field - every point in some rectangular subset of a 3D space has a value (intensity) associated with it. Thus, a segmentation mask could be stored in NIFTI by using “one-hot” encoding, as we’ve seen in the machine learning lesson. Such a mask would assign one class label to all voxels inside the structure and another one outside. Due to convenience, NIFTI masks are very widespread in the ML community.
+
+- DICOM RT is a DICOM IOD for “Radiation Therapy Structure Set”. We had mentioned radiation therapy in this course before - it is the treatment of cancers with radiation, and it relies on accurate mapping of the human anatomy which serves as an input into the radiation machine (typically called linac). The DICOM standard has several separate IODs that are specific just to radiation therapy space and one such IOD is the RT Structure Set, which is designed to store contours of the human anatomy, which will be used to target radiation. DICOM RT, unlike NIFTI, stores information about contours, i.e., curves within given slices, to define where structure boundaries are.
+
+- DICOM Segmentation is another DICOM IOD for segmentations. It is specifically used for storing structure delineations for general purpose use, and this one is more similar to - NIFTI in that segmentation masks are stored allocating a class to every voxel.
+
+- A couple of other notable formats which are not specific to medical imaging, but are still sometimes used are:
+
+- NRRD - generic format for storing multidimensional raster data, and
+- HDF5 - format for storing hierarchical multimodal data (including multidimensional raster data, like segmentations)
+
+#### Some important tools :
+- DCMTK - the swiss-army-knife for DICOM debugging: https://dcmtk.org/dcmtk.php.en
+- Cornerstone - the open-source Javascript framework for viewing medical images: https://github.com/cornerstonejs/cornerstone
+- OHIF - the open-source radiological image viewer: http://ohif.org/
+- Orthanc (https://www.orthanc-server.com/) is a tool that we have not really discussed in the lesson, but will use in the final project. Orthanc is a free open-source - implementation of a medical imaging archive that provides many features similar to a clinical PACS when it comes to storage
+- Radiant (https://www.radiantviewer.com/) is another freeware viewer that has been used by Mazen in the clinical vieweers.
+
+## Summary:
+
+- PACS - Picture Archiving and Communication System. An archive for medical images. A PACS product typically also includes “diagnostic workstations” - software for radiologists that is used for viewing and reporting on medical images.
+- VNA - Vendor Neutral Archive. A PACS that is not tied to a particular equipment manufacturer. A newer generation of PACS. Often deployed in a cloud environment.
+- EHR - Electronic Health Record. A system that stores clinical and administrative information about the patients. EHR system typically interfaces with all other data systems in the hospital and serves as a hub for all patient information. You may also see the acronym “EMR”, which typically refers to the electronic medical records stored by the EHR systems or sometimes used interchangeably with EHR.
+- RIS - Radiology Information System. Think of those as “mini-EHRs” for radiology departments. These systems hold patient data, but they are primarily used to schedule patient visits and manage certain administrative tasks like ordering and billing. RIS typically interacts with both PACS and EHR.
+- HL7 - Health Level 7. A protocol used to exchange patient data between systems as well as data about physician orders (lab tests, imaging exams)
+- FHIR - Fast Healthcare Interoperability Resources. Another protocol for healthcare data exchange. HL7 dates back to the '80s and many design decisions of this protocol start showing their age. You can think of FHIR as the new generation of HL7 built for the open web.
+- DIMSE - DICOM Message Service Element. A definition of network message used by medical imaging systems to talk to each other. Often refers to overall subset of DICOM standard that defines how medical images are moved on local networks.
+- DICOMWeb - RESTful API for storing and querying DICOM archives. A relatively recent update to the networking portion of the DICOM protocol.
+- Application Entity - an actor on a network (e.g. a medical imaging modality or a PACS) that can talk DIMSE messages. Often the abbreviation “AE” is used. An Application Entity is uniquely defined by IP address, Port and an alphanumeric string called “Application Entity Title”.
+- SCP - Service Class Provider - an AE that provides services over DIMSE network
+- SCU - Service Class User - an AI that requests service from an SCP.
+- FDA - Foods and Drugs Administration - a regulatory body in the USA that among other things creates and enforces legislation that defines the operation of medical devices, including AI in medicine. Many regulatory agencies in other countries use regulatory frameworks very similar to that used by the FDA.
+- HIPAA - Health Insurance Portability and Accountability Act - key legislation in the USA that among other things defines the concept of Protected Health Information and rules around handling it.
+- GDPR - General Data Protection Regulation - European legislation that defines the principles of handling personal data, including health data.
 # Referneces :
 
 1. Udacity github repositories
