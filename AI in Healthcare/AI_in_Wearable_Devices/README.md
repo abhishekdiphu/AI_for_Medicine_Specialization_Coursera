@@ -49,3 +49,14 @@ ADCs have a fixed range on the input. So for this example, our ADC was limited t
 - Sampling rate: The frequency at which a sensor measures a signal.
 
 
+## Resampling - Interpolation
+
+- interpolation which is a technique that allows us to work with multiple signals that are sampled differently in time. We saw 2 signals that are both 1 Hz sine waves, but the one that is sampled at 60 Hz has many more data points than the one sampled at 25 Hz. After plotting and verifying the lengths of the signals, it might appear that s2_interp and s1 are the same, but it is most certainly not! By plotting the original and the interpolated signal together we can see that linear interpolation estimates points in between existing points by using a weighted average of the original points.
+
+###### Definations :
+- Interpolation: A method for estimating new data points within a range of discrete known data points.
+- Resampling: The process of changing the sampling rate of a discrete signal to obtain a new discrete representation of the underlying continuous signal.
+
+## Fourier Transform:
+
+
