@@ -36,6 +36,10 @@ But typically, ADCs have many more bits and you won’t see quantization noise b
 ###### Additive Noise:
 This noise is additive, so you’ll see it on top of whatever incoming signal you have.
 
+###### Signal Clipping
+
+ADCs have a fixed range on the input. So for this example, our ADC was limited to -3V and +3V. This is known as the dynamic range of our sensor. When the input signal exceeds the dynamic range of the sensor, in this case from -4 to +4, everything greater than 3 will be clipped and set to 3 and everything smaller than -3 will be clipped to -3. We call this effect clipping, oversaturation, or undersaturation.
+
 ###### definations
 - Transducer: Part of a sensor that converts a physical phenomenon into an electrical one (e.g., voltage)
 - Analog-to-Digital Convert (ADC): A device (usually embedded in the sensor) that converts an analog voltage into an array of bits.
