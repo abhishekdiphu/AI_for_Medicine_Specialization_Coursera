@@ -58,5 +58,16 @@ ADCs have a fixed range on the input. So for this example, our ADC was limited t
 - Resampling: The process of changing the sampling rate of a discrete signal to obtain a new discrete representation of the underlying continuous signal.
 
 ## Fourier Transform:
+- The theory of fourier transform is that any signal can be represented as a sum of sinusoids. The frequency of the specific sinusoids that make up a signal can tell us important information that we can use to build algorithms to process that signal.
+- The frequencies of the sinusoids that comprise a signal represent the signal’s frequency components. The range of frequency components for a signal is called its bandwidth.
+-  aliasing, which means those high-frequency components will show up at mirrored lower frequencies.
+
+
+###### Definations :
+- Frequency component: The Fourier transform explains a signal as a sum of sinusoids. Each of these sinusoids is a frequency component of the signal.
+- Nyquist frequency: Half of the sampling frequency. Signal components above this frequency will get aliased in the sampled signal.
+- Bandwidth: A range of frequencies within a band.
+- Aliasing: The effect that causes frequency components greater than the Nyquist frequency to become indistinguishable from frequencies below the Nyquist frequency.
+  
 
 
