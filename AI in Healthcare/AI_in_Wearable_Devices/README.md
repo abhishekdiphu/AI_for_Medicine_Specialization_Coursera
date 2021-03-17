@@ -60,7 +60,8 @@ ADCs have a fixed range on the input. So for this example, our ADC was limited t
 ## Fourier Transform:
 - The theory of fourier transform is that any signal can be represented as a sum of sinusoids. The frequency of the specific sinusoids that make up a signal can tell us important information that we can use to build algorithms to process that signal.
 - The frequencies of the sinusoids that comprise a signal represent the signal’s frequency components. The range of frequency components for a signal is called its bandwidth.
--  aliasing, which means those high-frequency components will show up at mirrored lower frequencies.
+- aliasing, which means those high-frequency components will show up at mirrored lower frequencies.
+- Fundamentally, the Fourier transform gives information about what periodic components are present in the signal. And because many biomechanical processes are periodic, (eg. running or walking cadence, heart beats, breathing rate) finding this periodic information in our time series signal can be incredibly useful.
 
 
 ###### Definations :
@@ -69,5 +70,25 @@ ADCs have a fixed range on the input. So for this example, our ADC was limited t
 - Bandwidth: A range of frequencies within a band.
 - Aliasing: The effect that causes frequency components greater than the Nyquist frequency to become indistinguishable from frequencies below the Nyquist frequency.
   
+  
+- Fast Fourier Transform : This is a clever algorithm that is able to compute the Fourier transform in O(n*log(n)) time instead of quadratic time. We use numpy’s implementation of this algorithm with the functions:
+
+rfft
+rfftfreq
+irfft
+
+removing the noise by filtering out frequency components outside of the bandwidth of the signal is filtering.
+- The process of removing frequencies from a signal outside a specific band is known as bandpass filtering.
+-  The band of frequencies that we want to preserve is called the passband. -- or bandpass filtering our signal. 
+-  Frequency-domain: A representation of a signal over frequency instead of time. Instead of representing the signal as a series of numbers in time, the signal is represented by the frequency components that make it up.
+Bandpass filter: A function that preserves frequency components of a signal within a band and suppresses the frequency components outside that band.
+
+#### Spectograms:
+- We need to use the STFT or spectrogram to visualize a non-stationary signal in the frequency domain effectively.
+- We can also use a spectrogram to visualize the effect of a bandpass filter on our signal.
 
 
+
+## Harmonics:
+
+Real periodic signals are rarely sinusoidal. Still, we like to use the Fourier transform to learn about the periodicity of these signals. All periodic signals are composed of a fundamental frequency, which is the lowest frequency of the periodic signal, and integer multiples of this frequency called harmonics. 
