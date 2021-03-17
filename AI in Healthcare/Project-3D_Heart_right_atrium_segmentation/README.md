@@ -41,6 +41,8 @@ Segmentation is still hard.
 - primary axis is sagittal axis
 - secondaries are coronal and axial.
 
+- trainset : 80 % , validation set :10 % test set : 10%
+
 ### 2 classes:
 - 0 is background.
 - 1 is right atrium.
@@ -83,7 +85,7 @@ Segmentation is still hard.
 
 |model | dice  | jaccard index | lr     | input shape |
 |----- | ----  | ------------- | --     |-------------|
-|unet2d|  0.82 | 0.69          | 0.0002 | 128x128X40  |
+|unet2d|  0.89 | 0.80         | 0.0002 | 128x128X40  |
 
 
 ## Conclusion :
