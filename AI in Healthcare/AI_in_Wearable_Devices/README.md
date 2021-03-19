@@ -102,12 +102,14 @@ Real periodic signals are rarely sinusoidal. Still, we like to use the Fourier t
 Activity classifiers can be useful directly in that people like to keep track of the activities they are doing over the day. But they can also be used in more clinical contexts. For example, if a company is doing a drug trial and wants to know if their drug makes study subjects more or less active, they can look at the activity classifier output and see if subjects are spending more time walking around or if they are mostly idle.
 
 ## Steps to build activity classifiers:
-
+###### Alogrithim development process:
 1. Understand the data.
 2. understand the literature.
 3. build features.
 4. build models.
 5. potimize hyperparameters.
 6. evalute the performace .
-7. 
+
+### Data exploration :
+### Feature Extraction
 
