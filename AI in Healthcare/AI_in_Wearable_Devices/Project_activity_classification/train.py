@@ -7,6 +7,9 @@ import scipy as sp
 import scipy.signal
 import scipy.stats
 from sklearn.ensemble import   RandomForestClassifier
+from sklearn.ensemble import   GradientBoostingClassifier
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.ensemble import AdaBoostClassifier
 from sklearn.metrics import confusion_matrix
 from sklearn.model_selection import LeaveOneGroupOut
 import itertools
@@ -52,9 +55,78 @@ for n_estimators, max_tree_depth in itertools.product(n_estimators_opt, max_tree
     
     # Store the hyperparameters and the classification accuracy that resulted
     # from the model created with them.
-    accuracy_table.append((n_estimators, max_tree_depth, classification_accuracy))
+    accuracy_table.append(("random forest", n_estimators, max_tree_depth, classification_accuracy))
+print("training gradient bossting")
+
+for n_estimators, max_tree_depth in itertools.product(n_estimators_opt, max_tree_depth_opt):
+    # Iterate over each pair of hyperparameters
+    cm = np.zeros((3, 3), dtype='int')                       # Create a new confusion matrix
+    clf = GradientBoostingClassifier(n_estimators=n_estimators,  # and a new classifier  for each
+                                 max_depth=max_tree_depth,   # pair of hyperparameters
+                                 random_state=42,
+                                )
+    for train_ind, test_ind in logo.split(features, labels, subjects):
+        # Do leave-one-subject-out cross validation as before.
+        X_train, y_train = features[train_ind], labels[train_ind]
+        X_test, y_test = features[test_ind], labels[test_ind]
+        clf.fit(X_train, y_train)
+        y_pred = clf.predict(X_test)
+        c = confusion_matrix(y_test, y_pred, labels=class_names)
+        cm += c
+    # For each pair of hyperparameters, compute the classification accuracy
+    classification_accuracy = np.sum(np.diag(cm)) / np.sum(np.sum(cm))
+    
+    # Store the hyperparameters and the classification accuracy that resulted
+    # from the model created with them.
+    accuracy_table.append(("Gradient Boosting",n_estimators, max_tree_depth, classification_accuracy))
 
 
+
+for n_estimators, max_tree_depth in itertools.product(n_estimators_opt, max_tree_depth_opt):
+    # Iterate over each pair of hyperparameters
+    cm = np.zeros((3, 3), dtype='int')                       # Create a new confusion matrix
+    clf = RandomForestClassifier(n_estimators=n_estimators,  # and a new classifier  for each
+                                 max_depth=max_tree_depth,   # pair of hyperparameters
+                                 random_state=42,
+                                 class_weight = "balanced"
+                                )
+    for train_ind, test_ind in logo.split(features, labels, subjects):
+        # Do leave-one-subject-out cross validation as before.
+        X_train, y_train = features[train_ind], labels[train_ind]
+        X_test, y_test = features[test_ind], labels[test_ind]
+        clf.fit(X_train, y_train)
+        y_pred = clf.predict(X_test)
+        c = confusion_matrix(y_test, y_pred, labels=class_names)
+        cm += c
+    # For each pair of hyperparameters, compute the classification accuracy
+    classification_accuracy = np.sum(np.diag(cm)) / np.sum(np.sum(cm))
+    
+    # Store the hyperparameters and the classification accuracy that resulted
+    # from the model created with them.
+    accuracy_table.append(("random forest", n_estimators, max_tree_depth, classification_accuracy))
+print("training AdaBoostClassifier")
+
+for n_estimators, max_tree_depth in itertools.product(n_estimators_opt, max_tree_depth_opt):
+    # Iterate over each pair of hyperparameters
+    cm = np.zeros((3, 3), dtype='int')                       # Create a new confusion matrix
+    clf = AdaBoostClassifier(n_estimators=n_estimators,  # and a new classifier  for each
+                                 max_depth=max_tree_depth,   # pair of hyperparameters
+                                 random_state=42,
+                                )
+    for train_ind, test_ind in logo.split(features, labels, subjects):
+        # Do leave-one-subject-out cross validation as before.
+        X_train, y_train = features[train_ind], labels[train_ind]
+        X_test, y_test = features[test_ind], labels[test_ind]
+        clf.fit(X_train, y_train)
+        y_pred = clf.predict(X_test)
+        c = confusion_matrix(y_test, y_pred, labels=class_names)
+        cm += c
+    # For each pair of hyperparameters, compute the classification accuracy
+    classification_accuracy = np.sum(np.diag(cm)) / np.sum(np.sum(cm))
+    
+    # Store the hyperparameters and the classification accuracy that resulted
+    # from the model created with them.
+    accuracy_table.append(("AdaBoostClassifier",n_estimators, max_tree_depth, classification_accuracy))
 
 
 
@@ -65,9 +137,11 @@ for n_estimators, max_tree_depth in itertools.product(n_estimators_opt, max_tree
 
 
 accuracy_table_df = pd.DataFrame(accuracy_table,
-                                 columns=['n_estimators', 'max_tree_depth', 'accuracy'])
-print(accuracy_table_df.head())
+                                 columns=["clf", 'n_estimators', 'max_tree_depth', 'accuracy'])
+print(accuracy_table_df.head(10))
 
+
+accuracy_table_df.to_csv("file_name.csv" , index=False) 
 accuracy_table_df.loc[accuracy_table_df.accuracy.idxmax()]
 
 
