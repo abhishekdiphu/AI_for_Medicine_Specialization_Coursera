@@ -25,7 +25,7 @@ labels, subjects, features = activity_classifier_utils.GenerateFeatures(data,
                                                                         window_shift_s=10)
 
 
-n_estimators_opt = [2, 10, 20, 50, 100, 150, 300, 350, 400]
+n_estimators_opt = [2, 10, 20, 50, 100, 150, 300]
 max_tree_depth_opt = range(2, 10)
 learning_rate_opt  = [1, 0.1, 0.01]
 
@@ -41,8 +41,21 @@ accuracy_table = []
 class_names = ['bike', 'run', 'walk']
 
 # Store the confusion matrix for the outer CV fold.
-nested_cv_cm = np.zeros((3, 3), dtype='int')
+nested_cv_cm    = np.zeros((3, 3), dtype='int')
+
+nested_cv_cm_gb = np.zeros((3, 3), dtype='int')
+
+nested_cv_cm_ada= np.zeros((3, 3), dtype='int') 
+
 splits = 0
+
+
+
+
+#-----------------------------------------------------------------------------------------------------------------#
+
+
+
 
 for train_val_ind, test_ind in logo.split(features, labels, subjects):
     # Split the dataset into a test set and a training + validation set.
@@ -54,7 +67,7 @@ for train_val_ind, test_ind in logo.split(features, labels, subjects):
     X_test, y_test = features[test_ind], labels[test_ind]
     
     # Keep track of the best hyperparameters for this training + validation set.
-    best_hyper_parames = None
+    best_hyper_params = None
     best_accuracy = 0
     
     for n_estimators, max_tree_depth in itertools.product(n_estimators_opt,
@@ -65,6 +78,7 @@ for train_val_ind, test_ind in logo.split(features, labels, subjects):
                                      max_depth=max_tree_depth,
                                      random_state=42,
                                      class_weight='balanced')
+        
         for train_ind, validation_ind in logo.split(X_train_val, y_train_val,
                                                     subjects_train_val):
             X_train, y_train = X_train_val[train_ind], y_train_val[train_ind]
@@ -95,8 +109,127 @@ for train_val_ind, test_ind in logo.split(features, labels, subjects):
     splits += 1
     print('Done split {}'.format(splits))
 
+
+
+
+    print('random forest over ')
+
+
+
+    best_hyper_params_gb = None
+    best_accuracy_gb = 0
+    
+    for n_estimators, max_tree_depth in itertools.product(n_estimators_opt,
+                                                          max_tree_depth_opt):
+        # Optimize hyperparameters as above.
+        inner_cm = np.zeros((3, 3), dtype='int')
+        
+        clf = GradientBoostingClassifier(n_estimators=n_estimators,
+                                     max_depth=max_tree_depth,
+                                     random_state=42)
+
+
+        
+        for train_ind, validation_ind in logo.split(X_train_val, y_train_val,
+                                                    subjects_train_val):
+            X_train, y_train = X_train_val[train_ind], y_train_val[train_ind]
+            X_val, y_val = X_train_val[validation_ind], y_train_val[validation_ind]
+            clf.fit(X_train, y_train)
+            y_pred = clf.predict(X_val)
+            c = confusion_matrix(y_val, y_pred, labels=class_names)
+            inner_cm += c
+        classification_accuracy = np.sum(np.diag(inner_cm)) / np.sum(np.sum((inner_cm)))
+        
+        # Keep track of the best pair of hyperparameters.
+        if classification_accuracy > best_accuracy_gb:
+            best_accuracy_gb = classification_accuracy
+            best_hyper_params_gb = (n_estimators, max_tree_depth)
+    
+    # Create a model with the best pair of hyperparameters for this training + validation set.
+    best_clf = GradientBoostingClassifier(n_estimators=best_hyper_params_gb[0],
+                                      max_depth=best_hyper_params_gb[1],
+                                      )
+    
+    # Finally, train this model and test it on the test set.
+    best_clf.fit(X_train_val, y_train_val)
+    y_pred = best_clf.predict(X_test)
+    
+    # Aggregate confusion matrices for each CV fold.
+    c_gb = confusion_matrix(y_test, y_pred, labels=class_names)
+    nested_cv_cm_gb += c_gb
+    
+    print('Done split {}'.format(splits))
+
+    print('gradient boosting over ')
+
+    best_hyper_params_ada = None
+    best_accuracy_ada = 0
+    
+    for n_estimators, max_tree_depth in itertools.product(n_estimators_opt,
+                                                          learning_rate_opt):
+        # Optimize hyperparameters as above.
+        inner_cm = np.zeros((3, 3), dtype='int')
+        
+        clf = AdaBoostClassifier(n_estimators=n_estimators,
+                                     learning_rate=max_tree_depth,
+                                     random_state=42)
+
+
+        
+        for train_ind, validation_ind in logo.split(X_train_val, y_train_val,
+                                                    subjects_train_val):
+            X_train, y_train = X_train_val[train_ind], y_train_val[train_ind]
+            X_val, y_val = X_train_val[validation_ind], y_train_val[validation_ind]
+            clf.fit(X_train, y_train)
+            y_pred = clf.predict(X_val)
+            c = confusion_matrix(y_val, y_pred, labels=class_names)
+            inner_cm += c
+        classification_accuracy = np.sum(np.diag(inner_cm)) / np.sum(np.sum((inner_cm)))
+        
+        # Keep track of the best pair of hyperparameters.
+        if classification_accuracy > best_accuracy_ada:
+            best_accuracy_ada = classification_accuracy
+            best_hyper_params_ada = (n_estimators, max_tree_depth)
+    
+    # Create a model with the best pair of hyperparameters for this training + validation set.
+    print(best_hyper_params_ada)
+    
+
+
+
+    best_clf = AdaBoostClassifier(n_estimators=     best_hyper_params_ada[0],
+                                      learning_rate=best_hyper_params_ada[1])
+    
+    # Finally, train this model and test it on the test set.
+    best_clf.fit(X_train_val, y_train_val)
+    y_pred = best_clf.predict(X_test)
+    
+    # Aggregate confusion matrices for each CV fold.
+    c_ada = confusion_matrix(y_test, y_pred, labels=class_names)
+    nested_cv_cm_ada += c_ada
+    
+    print('Done split {}'.format(splits))
+print("ada-boosting over")
+
+acc_ada = np.sum(np.diag(nested_cv_cm_ada)) / np.sum(np.sum(nested_cv_cm_ada))
+
+acc_gb = np.sum(np.diag(nested_cv_cm_gb)) / np.sum(np.sum(nested_cv_cm_gb))
+
 acc = np.sum(np.diag(nested_cv_cm)) / np.sum(np.sum(nested_cv_cm))
-print("classification accuracy" , acc)
+
+print("classification accuracy of gradient boosting :" , acc_ada)
+print("classification accuracy of gradient boosting :" , acc_gb)
+print("classification accuracy of random forest :" , acc)
+
+
+
+
+
+
+
+
+
+
 
 
 
