@@ -25,9 +25,9 @@ labels, subjects, features = activity_classifier_utils.GenerateFeatures(data,
                                                                         window_shift_s=10)
 
 
-n_estimators_opt = [2, 10, 20, 50, 100, 150, 300]
+n_estimators_opt = [170, 50, 100, 150, 300]
 max_tree_depth_opt = range(2, 10)
-learning_rate_opt  = [1, 0.1, 0.01]
+learning_rate_opt  = [1, 0.1]
 
 
 class_names = np.array(['bike', 'run', 'walk'])
@@ -119,13 +119,14 @@ for train_val_ind, test_ind in logo.split(features, labels, subjects):
     best_hyper_params_gb = None
     best_accuracy_gb = 0
     
-    for n_estimators, max_tree_depth in itertools.product(n_estimators_opt,
-                                                          max_tree_depth_opt):
+    for n_estimators, max_tree_depth, lr in itertools.product(n_estimators_opt,
+                                                          max_tree_depth_opt, learning_rate_opt):
         # Optimize hyperparameters as above.
         inner_cm = np.zeros((3, 3), dtype='int')
         
         clf = GradientBoostingClassifier(n_estimators=n_estimators,
                                      max_depth=max_tree_depth,
+                                     learning_rate = lr,
                                      random_state=42)
 
 
@@ -143,11 +144,12 @@ for train_val_ind, test_ind in logo.split(features, labels, subjects):
         # Keep track of the best pair of hyperparameters.
         if classification_accuracy > best_accuracy_gb:
             best_accuracy_gb = classification_accuracy
-            best_hyper_params_gb = (n_estimators, max_tree_depth)
+            best_hyper_params_gb = (n_estimators, max_tree_depth, lr)
     
     # Create a model with the best pair of hyperparameters for this training + validation set.
     best_clf = GradientBoostingClassifier(n_estimators=best_hyper_params_gb[0],
                                       max_depth=best_hyper_params_gb[1],
+                                      learning_rate = best_hyper_params_gb[2]
                                       )
     
     # Finally, train this model and test it on the test set.
@@ -170,7 +172,7 @@ for train_val_ind, test_ind in logo.split(features, labels, subjects):
         # Optimize hyperparameters as above.
         inner_cm = np.zeros((3, 3), dtype='int')
         
-        clf = AdaBoostClassifier(n_estimators=n_estimators,
+        clf = AdaBoostClassifier(Randomn_estimators=n_estimators,
                                      learning_rate=max_tree_depth,
                                      random_state=42)
 
@@ -197,8 +199,10 @@ for train_val_ind, test_ind in logo.split(features, labels, subjects):
 
 
 
-    best_clf = AdaBoostClassifier(n_estimators=     best_hyper_params_ada[0],
-                                      learning_rate=best_hyper_params_ada[1])
+    best_clf = AdaBoostClassifier(RandomForestClassifier(n_estimators=best_hyper_params[0],
+                                  max_depth=best_hyper_params[1]),
+                                  n_estimators= best_hyper_params_ada[0],
+                                  learning_rate=best_hyper_params_ada[1])
     
     # Finally, train this model and test it on the test set.
     best_clf.fit(X_train_val, y_train_val)
@@ -209,7 +213,7 @@ for train_val_ind, test_ind in logo.split(features, labels, subjects):
     nested_cv_cm_ada += c_ada
     
     print('Done split {}'.format(splits))
-print("ada-boosting over")
+    print("ada-boosting over")
 
 acc_ada = np.sum(np.diag(nested_cv_cm_ada)) / np.sum(np.sum(nested_cv_cm_ada))
 
