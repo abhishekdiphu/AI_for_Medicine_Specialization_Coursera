@@ -108,6 +108,8 @@ for train_val_ind, test_ind in logo.split(features, labels, subjects):
     nested_cv_cm += c
     splits += 1
     print('Done split {}'.format(splits))
+    acc = np.sum(np.diag(nested_cv_cm)) / np.sum(np.sum(nested_cv_cm))
+    accuracy_table.append(("random forest",splits, best_hyper_params[0], best_hyper_params[1], acc))
 
 
 
@@ -162,6 +164,10 @@ for train_val_ind, test_ind in logo.split(features, labels, subjects):
     
     print('Done split {}'.format(splits))
     
+    acc_gb = np.sum(np.diag(nested_cv_cm_gb)) / np.sum(np.sum(nested_cv_cm_gb))
+    accuracy_table.append(("gradient forest",splits,best_hyper_params[0], best_hyper_params[1], acc_gb))
+
+
 
     print('gradient boosting over ')
 
@@ -216,7 +222,12 @@ for train_val_ind, test_ind in logo.split(features, labels, subjects):
     nested_cv_cm_ada += c_ada
     
     print('Done split {}'.format(splits))
+
+
+    acc_ada = np.sum(np.diag(nested_cv_cm_ada)) / np.sum(np.sum(nested_cv_cm_ada))
+    accuracy_table.append(("ada boosting",splits,best_hyper_params[0], best_hyper_params[1], acc_ada))
     print("ada-boosting over")
+
 
 acc_ada = np.sum(np.diag(nested_cv_cm_ada)) / np.sum(np.sum(nested_cv_cm_ada))
 
@@ -224,13 +235,18 @@ acc_gb = np.sum(np.diag(nested_cv_cm_gb)) / np.sum(np.sum(nested_cv_cm_gb))
 
 acc = np.sum(np.diag(nested_cv_cm)) / np.sum(np.sum(nested_cv_cm))
 
-print("classification accuracy of gradient boosting :" , acc_ada)
+print("classification accuracy of ada boosting :" , acc_ada)
 print("classification accuracy of gradient boosting :" , acc_gb)
 print("classification accuracy of random forest :" , acc)
 
 
 
+accuracy_table_df = pd.DataFrame(accuracy_table,
+                                 columns=["clf", 'split', 'n_estimators', 'max_tree_depth', 'accuracy'])
+print(accuracy_table_df.head(10))
 
+
+accuracy_table_df.to_csv("filesdata.csv" , index=False) 
 
 
 
